@@ -1,0 +1,24 @@
+{
+  "tool": "workflow_copy_chart_create_alert",
+  "arguments": {
+    "target_id": "REPLACE_WITH_INSPECTED_BROWSER_TARGET_ID",
+    "expected_layout_id": "REPLACE_WITH_NATIVE_SOURCE_LAYOUT_ID",
+    "idempotency_key": "my-reviewed-copy-alert-operation-001",
+    "layout_name": "My strategy - BTCUSD - copied test",
+    "symbol": "BITSTAMP:BTCUSD",
+    "timeframe": "60",
+    "save_source": false,
+    "alert": {
+      "name": "BTCUSD copied chart alert",
+      "condition": {
+        "kind": "strategy",
+        "study_id": "REPLACE_WITH_SOURCE_STRATEGY_ENTITY_ID"
+      },
+      "webhook_url": "https://hooks.example.com/tradingview",
+      "message_format": "json",
+      "message": "{\"event\":\"strategy_fill\",\"ticker\":\"{{ticker}}\",\"exchange\":\"{{exchange}}\",\"action\":\"{{strategy.order.action}}\",\"quantity\":\"{{strategy.order.contracts}}\",\"price\":\"{{strategy.order.price}}\",\"time\":\"{{timenow}}\"}",
+      "active": false,
+      "expiration_days": 30
+    }
+  }
+}

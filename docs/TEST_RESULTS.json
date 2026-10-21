@@ -1,0 +1,1755 @@
+{
+  "timestamp": "2026-10-21T13:02:18.419Z",
+  "source_sha256": "8322383c701b1ffa7eceef1e5777cf1caeebd9f4738aef4fb006305fccb84cae",
+  "source_unchanged_during_tests": true,
+  "environment": {
+    "node": "24.2.0",
+    "platform": "darwin"
+  },
+  "scope": "Offline unit and controlled CDP/DOM/HTTP handler fixtures. No live TradingView session, real webhook delivery or listening HTTP socket was exercised.",
+  "files": [
+    "integration-research.test.mjs",
+    "integration-workflow.test.mjs",
+    "layout-alert-workflow.test.mjs",
+    "market.test.mjs",
+    "operations.test.mjs",
+    "panes-templates.test.mjs",
+    "pine-lifecycle.test.mjs",
+    "protocol.test.mjs",
+    "release-audit.test.mjs",
+    "research-features.test.mjs",
+    "security.test.mjs",
+    "transports.test.mjs",
+    "watchlists.test.mjs"
+  ],
+  "tests": [
+    {
+      "name": "actual catalog injects explicit mutation identities and blocks extra arguments before CDP",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 9.519542
+    },
+    {
+      "name": "chart, data and strategy metadata use native identity when the tab URL is stale",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 59.692041
+    },
+    {
+      "name": "real nested strategy input tools do not deadlock and a changed report carries qualified freshness",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 778.76675
+    },
+    {
+      "name": "real browser serialization preserves report probes and refuses stale unchanged results after an input change",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1083.968042
+    },
+    {
+      "name": "a changed chart label cannot make chart readiness accept unresolved instrument data",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 172.959959
+    },
+    {
+      "name": "complete OHLCV export crosses browser page boundaries and preserves zero-valued market data",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 52.972458
+    },
+    {
+      "name": "Pine source crosses actual CDP as inert JSON, checks omit credentials and saved reads stay first-party",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 38.080584
+    },
+    {
+      "name": "Pine hash guard still rejects drift across context and wrapper calls",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 15.087167
+    },
+    {
+      "name": "pane and native template reads execute through the real wrapper with reference identity and scoped fidelity",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 44.739417
+    },
+    {
+      "name": "replay integration verifies simulated cursor and position changes and blocks normal timeframe changes",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 44.858
+    },
+    {
+      "name": "browser operations serialize across real asynchronous chart writes and read-only runtime hides mutations",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 51.154166
+    },
+    {
+      "name": "native session changes verify advertised identity and strategy results can require an exact session",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 41.856542
+    },
+    {
+      "name": "native zoom verifies bar endpoints and a silent no-op is an error",
+      "file": "tests/integration-research.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 191.402042
+    },
+    {
+      "name": "actual registry + guarded CDP + two page adapters complete and reconcile the exact copy workflow",
+      "file": "tests/integration-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 3066.938708
+    },
+    {
+      "name": "actual registry rejects a matching URL with mismatched native widget identity before the first write",
+      "file": "tests/integration-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 7.192958
+    },
+    {
+      "name": "layout and alert page programs pass the fixed credential and dynamic-code scanner",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.253
+    },
+    {
+      "name": "chart URL creation accepts only a saved-layout identifier, never a URL or script",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.142958
+    },
+    {
+      "name": "copy comparison detects changed user inputs and retains zero-priced drawings",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.189208
+    },
+    {
+      "name": "unreadable strategy inputs prevent chart verification, while unknown properties remain explicitly partial",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.138042
+    },
+    {
+      "name": "a matching URL cannot substitute for a different actual widget layout ID",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.464
+    },
+    {
+      "name": "native copy reconciles a lost acknowledgement and reuses the confirmed ID on retry",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.690833
+    },
+    {
+      "name": "copy stops when a purported destination reuses the source URL ID or numeric saved ID",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.578375
+    },
+    {
+      "name": "ambiguous copy reconciliation never selects a destination and never submits a second clone",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.256333
+    },
+    {
+      "name": "a dirty source blocks native copy unless saving the source was explicitly requested",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.095209
+    },
+    {
+      "name": "an optimistic clean flag cannot verify a save whose persisted market and timeframe remain stale",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.153708
+    },
+    {
+      "name": "new-layout recovery resumes the exact existing destination after its first name save failed",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.361416
+    },
+    {
+      "name": "JSON placeholder validation preserves exact string and numeric templates without substitution",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.462208
+    },
+    {
+      "name": "native payload preserves webhook and message bytes, current inputs, false values and exact Pine version",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.18175
+    },
+    {
+      "name": "A disabled webhook is serialized as the native empty string and verified as absent",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.117042
+    },
+    {
+      "name": "Plain alert symbols stay plain and quote currency does not invent a conversion modifier",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.553958
+    },
+    {
+      "name": "Alert POST includes only validated public build metadata from the native request options",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 2.783542
+    },
+    {
+      "name": "native payload rejects ambiguous studies, unsafe webhooks and invalid input overrides before a write",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.371958
+    },
+    {
+      "name": "study alerts cannot silently retarget a symbol whose chart source was not read",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.0965
+    },
+    {
+      "name": "indicator alert conditions and plot offsets must be observed, never guessed",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.175917
+    },
+    {
+      "name": "alert existence cannot prove missing webhook configuration or delivery",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.107917
+    },
+    {
+      "name": "direct alert creation reconciles a lost acknowledgement and does not create again on retry",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.47775
+    },
+    {
+      "name": "ignored paused-create state is stopped immediately before repeated verification reads",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.251625
+    },
+    {
+      "name": "lost acknowledgement never permits pausing a same-name alert with unrelated configuration",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.253958
+    },
+    {
+      "name": "modifying a paused alert refuses the native re-arming API without explicit allowance",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.118667
+    },
+    {
+      "name": "native alert clone verifies copied configuration and replays the same ID without another clone",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.462666
+    },
+    {
+      "name": "an unrelated new alert cannot be selected or paused as a native clone",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.588916
+    },
+    {
+      "name": "batch preflight catches an invalid later alert before creating the first",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.140667
+    },
+    {
+      "name": "alert IDs reject unsafe integer coercion instead of targeting a rounded account object",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.075
+    },
+    {
+      "name": "alert inventory pagination reaches every ID beyond 500 and applies filters before slicing",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 2.192917
+    },
+    {
+      "name": "alert fire pagination continues beyond 500 and reports unknown webhook delivery",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.404417
+    },
+    {
+      "name": "fixed browser alert request uses only TradingView and preserves the structured POST body",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.849917
+    },
+    {
+      "name": "native list projection leaves a missing webhook and condition unknown",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.45625
+    },
+    {
+      "name": "copy-and-alert workflow writes only the verified copy after cloning and independently verifies alert configuration",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.458209
+    },
+    {
+      "name": "workflow replay verifies exact existing IDs and produces no additional mutations",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.21675
+    },
+    {
+      "name": "workflow refuses all downstream writes when copied study inputs do not match",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.808125
+    },
+    {
+      "name": "workflow invalid JSON is rejected before layout creation",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.095083
+    },
+    {
+      "name": "compound workflow requires webhook and JSON payload before any chart-copy side effect",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.635083
+    },
+    {
+      "name": "workflow preserves IDs after incomplete stored-webhook verification and retry never duplicates",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 2.060042
+    },
+    {
+      "name": "workflow will not change a destination that drifted after alert preparation",
+      "file": "tests/layout-alert-workflow.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.261958
+    },
+    {
+      "name": "market catalog has seven read-only tools with closed schemas and fixed browser code",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.141917
+    },
+    {
+      "name": "scanner uses only the fixed public host and bounded source-backed payload",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.75525
+    },
+    {
+      "name": "exclusive-end scanner pagination returns one requested row and adjacent pages do not skip boundaries",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.324542
+    },
+    {
+      "name": "dummy environment credentials and caller-supplied auth options never enter requests",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.289916
+    },
+    {
+      "name": "host/path traversal, URL symbols, duplicate symbols and unsupported columns fail before fetch",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.364542
+    },
+    {
+      "name": "request and internal limits reject oversized payloads before fetch",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.260167
+    },
+    {
+      "name": "unexpected response destination is refused without a second request",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.1175
+    },
+    {
+      "name": "HTTP, non-JSON, API-error and transport errors do not expose response bodies or secrets",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.359375
+    },
+    {
+      "name": "Content-Length cap cancels an oversized body before reading it",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.144792
+    },
+    {
+      "name": "streaming cap cancels oversized data even when Content-Length is absent",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.134666
+    },
+    {
+      "name": "stream failures are sanitized and a non-streaming response is not read without a bound",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.182583
+    },
+    {
+      "name": "pre-cancelled queries submit no request; caller cancellation interrupts an active fetch",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 6.666541
+    },
+    {
+      "name": "configured timeout interrupts the public request without an authenticated retry",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 100.242583
+    },
+    {
+      "name": "scanner preserves numeric zero and marks omitted requested symbols explicitly",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.329334
+    },
+    {
+      "name": "unrequested symbols, duplicate rows, bad column counts, object values and over-limit rows are rejected",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.567833
+    },
+    {
+      "name": "public quotes preserve requested ordering, zero prices, nulls and missing-last-price coverage",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.355542
+    },
+    {
+      "name": "one-symbol quote does not touch chart APIs and missing symbols are an explicit error",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.45275
+    },
+    {
+      "name": "technical summary uses daily unsuffixed fields and approved intraday suffixes; nulls make coverage incomplete",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.324833
+    },
+    {
+      "name": "hotlists use only exact public US preset GETs and map source field indexes faithfully",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.305917
+    },
+    {
+      "name": "hotlist duplicate fields, duplicate symbol rows and mismatched field-value counts are rejected",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.263625
+    },
+    {
+      "name": "native quote reads latest loaded candle zero values and reports source/binding without a public request",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.755084
+    },
+    {
+      "name": "native quote refuses stale-symbol bars and unavailable bar data",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.381042
+    },
+    {
+      "name": "native depth requires explicit side labels, preserves zero, and omits ambiguous localized values",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.581083
+    },
+    {
+      "name": "native depth refuses unavailable/ambiguous panels and never guesses unlabeled row sides",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.392959
+    },
+    {
+      "name": "native signal snapshot carries study coverage and discards context-mismatched studies",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.477834
+    },
+    {
+      "name": "native signal snapshot retains quote but sanitizes a failed study collection",
+      "file": "tests/market.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.291333
+    },
+    {
+      "name": "drawing adapter passes security gate and supports the active watched chart API",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.42075
+    },
+    {
+      "name": "drawing create reports extra returned points as unverified instead of matching an array prefix",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.49925
+    },
+    {
+      "name": "drawing update cannot verify a requested two-point result against three unchanged points",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.420833
+    },
+    {
+      "name": "drawing import preserves successful IDs and the failing creation receipt",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.335583
+    },
+    {
+      "name": "drawing clear preserves already-removed IDs and the failed ID without rollback claims",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.524125
+    },
+    {
+      "name": "changed drawing inventory and stale fingerprints both fail before mutation",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.369958
+    },
+    {
+      "name": "emergency stop arriving during target resolution prevents dispatch after resolution completes",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.22125
+    },
+    {
+      "name": "emergency stop during native-layout precondition reading prevents handler dispatch",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.491958
+    },
+    {
+      "name": "emergency stop during a nested target change prevents dispatch of a target-only mutation",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.230958
+    },
+    {
+      "name": "job failure counts only successful steps and preserves failed-step mutation receipts",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.115334
+    },
+    {
+      "name": "continuing after a failed job step yields partial status, never complete",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.471375
+    },
+    {
+      "name": "batch partial failure keeps concrete error receipts and does not run later steps by default",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.224375
+    },
+    {
+      "name": "job validation rejects an unbound later mutation before starting the first step",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.152959
+    },
+    {
+      "name": "job cancellation interrupts a pending wait and prevents its later write",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.32525
+    },
+    {
+      "name": "streams reject mutating tools and recursive job controls are refused",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.184917
+    },
+    {
+      "name": "paper long fill and closure account for adverse slippage, both fees and equity consistently",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.239417
+    },
+    {
+      "name": "paper short partial cover separates realized and remaining unrealized gains",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.055208
+    },
+    {
+      "name": "paper reversal realizes only the closed leg and reprices the newly opened direction",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.055417
+    },
+    {
+      "name": "paper weighted-average cost remains unchanged on a partial reduction",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.067875
+    },
+    {
+      "name": "paper fractional closure does not retain an uncloseable floating-point dust position",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.073834
+    },
+    {
+      "name": "paper trade retries reuse an atomic ledger receipt; stale revisions and key conflicts cannot duplicate fills",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.573917
+    },
+    {
+      "name": "concurrent paper trades with the same revision cannot both execute",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.273667
+    },
+    {
+      "name": "paper marking with a missing later position does not persist an earlier partial mark",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.284417
+    },
+    {
+      "name": "paper account retry after losing an atomic-write acknowledgement cannot create a second account",
+      "file": "tests/operations.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.389709
+    },
+    {
+      "name": "panes/templates adapters pass fixed-function security gate and expose executable descriptors",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.161416
+    },
+    {
+      "name": "pane listing observes actual widgets and visible geometry despite stale declared count",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.730875
+    },
+    {
+      "name": "native layout collapse counts displayed charts rather than retained hidden widgets",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.352792
+    },
+    {
+      "name": "focus failure prevents market mutation in the wrong pane",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 151.751583
+    },
+    {
+      "name": "per-pane symbol change verifies resolved server instrument and preserves other panes",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.628958
+    },
+    {
+      "name": "changing only the pane label never verifies the requested resolved instrument",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 151.566334
+    },
+    {
+      "name": "enabled symbol sync blocks a single-pane change before writing",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.472542
+    },
+    {
+      "name": "unavailable requested sync controls prevent every requested sync mutation",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.316709
+    },
+    {
+      "name": "failed native template list cannot be mistaken for an empty library",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.786708
+    },
+    {
+      "name": "built-in template deletion is rejected before mutation",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.304333
+    },
+    {
+      "name": "native template saves verify independent saved content rather than a returned success flag",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.72625
+    },
+    {
+      "name": "duplicate template name is not silently overwritten",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.327916
+    },
+    {
+      "name": "template application with the same count but wrong studies cannot verify",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 251.826583
+    },
+    {
+      "name": "template application verifies actual study identities and exposed input/style values",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 251.844291
+    },
+    {
+      "name": "template canonical hashes ignore object-key ordering but detect real input changes",
+      "file": "tests/panes-templates.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.152042
+    },
+    {
+      "name": "native Pine adapters pass fixed-code security audit and history preserves literal native script identifiers",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 18.494291
+    },
+    {
+      "name": "native document binding requires a unique matching facade and exact visible source",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 13.821
+    },
+    {
+      "name": "opening a native saved script verifies ID, version and full source and preserves a before artifact",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 20.217167
+    },
+    {
+      "name": "changing only title and buffer cannot fake a successful native open",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 627.191291
+    },
+    {
+      "name": "a modified native buffer blocks document switching before openScript is called",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 19.417417
+    },
+    {
+      "name": "new-buffer creation proves a native draft identity before setting its source",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 18.614209
+    },
+    {
+      "name": "new cloud saves verify unique new identity and exact source while duplicate names cannot overwrite",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 13.277417
+    },
+    {
+      "name": "save-as preserves a modified buffer in a new saved ID and verifies actual editor rebinding",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 19.945958
+    },
+    {
+      "name": "save-as returns a concrete created-script reconciliation receipt if rebinding fails after saving",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 630.17525
+    },
+    {
+      "name": "save-next, rename and deletion independently verify exact native script state and each preserves a backup",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 39.025584
+    },
+    {
+      "name": "stale saved-source preconditions stop cloud changes before any POST",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 7.503791
+    },
+    {
+      "name": "changed saved source without version movement never qualifies as verified save-next",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 515.423958
+    },
+    {
+      "name": "malformed native version-history response fails closed instead of pretending no history exists",
+      "file": "tests/pine-lifecycle.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 6.616584
+    },
+    {
+      "name": "Initialize negotiates a supported protocol, tools list is machine-readable and ping works",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.417333
+    },
+    {
+      "name": "Tool errors use isError, while JSON-RPC errors retain protocol codes",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.189791
+    },
+    {
+      "name": "Plaintext secrets are redacted from successful results and result text remains JSON",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.136625
+    },
+    {
+      "name": "UTF-8 newline stdio handles split multibyte messages and emits only protocol JSON",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.250917
+    },
+    {
+      "name": "JSON-RPC batch and nonobject messages are rejected",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.071875
+    },
+    {
+      "name": "Resource and prompt lookups reject inherited names and non-string identifiers",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.077459
+    },
+    {
+      "name": "The complete delivered tool catalog is discoverable through MCP pagination without omissions",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.244583
+    },
+    {
+      "name": "Cancellation aborts a running tool through its signal",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.406542
+    },
+    {
+      "name": "Loopback HTTP requires a strong token and rejects wildcard binding",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.298334
+    },
+    {
+      "name": "Actual HTTP handler enforces authentication, Origin, Host, path and method before MCP execution",
+      "file": "tests/protocol.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.223583
+    },
+    {
+      "name": "Release audit scans staged bytes and reports credential/artifact findings without echoing values",
+      "file": "tests/release-audit.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 277.665792
+    },
+    {
+      "name": "every authored research page adapter passes the credential and dynamic-code gate",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.362417
+    },
+    {
+      "name": "every research tool has a unique name, fixed schema and runnable handler",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.082917
+    },
+    {
+      "name": "symbol mutation reports observed symbol and awaits registered study creation",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.058667
+    },
+    {
+      "name": "a created study without a registered string ID is an unverified mutation",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.319291
+    },
+    {
+      "name": "an unknown input ID prevents all input mutations, including recognised keys",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.281
+    },
+    {
+      "name": "unreadable replay state blocks timeframe changes without claiming replay is active",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.2455
+    },
+    {
+      "name": "data pagination can read beyond the former 500-bar cap and preserves zero values",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.772958
+    },
+    {
+      "name": "empty loaded bar series is an explicit not-ready error",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.253833
+    },
+    {
+      "name": "strategy selection fails closed instead of falling back to another strategy",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.593792
+    },
+    {
+      "name": "full trade extraction exceeds twenty records and preserves zero prices, quantities and commissions",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.510583
+    },
+    {
+      "name": "descending trade pagination uses exact offset without dropping or duplicating rows",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.3775
+    },
+    {
+      "name": "equity explicitly has per-trade resolution; no invented initial capital",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.277583
+    },
+    {
+      "name": "changing chart inputs alone never establishes report freshness",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.287625
+    },
+    {
+      "name": "payload-change evidence and stable exact context allow an explicitly qualified freshness verdict",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.253458
+    },
+    {
+      "name": "sweep product is bounded before materialisation, deduplicates markets, and preserves variants",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.166292
+    },
+    {
+      "name": "metric comparison does not divide by zero or pretend nonnumeric values are numeric",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.082791
+    },
+    {
+      "name": "Pine lookup matches a visible DOM-bound editor, never the first detached editor",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.895167
+    },
+    {
+      "name": "Pine writes compare full content, catching a same-length no-op write",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.289417
+    },
+    {
+      "name": "Pine preimage mismatch never overwrites the existing buffer",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.208792
+    },
+    {
+      "name": "Pine warnings do not count as compiler errors",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.234625
+    },
+    {
+      "name": "static Pine analysis ignores declaration text in strings/comments and never claims compilation",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.278583
+    },
+    {
+      "name": "replay status unwraps false WatchedValues instead of treating objects as true",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.399209
+    },
+    {
+      "name": "replay autoplay uses explicit target state and verifies the selected delay",
+      "file": "tests/research-features.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.26825
+    },
+    {
+      "name": "CDP endpoint rejects remote hosts, DNS aliases, credentials, paths and redirect-shaped query",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.406958
+    },
+    {
+      "name": "CDP websocket discovery cannot redirect to a remote host or unrelated local port",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.136417
+    },
+    {
+      "name": "TradingView target origin must be exact HTTPS; public URLs remove unneeded secret query/fragment",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.122834
+    },
+    {
+      "name": "Caller JavaScript and credential/storage accessors are prohibited",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.090625
+    },
+    {
+      "name": "Page wrapper preserves hostile text as data and does not execute it",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.650083
+    },
+    {
+      "name": "Page fetch blocks third-party, localhost, credentials and forbidden auth headers before network",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.859792
+    },
+    {
+      "name": "Browser authentication stays implicit and no cookie canary reaches Node transport",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.838125
+    },
+    {
+      "name": "CDP cookie/network/remote object methods are not in the callable allowlist",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.111292
+    },
+    {
+      "name": "Redirects remain forbidden for allowed page fetch requests",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.608
+    },
+    {
+      "name": "Origin is checked again inside the live page after discovery",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.404
+    },
+    {
+      "name": "Webhook validation rejects local/private endpoints and does not send a test request",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.13575
+    },
+    {
+      "name": "Known secrets are redacted in maps, free text, query parameters and provider key formats",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.068917
+    },
+    {
+      "name": "MCP schemas reject prototype pollution and unknown arguments",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.092958
+    },
+    {
+      "name": "Mutation cannot use a URL layout ID when native widget identity is absent",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.701958
+    },
+    {
+      "name": "A changed native layout blocks the write and log contains no input body",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.162083
+    },
+    {
+      "name": "A logging failure preserves a completed action receipt instead of inviting duplicate retries",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.1325
+    },
+    {
+      "name": "Owner-only exports stay confined and CSV formula cells are escaped",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.079875
+    },
+    {
+      "name": "Storage refuses symlinked export directories",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.827333
+    },
+    {
+      "name": "Internal storage area names cannot traverse or address an absolute sibling directory",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.428167
+    },
+    {
+      "name": "Quoted JSON and source-like secret fields are redacted without breaking JSON",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.076625
+    },
+    {
+      "name": "Cookie-export name/value records redact credential values recursively",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.065833
+    },
+    {
+      "name": "Browser launcher inherits platform settings and excludes unrelated secrets and injection flags",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.074542
+    },
+    {
+      "name": "Launcher refuses missing, duplicate or unknown options before choosing a profile",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.092917
+    },
+    {
+      "name": "Session diagnostics and layout metadata discard arbitrary URL query secrets and fragments",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.649167
+    },
+    {
+      "name": "CSV exports neutralize whitespace-prefixed and numeric-looking formulas and headers",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.893
+    },
+    {
+      "name": "Chrome discovery is bounded while streaming and cancels oversized bodies",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 1.020834
+    },
+    {
+      "name": "New-target discovery refuses a non-TradingView response and sanitizes accepted URLs",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.293583
+    },
+    {
+      "name": "A debugger that closes before opening rejects promptly and clears its state",
+      "file": "tests/security.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.129208
+    },
+    {
+      "name": "Real loopback HTTP serves MCP and refuses unauthenticated, browser-origin and oversized requests",
+      "file": "tests/transports.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 29.5675
+    },
+    {
+      "name": "Real stdio entry point negotiates MCP, paginates tools and shuts down without secret output",
+      "file": "tests/transports.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 66.368
+    },
+    {
+      "name": "watchlist page adapter passes the fixed-code gate; no raw-code or arbitrary path inputs",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.166583
+    },
+    {
+      "name": "exact custom ID is independent of API active selection; sections/order are preserved",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.986583
+    },
+    {
+      "name": "HTTP 200 error envelopes and mismatched list IDs are not healthy empty watchlists",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.447208
+    },
+    {
+      "name": "ID traversal and arbitrary fetch options are rejected before any network operation",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.290875
+    },
+    {
+      "name": "malformed entries, bare tickers and duplicate symbols fail without submitting requests",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.146042
+    },
+    {
+      "name": "append uses an array payload and independently re-reads exact resulting order",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.558875
+    },
+    {
+      "name": "a successful HTTP append that did not change membership fails verification",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.490917
+    },
+    {
+      "name": "one absent remove target prevents the entire removal",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.454
+    },
+    {
+      "name": "optimistic fingerprint or changed layout blocks a watchlist write",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.340833
+    },
+    {
+      "name": "create establishes a new ID, exact name/order and independent account listing; replay is read-only",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.554458
+    },
+    {
+      "name": "create duplicate-name and checkpoint failures happen before any create POST",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.303333
+    },
+    {
+      "name": "lost create response is not blindly retried; reconciliation returns candidates without adoption",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.438583
+    },
+    {
+      "name": "reorder preserves multiset and verifies exact order after separate clear read-back",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.56325
+    },
+    {
+      "name": "reorder refuses changed membership before clearing anything",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.245334
+    },
+    {
+      "name": "an ignored clear never proceeds to append",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.44825
+    },
+    {
+      "name": "partial replacement exposes durable recovery data and does not repeat a clear on retry",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.552375
+    },
+    {
+      "name": "a lost append response can reconcile a completed replacement without another mutation",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.427417
+    },
+    {
+      "name": "merge import preview is read-only, preserves existing order and appends only missing entries",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.467083
+    },
+    {
+      "name": "replace import requires a key and exports preserve header positions through the safe store",
+      "file": "tests/watchlists.test.mjs",
+      "status": "passed",
+      "skipped": false,
+      "todo": false,
+      "duration_ms": 0.396084
+    }
+  ],
+  "totals": {
+    "files": 13,
+    "tests": 215,
+    "pass": 215,
+    "fail": 0,
+    "skipped": 0
+  },
+  "passed": true
+}

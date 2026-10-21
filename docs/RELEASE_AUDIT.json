@@ -1,0 +1,6 @@
+{
+  "files": 82,
+  "findings": [],
+  "passed": true,
+  "scope": "Tracked release files only; pattern scanning supplements manual review and does not recognize every possible secret."
+}

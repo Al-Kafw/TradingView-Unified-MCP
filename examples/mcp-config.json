@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "tradingview": {
+      "command": "node",
+      "args": ["/absolute/path/TradingView-Unified-MCP/src/server.mjs"],
+      "env": {
+        "TV_CDP_ENDPOINT": "http://127.0.0.1:9222",
+        "TV_DATA_DIR": "/absolute/path/TradingView-Unified-MCP/runtime",
+        "TV_READONLY": "1"
+      }
+    }
+  }
+}

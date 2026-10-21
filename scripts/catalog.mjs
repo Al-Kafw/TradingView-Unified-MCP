@@ -1,0 +1,12 @@
+import { writeFile,mkdir } from 'node:fs/promises';
+import { buildRuntime } from '../src/runtime.mjs';
+const runtime=buildRuntime({genericUi:true});const tools=runtime.registry.list().sort((a,b)=>a.name.localeCompare(b.name));
+await mkdir('docs',{recursive:true});
+await writeFile('docs/TOOLS.json',JSON.stringify(tools,null,2)+'\n');
+const enabled=buildRuntime({readonly:false,genericUi:false}),readonly=buildRuntime({readonly:true,genericUi:false});
+await writeFile('docs/CATALOG_COUNTS.json',JSON.stringify({implemented:tools.length,default_exposed:enabled.registry.list().length,read_only_exposed:readonly.registry.list().length,optional_ui_mutations:tools.filter(t=>!enabled.registry.tools.has(t.name)).map(t=>t.name)},null,2)+'\n');
+await enabled.browser.close();await readonly.browser.close();
+const rows=['# Implemented tool inventory','','Generated from the actual registered tool descriptors. Every entry has an implementation; no placeholder tools are registered. Browser capabilities remain subject to live compatibility and account entitlements. All `live_verified` labels are false until the operator performs the acceptance procedure.','','Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read-only mode hides all tools marked as changes.','','| Tool | Changes state | Layout guard | Description |','|---|---|---|---|'];
+for(const t of tools)rows.push(`| \`${t.name}\` | ${t.annotations.readOnlyHint?'No':'Yes'} | ${t._meta.requires_layout?'Required':'—'} | ${t.description.replaceAll('|','\\|').replaceAll('\n',' ')} |`);
+rows.push('',`Total implemented tools: **${tools.length}**.`, '');
+await writeFile('docs/FEATURES.md',rows.join('\n'));process.stdout.write(JSON.stringify({tools:tools.length,files:['docs/TOOLS.json','docs/FEATURES.md']})+'\n');runtime.browser.close();

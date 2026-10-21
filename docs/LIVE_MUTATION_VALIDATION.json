@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-10-21T12:50:24.960Z",
+  "scope": "Temporary saved-layout copy, chart changes/save and paused price alert. No webhook configured. No broker operations.",
+  "checks": [
+    {
+      "tool": "layout_copy",
+      "status": "returned",
+      "independent_layout_verified": true,
+      "chart_verified": false,
+      "source_metadata_unchanged": true,
+      "mismatch_fields": [
+        "panes.0.studies.0.inputs"
+      ],
+      "unverified_count": 1,
+      "missing_field_types": [
+        "panes.0.study.[name].properties"
+      ]
+    },
+    {
+      "tool": "chart_set_symbol",
+      "status": "returned",
+      "verified": true
+    },
+    {
+      "tool": "chart_set_timeframe",
+      "status": "returned",
+      "verified": true
+    },
+    {
+      "tool": "layout_save",
+      "status": "returned",
+      "saved": true
+    },
+    {
+      "tool": "acceptance",
+      "status": "failed",
+      "code": "UNCERTAIN_MUTATION",
+      "message": "No unique new alert ID could be established. Reconcile the alert list before retrying."
+    }
+  ],
+  "cleanup": [
+    {
+      "kind": "audit_layout",
+      "status": "removed"
+    }
+  ],
+  "additional_observations": [
+    {
+      "operation": "layout_copy_on_exact_clean_source",
+      "independent_layout_verified": true,
+      "chart_verified": true,
+      "source_metadata_unchanged": true,
+      "optional_study_properties_unverified": true
+    },
+    {
+      "operation": "exact_symbol_guard",
+      "requested_symbol": "NASDAQ:AAPL",
+      "observed_symbol": "BATS:AAPL",
+      "status": "refused_success"
+    },
+    {
+      "operation": "native_alert_request_control",
+      "created": false,
+      "code": "invalid_request",
+      "status": "unresolved"
+    }
+  ],
+  "final_reconciliation": {
+    "audit_alerts_remaining": 0,
+    "alert_pages_complete": true,
+    "audit_layouts_remaining": 0
+  },
+  "scope_note": "Anonymized summaries only. The successful copy observation came from a separate completed run; strict comparison failures were retained. The native alert control did not establish successful creation. No webhook was configured."
+}

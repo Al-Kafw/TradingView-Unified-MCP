@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-10-21T13:03:46.320Z",
+  "node": "24.2.0",
+  "scope": "Read-only calls through the shipped registry and real Chrome CDP, plus public TradingView market requests. A returned read does not verify mutations or all account capabilities.",
+  "browser": {
+    "browser": "Chrome/155.0.8059.85",
+    "protocol": "1.3"
+  },
+  "saved_layout_observed": true,
+  "checks": [
+    {
+      "tool": "browser_capabilities",
+      "status": "returned",
+      "observed": {
+        "chart": true,
+        "layout_list": true,
+        "native_layout_copy": true,
+        "native_chart_snapshot": true,
+        "drawings": true,
+        "multi_chart": true,
+        "pine_editor": false,
+        "replay": true,
+        "strategy_sources": true
+      }
+    },
+    {
+      "tool": "layout_get",
+      "status": "returned"
+    },
+    {
+      "tool": "layout_list",
+      "status": "returned"
+    },
+    {
+      "tool": "chart_get_state",
+      "status": "returned"
+    },
+    {
+      "tool": "indicator_list",
+      "status": "returned"
+    },
+    {
+      "tool": "data_get_last_bar",
+      "status": "returned"
+    },
+    {
+      "tool": "data_get_ohlcv",
+      "status": "returned"
+    },
+    {
+      "tool": "data_get_study_values",
+      "status": "returned"
+    },
+    {
+      "tool": "strategy_list",
+      "status": "returned"
+    },
+    {
+      "tool": "pane_list",
+      "status": "returned"
+    },
+    {
+      "tool": "pane_get_sync",
+      "status": "returned"
+    },
+    {
+      "tool": "replay_status",
+      "status": "returned"
+    },
+    {
+      "tool": "alert_list",
+      "status": "returned"
+    },
+    {
+      "tool": "watchlist_list",
+      "status": "returned"
+    },
+    {
+      "tool": "study_template_list",
+      "status": "returned"
+    },
+    {
+      "tool": "pine_list_scripts",
+      "status": "returned"
+    },
+    {
+      "tool": "quote_batch",
+      "status": "returned"
+    },
+    {
+      "tool": "market_technical_summary",
+      "status": "returned"
+    },
+    {
+      "tool": "hotlist_get",
+      "status": "returned"
+    }
+  ],
+  "summary": {
+    "returned": 19,
+    "unavailable": 0
+  },
+  "unverified": [
+    "Account mutations, copy/save fidelity, alert creation/activation/delivery, Pine editor changes, replay changes, template writes and strategy sweeps."
+  ]
+}

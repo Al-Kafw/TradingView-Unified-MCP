@@ -1,0 +1,12 @@
+{
+  "implemented": 185,
+  "default_exposed": 180,
+  "read_only_exposed": 101,
+  "optional_ui_mutations": [
+    "ui_click",
+    "ui_hover",
+    "ui_key",
+    "ui_scroll",
+    "ui_type"
+  ]
+}

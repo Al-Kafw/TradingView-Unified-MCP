@@ -1,0 +1,28 @@
+{
+  "name": "tradingview-unified-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local browser-only TradingView MCP with verified layouts, alerts and strategy research",
+  "type": "module",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/daviddme/TradingView-Unified-MCP.git" },
+  "homepage": "https://github.com/daviddme/TradingView-Unified-MCP#readme",
+  "bugs": { "url": "https://github.com/daviddme/TradingView-Unified-MCP/issues" },
+  "engines": { "node": ">=24.0.0" },
+  "bin": { "tradingview-unified-mcp": "src/server.mjs", "tv-browser": "src/cli.mjs" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node scripts/test.mjs",
+    "test:security": "node scripts/test.mjs security.test.mjs protocol.test.mjs",
+    "check": "node scripts/check.mjs",
+    "catalog": "node scripts/catalog.mjs",
+    "audit:source": "node scripts/security-audit.mjs",
+    "audit:release": "node scripts/release-audit.mjs",
+    "manifest": "node scripts/manifest.mjs",
+    "test:live": "node scripts/live-check.mjs",
+    "doctor": "node src/cli.mjs doctor"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "files": ["src", "scripts", "docs", "examples", "tests", "SPEC.md", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]
+}

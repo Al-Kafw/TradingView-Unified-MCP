@@ -1,0 +1,2717 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-19",
+  "review_type": "Static source and manifest review; no upstream code, installers, dependencies, tests or release binaries executed.",
+  "project_intent": "Independent browser-only control implementation. Credentials remain browser-managed; no upstream runtime is imported. Public scanner data has a separate credential-free Node transport.",
+  "public_market_exception": {
+    "host": "https://scanner.tradingview.com",
+    "families": ["POST /<enumerated-market>/scan", "GET /presets/US_<enumerated-preset>?label-product=right-hotlists"],
+    "credentials": "omit; no cookie jar, cookie extraction, caller headers, auth file or authenticated fallback",
+    "redirects": "error",
+    "validation": "26 offline fixture/egress/canary tests; no live public endpoint request tested",
+    "documentation": "docs/MARKET_DATA.md"
+  },
+  "limitations": [
+    "Selected source paths, not every repository file, were reviewed.",
+    "Package tarballs and transitive source were not audited; lock flags are metadata only.",
+    "No authenticated TradingView behavior, cookie transmission, or runtime egress was measured.",
+    "Tool literal counts are source inventory, not promises of active exposure or correctness.",
+    "Upstream branches may change; this document applies only to listed commits."
+  ],
+  "selected_source_paths": 492,
+  "unique_source_blobs": 433,
+  "upstreams": [
+    {
+      "repository": "FerroxLabs/tvcontrol",
+      "url": "https://github.com/FerroxLabs/tvcontrol",
+      "commit": "a8d3dfc97621e22b8b7c71e617b134c5e35882ee",
+      "commit_url": "https://github.com/FerroxLabs/tvcontrol/commit/a8d3dfc97621e22b8b7c71e617b134c5e35882ee",
+      "tree_url": "https://github.com/FerroxLabs/tvcontrol/tree/a8d3dfc97621e22b8b7c71e617b134c5e35882ee",
+      "review_date": "2026-10-19",
+      "role": "Broad chart control, studies, Pine, snapshots, batches, watchlists and diagnostics",
+      "reuse": "Selected API patterns independently reimplemented; do not import upstream modules.",
+      "ideas": [
+        "Chart/study getters and setters",
+        "Pine editor discovery and compile/status flow",
+        "In-page TradingView authenticated request pattern",
+        "Chart state and diagnostic receipts",
+        "Bounded data extraction and strategy sweeps"
+      ],
+      "exclude": [
+        "Desktop process launcher and OS watchdog services",
+        "Self-updater and npm invocation",
+        "Raw ui_evaluate even though opt-in",
+        "Upstream telemetry/support-bundle implementation",
+        "Partial snapshot restoration represented as a full clone"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/connection.js",
+        "src/core/telemetry.js",
+        "src/core/update.js",
+        "src/tools/ui.js",
+        "src/core/state.js",
+        "src/core/data.js"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/LICENSE",
+          "blob_sha": "96bec6d19b01aa3df693f9905b56b33d836b3b0e"
+        }
+      ],
+      "package": {
+        "name": "@ferroxlabs/tvcontrol",
+        "version": "2.5.3",
+        "engines": {
+          "node": ">=18.14.1"
+        },
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "1.29.0",
+          "chrome-remote-interface": "0.34.0",
+          "zod": "4.3.6"
+        },
+        "lifecycle_scripts": {
+          "prepublishOnly": "node scripts/check_bin_entrypoint.js"
+        },
+        "lockfile_version": 3,
+        "root_lock_packages": 175,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 114,
+      "source_evidence": [
+        {
+          "path": "src/connection.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/connection.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/telemetry.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/core/telemetry.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/update.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/core/update.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/ui.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/tools/ui.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/state.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/core/state.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/data.js",
+          "url": "https://github.com/FerroxLabs/tvcontrol/blob/a8d3dfc97621e22b8b7c71e617b134c5e35882ee/src/core/data.js",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "96bec6d19b01aa3df693f9905b56b33d836b3b0e"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "90c6f1a4a05b996afb607301ac2a91aaec864e33"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "5bd2582145b26bcaf43c3e9813c4678233be2ff3"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "688f2032e7f0b693e6e676100a030c6d6951db31"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "f01ad199ec257c22f0b2dedcdd7de693b54081bf"
+        },
+        {
+          "path": "scripts/README-debug.md",
+          "blob_sha": "d400fddb520cf15237374550af2d571c3395dc83"
+        },
+        {
+          "path": "scripts/alleditors.mjs",
+          "blob_sha": "e038bbb4fe5d3810ad69845ac8a4897b66e55b88"
+        },
+        {
+          "path": "scripts/check_bin_entrypoint.js",
+          "blob_sha": "184f2831dbe80b083d138104eba8d3581d13d740"
+        },
+        {
+          "path": "scripts/count_tools.js",
+          "blob_sha": "90755817e68663c9d2ae2750c68ae3a1541a83da"
+        },
+        {
+          "path": "scripts/gen_tool_catalog.js",
+          "blob_sha": "23deb17c527b6d9599adb03779d724be9f28ac4a"
+        },
+        {
+          "path": "scripts/launch_tv_debug.bat",
+          "blob_sha": "0f0ae693d04646c3e3ee778ef3a1e21b8804965a"
+        },
+        {
+          "path": "scripts/launch_tv_debug.vbs",
+          "blob_sha": "195261ababe6007dafade7fd498485337febb4d0"
+        },
+        {
+          "path": "scripts/launch_tv_debug_linux.sh",
+          "blob_sha": "619879e6b6c0c54d9ec541690a6a207cb9127850"
+        },
+        {
+          "path": "scripts/launch_tv_debug_mac.sh",
+          "blob_sha": "5295d54f4dd0ae62ab7384be0ecae5bba9787866"
+        },
+        {
+          "path": "scripts/peek.mjs",
+          "blob_sha": "28446d1fc8c315ef92c41f078f1e79e172578096"
+        },
+        {
+          "path": "scripts/pine_pull.js",
+          "blob_sha": "280603e48987f471fb3f3d94cff0c158b6524f34"
+        },
+        {
+          "path": "scripts/pine_push.js",
+          "blob_sha": "e62bc8dcdf5b921370649ee1ad895c0b631d43b4"
+        },
+        {
+          "path": "scripts/pine_save_focused.mjs",
+          "blob_sha": "d4274497387527256bb4137219765460fee84616"
+        },
+        {
+          "path": "scripts/run_offline_tests.js",
+          "blob_sha": "61f83299347a0cc091f7e2dc0de32168400f465b"
+        },
+        {
+          "path": "scripts/updatechart.mjs",
+          "blob_sha": "e76382f8941dc710b4a3a089cb6356da1ce1550d"
+        },
+        {
+          "path": "src/cli/_arg.js",
+          "blob_sha": "9569c516b8b3fffe7d237b82ccd4a417beb8d247"
+        },
+        {
+          "path": "src/cli/commands/alerts.js",
+          "blob_sha": "d29b7480a028949972d82975599210a5656c33e6"
+        },
+        {
+          "path": "src/cli/commands/capture.js",
+          "blob_sha": "a10b13b2f267107281ea01413a33b932bf44f9d5"
+        },
+        {
+          "path": "src/cli/commands/chart.js",
+          "blob_sha": "0aa8b6ee69cb161402456f3e62532228162f89d0"
+        },
+        {
+          "path": "src/cli/commands/data.js",
+          "blob_sha": "c34f5821fe9c6fc3647dcaf4ca9a0d37ab5b06c8"
+        },
+        {
+          "path": "src/cli/commands/drawing.js",
+          "blob_sha": "b1097f8a9339899ab0b8a0e8cba19673a8d7381f"
+        },
+        {
+          "path": "src/cli/commands/health.js",
+          "blob_sha": "554abf26b0858b5e68a43f75ad729c3748253328"
+        },
+        {
+          "path": "src/cli/commands/indicator.js",
+          "blob_sha": "9ad236610746e309509705354ebcc1d9aefe8206"
+        },
+        {
+          "path": "src/cli/commands/layout.js",
+          "blob_sha": "97e3623837fc9b0d1895757e2cb71846d06fcee1"
+        },
+        {
+          "path": "src/cli/commands/log.js",
+          "blob_sha": "fa15b0f927c9b7537ca58809728b5b6e721e6842"
+        },
+        {
+          "path": "src/cli/commands/pane.js",
+          "blob_sha": "4769173c1d0555b468677fae201fa87e2185aae8"
+        },
+        {
+          "path": "src/cli/commands/pine.js",
+          "blob_sha": "87a5db4dc53104e27cc4a60bcec69b1ca270fbdc"
+        },
+        {
+          "path": "src/cli/commands/reliability.js",
+          "blob_sha": "524e4e0c381ea2a5f4e14e4a2dfd3f0cc0522ef6"
+        },
+        {
+          "path": "src/cli/commands/replay.js",
+          "blob_sha": "3a78fcd7bc6670d152a3de15a4986f068399a150"
+        },
+        {
+          "path": "src/cli/commands/state.js",
+          "blob_sha": "43cf8e1320f6bbb654748524e78a5b2f4743dca4"
+        },
+        {
+          "path": "src/cli/commands/stream.js",
+          "blob_sha": "1a7ddcfc4b876b8882fa50b5b5da1c19afd33804"
+        },
+        {
+          "path": "src/cli/commands/sweep.js",
+          "blob_sha": "76438926765ed46331859c574ec2dd63bc372844"
+        },
+        {
+          "path": "src/cli/commands/tab.js",
+          "blob_sha": "6d335af3d0268fde800cc3f78499af4334d4c52d"
+        },
+        {
+          "path": "src/cli/commands/ui.js",
+          "blob_sha": "e1bd94d279bd593ae978e5a4c86efb29483f1f9f"
+        },
+        {
+          "path": "src/cli/commands/watchlist.js",
+          "blob_sha": "b6fbfd78b8d22b8436b96742daa38b3ed0dce9e4"
+        },
+        {
+          "path": "src/cli/index.js",
+          "blob_sha": "861a9fd34a4e0b82f06d00d67c66b862e0f81c06"
+        },
+        {
+          "path": "src/cli/router.js",
+          "blob_sha": "ac8d01c7c92bf1b8f0eb6ae469339c29453b60e3"
+        },
+        {
+          "path": "src/connection.js",
+          "blob_sha": "0714eeabdf873433e79a72c92397bd99c35968f0"
+        },
+        {
+          "path": "src/core/_json.js",
+          "blob_sha": "23315590714233fe769adf979df9ac793cfa73fc"
+        },
+        {
+          "path": "src/core/_resolve.js",
+          "blob_sha": "87a0696268fcf5ec9b84bf58353066445d2dbd05"
+        },
+        {
+          "path": "src/core/_study_ref.js",
+          "blob_sha": "45fa817de3b3eddd36c5eda52fe2d6322e83d389"
+        },
+        {
+          "path": "src/core/alerts.js",
+          "blob_sha": "d430ae78511b952fc16c915b538318b371dcb0ae"
+        },
+        {
+          "path": "src/core/batch.js",
+          "blob_sha": "84ea4a403aa4710c062e383738243a43aee70ef3"
+        },
+        {
+          "path": "src/core/capabilities.js",
+          "blob_sha": "069c77d7030e09d664b82d34af84254353e6ee4b"
+        },
+        {
+          "path": "src/core/capture.js",
+          "blob_sha": "d454f7425f33c9f302efdd241e9180a06c80f808"
+        },
+        {
+          "path": "src/core/catalog_fallback.js",
+          "blob_sha": "fa03013428615cca342216c5d68d7cae157a2c0d"
+        },
+        {
+          "path": "src/core/chaos.js",
+          "blob_sha": "5d5e16264449a334ccf35a86b500a97958de24b5"
+        },
+        {
+          "path": "src/core/chart.js",
+          "blob_sha": "5d84f491b7c22de73248c70e463fc04503cfa5d5"
+        },
+        {
+          "path": "src/core/coordination.js",
+          "blob_sha": "0f29924d41dfb1a8da011f654f42a5e6f21c60ad"
+        },
+        {
+          "path": "src/core/data.js",
+          "blob_sha": "970566f67a0e362e926acfc0484c373c79aeb39d"
+        },
+        {
+          "path": "src/core/drawing.js",
+          "blob_sha": "136bbbdb38e8facff9ffc12d6d0b998dd65ff525"
+        },
+        {
+          "path": "src/core/golden.js",
+          "blob_sha": "b835a4f93cc7b60e4f8e024882a0076b29c73cd5"
+        },
+        {
+          "path": "src/core/health.js",
+          "blob_sha": "463306e36a04edead6d367d4fdc2f09e357402f5"
+        },
+        {
+          "path": "src/core/index.js",
+          "blob_sha": "03db3d11f465b7af4243a1c49b62379885f305af"
+        },
+        {
+          "path": "src/core/indicators.js",
+          "blob_sha": "35d6ba26f665dfb20fcae42f86ed752209df91e3"
+        },
+        {
+          "path": "src/core/pane.js",
+          "blob_sha": "5d52e390ef0fc40bfbc6fc0c5d9eda331c4b4e8f"
+        },
+        {
+          "path": "src/core/pine.js",
+          "blob_sha": "c20f724e8ba7fd91896c8f6a5a12227904a96bf1"
+        },
+        {
+          "path": "src/core/readonly.js",
+          "blob_sha": "69ea8a8df9ad70e805a752ef3981fa794baa480a"
+        },
+        {
+          "path": "src/core/receipts.js",
+          "blob_sha": "e62ebe8d610badaac14f6f30b2f83bd4b8d1ce67"
+        },
+        {
+          "path": "src/core/replay.js",
+          "blob_sha": "d6a10772a8bc10b8fb3c2c9607749fa76fb1b3d6"
+        },
+        {
+          "path": "src/core/session_health.js",
+          "blob_sha": "e453f0656782f7c36379322fd3e770592689f2fb"
+        },
+        {
+          "path": "src/core/soak.js",
+          "blob_sha": "1d6ab46b4cd5c0cbe1379aab3faad0361d49deac"
+        },
+        {
+          "path": "src/core/state.js",
+          "blob_sha": "6decaf1db56815a6ded61770309279d38c63e251"
+        },
+        {
+          "path": "src/core/stream.js",
+          "blob_sha": "ab6dc988dec9191b3d8303fc5b0bc7ac8815c1d7"
+        },
+        {
+          "path": "src/core/support.js",
+          "blob_sha": "5aa505ced369022029d84e373d38552f730e8f3b"
+        },
+        {
+          "path": "src/core/sweep.js",
+          "blob_sha": "6c2eda766a0b6dd1cdfb5a192eb1a6c90a3d7cc9"
+        },
+        {
+          "path": "src/core/sweep_parallel.js",
+          "blob_sha": "de0648dbcf644f46de8788f9c5dfe36752e792a1"
+        },
+        {
+          "path": "src/core/tab.js",
+          "blob_sha": "d1e1cd2dfecfa690a63715b1d450c41d52d7ee05"
+        },
+        {
+          "path": "src/core/telemetry.js",
+          "blob_sha": "b467d968573366045bd1661bc7cb5c357e9b243c"
+        },
+        {
+          "path": "src/core/ui.js",
+          "blob_sha": "9066e4781d17db3cd85baca1f01f66118a495bce"
+        },
+        {
+          "path": "src/core/update.js",
+          "blob_sha": "7249a26b259f7bbf496a78c07bf736106b5ae797"
+        },
+        {
+          "path": "src/core/vision.js",
+          "blob_sha": "1c17032e6e845c7832cffd90ea9526f82b7d7d71"
+        },
+        {
+          "path": "src/core/watchdog.js",
+          "blob_sha": "e9594155dded8b48361d5e43916c313338f65aaa"
+        },
+        {
+          "path": "src/core/watchdog_service.js",
+          "blob_sha": "24507f07bb5e61f61e2a6d9fc434a00c57f8e275"
+        },
+        {
+          "path": "src/core/watchlist.js",
+          "blob_sha": "f58e55bb63c8654668af9cf7e2a3de211a1da937"
+        },
+        {
+          "path": "src/errors.js",
+          "blob_sha": "38b4ba1252f367f013d44e7c79427c18f835ebf9"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "2f45d11abab55780e3865c50cf678498249402cc"
+        },
+        {
+          "path": "src/tools/_format.js",
+          "blob_sha": "52616ea8df40bd5d4e110659c0a39ddd10146fba"
+        },
+        {
+          "path": "src/tools/alerts.js",
+          "blob_sha": "7a09f4eb0a040b6bb1e737415fc27d8e4ef1b72a"
+        },
+        {
+          "path": "src/tools/batch.js",
+          "blob_sha": "523cb8045b258747d3c748a8f21fb733f0f087ba"
+        },
+        {
+          "path": "src/tools/capture.js",
+          "blob_sha": "54919ad6b969b39a5be6aae06f8a9864071e2341"
+        },
+        {
+          "path": "src/tools/chart.js",
+          "blob_sha": "e5218d28bce7c0be058c4d50f442f8e4d20fed94"
+        },
+        {
+          "path": "src/tools/data.js",
+          "blob_sha": "eb30d10eb019f7e6e9fc1edde1c351d0ee642b48"
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "blob_sha": "455f9a0dc52cb9e8feca5ce56a9c97fded7d27bc"
+        },
+        {
+          "path": "src/tools/health.js",
+          "blob_sha": "d9ffbc9b1803f10c1eb345b129a65cc937dc90e6"
+        },
+        {
+          "path": "src/tools/indicators.js",
+          "blob_sha": "d995c461b0c5e09fe231251b26648bec556340c1"
+        },
+        {
+          "path": "src/tools/pane.js",
+          "blob_sha": "1924c140076017155738327c7e2281b8bbca0824"
+        },
+        {
+          "path": "src/tools/pine.js",
+          "blob_sha": "44b08c7d514661ad6552e802d9d56608283ae378"
+        },
+        {
+          "path": "src/tools/replay.js",
+          "blob_sha": "881144d7d62d496ee8a5147ab5a4629ad85de727"
+        },
+        {
+          "path": "src/tools/state.js",
+          "blob_sha": "d400a37d3cee5647eedcae3edb6fd51cb45b62af"
+        },
+        {
+          "path": "src/tools/sweep.js",
+          "blob_sha": "afaffad1d1dc49890e920c240e76eec51134e974"
+        },
+        {
+          "path": "src/tools/tab.js",
+          "blob_sha": "283343002ef26a5b073332d116ec807a137387bc"
+        },
+        {
+          "path": "src/tools/ui.js",
+          "blob_sha": "3479fa6d4b98c7173df9929019cdd219b6be7d21"
+        },
+        {
+          "path": "src/tools/vision.js",
+          "blob_sha": "db90e28f95cb4c4e952c4232574e2dd447d40725"
+        },
+        {
+          "path": "src/tools/watchlist.js",
+          "blob_sha": "5bd65391d8ee378d9d872df06aac63d593bd3d0c"
+        },
+        {
+          "path": "src/wait.js",
+          "blob_sha": "44c6b79f781d10a5b189c01401217b076d667133"
+        }
+      ]
+    },
+    {
+      "repository": "JostQQ/tradingview-mcp",
+      "url": "https://github.com/JostQQ/tradingview-mcp",
+      "commit": "4d9b440935d5e8b862ab61a72812adf801684564",
+      "commit_url": "https://github.com/JostQQ/tradingview-mcp/commit/4d9b440935d5e8b862ab61a72812adf801684564",
+      "tree_url": "https://github.com/JostQQ/tradingview-mcp/tree/4d9b440935d5e8b862ab61a72812adf801684564",
+      "review_date": "2026-10-19",
+      "role": "Native Strategy Tester report, trade ledger and Pine lifecycle reference",
+      "reuse": "Selected report/metadata patterns independently reimplemented; no upstream runtime/dependencies imported.",
+      "ideas": [
+        "Strategy identity and reportData reads",
+        "Trade-by-trade extraction",
+        "Per-trade account-value curve",
+        "Pine script versions and source lifecycle",
+        "Symbols by timeframes batch workflows"
+      ],
+      "exclude": [
+        "Ungated tv_eval",
+        "Desktop process launchers",
+        "Silent missing-strategy fallback",
+        "Fixed-delay or fingerprint-only freshness claims",
+        "Unrestricted caller file paths"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/core/strategy.js",
+        "src/tools/strategy.js",
+        "src/core/pine.js",
+        "src/core/workspace.js",
+        "src/tools/health.js",
+        "LICENSE-tradingview-mcp-original.txt"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/LICENSE",
+          "blob_sha": "4522f00861a8dfa3a5d574c077bcac72324ad2f2"
+        },
+        {
+          "path": "LICENSE-tradingview-mcp-original.txt",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/LICENSE-tradingview-mcp-original.txt",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        }
+      ],
+      "package": {
+        "name": "tvmcp",
+        "version": "1.0.0",
+        "engines": {
+          "node": ">=20"
+        },
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.32.1",
+          "chrome-remote-interface": "^0.33.3",
+          "zod": "^4.6.5"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 177,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 104,
+      "source_evidence": [
+        {
+          "path": "src/core/strategy.js",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/src/core/strategy.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/strategy.js",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/src/tools/strategy.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/pine.js",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/src/core/pine.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/workspace.js",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/src/core/workspace.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/health.js",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/src/tools/health.js",
+          "fetched": true
+        },
+        {
+          "path": "LICENSE-tradingview-mcp-original.txt",
+          "url": "https://github.com/JostQQ/tradingview-mcp/blob/4d9b440935d5e8b862ab61a72812adf801684564/LICENSE-tradingview-mcp-original.txt",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "4522f00861a8dfa3a5d574c077bcac72324ad2f2"
+        },
+        {
+          "path": "LICENSE-tradingview-mcp-original.txt",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "5a104dbc540bdfdcc59d333451147f91dbb30708"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "46f4237a36dd6d809c209bca68d31d8e20b9ac2d"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "be87c360014f64772cd47e025e6da1fdbecc9c7e"
+        },
+        {
+          "path": "scripts/gen_tools_doc.mjs",
+          "blob_sha": "5b1efd33ec927e4c41f3ba480a25e795075dccfb"
+        },
+        {
+          "path": "scripts/make_dist.mjs",
+          "blob_sha": "5edccc3b7b48289824e82e300496c2d0f80ac055"
+        },
+        {
+          "path": "scripts/sync_protected.mjs",
+          "blob_sha": "13d369dea792a092e8796ed52a60774b52298aff"
+        },
+        {
+          "path": "src/connection.js",
+          "blob_sha": "9e502ad2bf33c8a09f9c1c23dc7f0079218f5dbb"
+        },
+        {
+          "path": "src/core/alerts.js",
+          "blob_sha": "644fe062ca2bebf9e8f1d33da46aa484c0e7f9ef"
+        },
+        {
+          "path": "src/core/batch.js",
+          "blob_sha": "1b25abbd7a5610aa9b82509a2de023dffd5ad46f"
+        },
+        {
+          "path": "src/core/chart.js",
+          "blob_sha": "a168eb07affac2e350bed7cc9bb1209fa16ac8a0"
+        },
+        {
+          "path": "src/core/data.js",
+          "blob_sha": "7f8bfea88dd59489557eaabea15b8491a747eb32"
+        },
+        {
+          "path": "src/core/drawing.js",
+          "blob_sha": "ac3db3c2e9aa1eeb66c2b6450c561a31c7d08d4b"
+        },
+        {
+          "path": "src/core/health.js",
+          "blob_sha": "7351ad3aaf03bb715c103a267e6418308f21f758"
+        },
+        {
+          "path": "src/core/indicators.js",
+          "blob_sha": "e581fe5146e6f48939c989d100dac0fda07f3b62"
+        },
+        {
+          "path": "src/core/layouts.js",
+          "blob_sha": "abdcb58803b634222559f53d280caad2a61069da"
+        },
+        {
+          "path": "src/core/pane.js",
+          "blob_sha": "5b22a4e7ee4716cb9d60993645a33dadfd10a4bb"
+        },
+        {
+          "path": "src/core/pine.js",
+          "blob_sha": "05d66aafe81d32c3cccb5ee2894104ca452e0734"
+        },
+        {
+          "path": "src/core/replay.js",
+          "blob_sha": "587486f40b1a96a5325b557643163b5d55ce1261"
+        },
+        {
+          "path": "src/core/strategy.js",
+          "blob_sha": "ef73b19a5affd94754a29c780bf7bbbad5ecae3f"
+        },
+        {
+          "path": "src/core/stream.js",
+          "blob_sha": "e0ca70998368534fa5d6f28cd7095424b5bbfcc7"
+        },
+        {
+          "path": "src/core/tab.js",
+          "blob_sha": "d4df3ccf12a260f35837cbcb8bae5db988190145"
+        },
+        {
+          "path": "src/core/ui.js",
+          "blob_sha": "ac54b7cdeab317ef211d9c05be423b0c5d8627fb"
+        },
+        {
+          "path": "src/core/watchlist.js",
+          "blob_sha": "32bf432e131fba2966cb6a2575a55fa94cc7cbb6"
+        },
+        {
+          "path": "src/core/workspace.js",
+          "blob_sha": "b5a1a6026c8d3c976947191c82d20114f66f07cc"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "7cda432edb46995f83fc60e5a5ca0e71a797f01e"
+        },
+        {
+          "path": "src/tools/_format.js",
+          "blob_sha": "5411edadcfe2fd2ba94630bf60e0a7ad9ae2209c"
+        },
+        {
+          "path": "src/tools/alerts.js",
+          "blob_sha": "5d8ded5fc89ff0827de3d580b2ec074943e6741c"
+        },
+        {
+          "path": "src/tools/batch.js",
+          "blob_sha": "904a8f601c7efac475c3ca9cf77ac59240dd4e8e"
+        },
+        {
+          "path": "src/tools/chart.js",
+          "blob_sha": "238c036775205996d368f37a07916b464e9a610a"
+        },
+        {
+          "path": "src/tools/data.js",
+          "blob_sha": "51e24191f2f44f4ff9516289ca2178105d712927"
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "blob_sha": "08b990d76af52fdf286eeae942f8d5b2b8cfa6c6"
+        },
+        {
+          "path": "src/tools/health.js",
+          "blob_sha": "8857a9bb7b16db8f6365a0b905681cb9fdd67b40"
+        },
+        {
+          "path": "src/tools/indicators.js",
+          "blob_sha": "a6963e6e1992257bab63d81080bba08a2be78c8c"
+        },
+        {
+          "path": "src/tools/layouts.js",
+          "blob_sha": "7545abc153ec8d2724e5429738b2a4e09de2095a"
+        },
+        {
+          "path": "src/tools/pane.js",
+          "blob_sha": "1826b9cf4c1e17da9754e07eaf96d8d3168dff3e"
+        },
+        {
+          "path": "src/tools/pine.js",
+          "blob_sha": "3512d7eb1af59b9c7c5fbec57aa2a4871fcf2f8f"
+        },
+        {
+          "path": "src/tools/replay.js",
+          "blob_sha": "3edfd1ce5cd9f544643e0528a575fe2030ef9295"
+        },
+        {
+          "path": "src/tools/strategy.js",
+          "blob_sha": "ec33a65b4319bf7559c0b8fb66342253c156ec31"
+        },
+        {
+          "path": "src/tools/tab.js",
+          "blob_sha": "9e65666d247d3ce9a8d66473caec67c3abf8a558"
+        },
+        {
+          "path": "src/tools/ui.js",
+          "blob_sha": "9ad0586765018057382eba161f563e7a743d40a8"
+        },
+        {
+          "path": "src/tools/watchlist.js",
+          "blob_sha": "41484d6c3f552822ea97ae776308e0451e85f72f"
+        },
+        {
+          "path": "src/wait.js",
+          "blob_sha": "179190fb4c57fb8e9d18f3345240bdeee4a92e75"
+        }
+      ]
+    },
+    {
+      "repository": "pbajkovic-hub/tv-cdp-mcp",
+      "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp",
+      "commit": "dd0fd3c07ad10ea6151fc21aeff3791db7cb7219",
+      "commit_url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/commit/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219",
+      "tree_url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/tree/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219",
+      "review_date": "2026-10-19",
+      "role": "Native independent layout copy, saved-layout verification and alert/template control",
+      "reuse": "Selected native layout-copy and internal service patterns independently reimplemented with stricter validation.",
+      "ideas": [
+        "Save-As controller clone",
+        "New saved ID postcondition",
+        "Explicit target binding and expected layout",
+        "Study templates",
+        "Alert condition models and paused clone creation"
+      ],
+      "exclude": [
+        "Loose target URL matching",
+        "Unredacted webhook URL/message export",
+        "Paper order execution and exchange example",
+        "Blind assumption unsaved edits are included in server-side copy"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/cdp.mjs",
+        "src/tools/layouts.mjs",
+        "src/tools/alerts.mjs",
+        "src/tools/templates.mjs",
+        "src/tools/trading.mjs"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/LICENSE",
+          "blob_sha": "050c53056e3b36ea2fcd09d9ff3048ed6b45ea95"
+        }
+      ],
+      "package": {
+        "name": "tv-cdp-mcp",
+        "version": "0.1.0",
+        "engines": {
+          "node": ">=22"
+        },
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.12.0",
+          "zod": "^3.23.8"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 94,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 29,
+      "source_evidence": [
+        {
+          "path": "src/cdp.mjs",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/src/cdp.mjs",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/layouts.mjs",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/src/tools/layouts.mjs",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/alerts.mjs",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/src/tools/alerts.mjs",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/templates.mjs",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/src/tools/templates.mjs",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/trading.mjs",
+          "url": "https://github.com/pbajkovic-hub/tv-cdp-mcp/blob/dd0fd3c07ad10ea6151fc21aeff3791db7cb7219/src/tools/trading.mjs",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "050c53056e3b36ea2fcd09d9ff3048ed6b45ea95"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "83246f131de50f861908a8c4b337ed9ec88facfe"
+        },
+        {
+          "path": "examples/alert-to-order-bridge/package-lock.json",
+          "blob_sha": "94ce2cbe060c0b3b9919810ee293ab983f18271e"
+        },
+        {
+          "path": "examples/alert-to-order-bridge/package.json",
+          "blob_sha": "56eb1bb4f084435e55c3786376cc82e1f5397e2d"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "e6c9221ae7045170544833069056f23310b36a5e"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "a8fdad5b9fd938c6b9813f389026730c625ea399"
+        },
+        {
+          "path": "scripts/launch-tv.bat",
+          "blob_sha": "4316c1a630818113d9d8fe363dded2eb859adbbc"
+        },
+        {
+          "path": "scripts/launch-tv.ps1",
+          "blob_sha": "8478f018d48326f732ad18e84880397d0274e7fe"
+        },
+        {
+          "path": "scripts/probe.mjs",
+          "blob_sha": "04c4498a4b06bcb1e3c4aee4aeed5fb86545f2d6"
+        },
+        {
+          "path": "scripts/trading-status.mjs",
+          "blob_sha": "60dc1d1e3f65384849132bf12233f272f2c02f15"
+        },
+        {
+          "path": "scripts/tv-cli.mjs",
+          "blob_sha": "fc8f8397839ccdf28cea3f3b7c0269599844cfc9"
+        },
+        {
+          "path": "src/cdp.mjs",
+          "blob_sha": "688c90170cea9d651a86073e5bfddfd5925ed085"
+        },
+        {
+          "path": "src/server.mjs",
+          "blob_sha": "a2ab636c81512adc28c6cfd44418095aaea30cc0"
+        },
+        {
+          "path": "src/tools/alerts.mjs",
+          "blob_sha": "9f00ffd9968c1679c2fafa1840136efd5195eca2"
+        },
+        {
+          "path": "src/tools/chart.mjs",
+          "blob_sha": "97c0b106bc434434c66930c72076e6134e8c9789"
+        },
+        {
+          "path": "src/tools/data.mjs",
+          "blob_sha": "804230e5de2a657898dbe018e0bce6d68750d717"
+        },
+        {
+          "path": "src/tools/export.mjs",
+          "blob_sha": "c1b64b072aab973594f44fc3876d69c98785b06d"
+        },
+        {
+          "path": "src/tools/layouts.mjs",
+          "blob_sha": "30509dfb5d05412f275f1169490064f95057c207"
+        },
+        {
+          "path": "src/tools/studies.mjs",
+          "blob_sha": "8414729a5df5a1b4c2fbe07dadbdf422c818a6f6"
+        },
+        {
+          "path": "src/tools/templates.mjs",
+          "blob_sha": "d86a29bdc9bb2d7e44839c5e2e55387fade03a43"
+        },
+        {
+          "path": "src/tools/trading.mjs",
+          "blob_sha": "190a0898e96bdf8ff9144fde5b923399f5bd3a06"
+        }
+      ]
+    },
+    {
+      "repository": "firyomaefx/tradingview-chrome-mcp",
+      "url": "https://github.com/firyomaefx/tradingview-chrome-mcp",
+      "commit": "d20f0acf7a2d888ef7fe9304178fae35c233c42c",
+      "commit_url": "https://github.com/firyomaefx/tradingview-chrome-mcp/commit/d20f0acf7a2d888ef7fe9304178fae35c233c42c",
+      "tree_url": "https://github.com/firyomaefx/tradingview-chrome-mcp/tree/d20f0acf7a2d888ef7fe9304178fae35c233c42c",
+      "review_date": "2026-10-19",
+      "role": "Browser-first workflow and feature ideas only",
+      "reuse": "No source reuse: license file absent in pinned tree and root package has no license field.",
+      "ideas": [
+        "Browser rather than desktop workflow",
+        "Typed Pine patch/backup actions",
+        "Chart verification",
+        "Explicit workflow status and abort concepts"
+      ],
+      "exclude": [
+        "All upstream source until license provenance resolved",
+        "Supabase telemetry and operational sync",
+        "OpenAI/Anthropic calls",
+        "Hosted SaaS, licensing and Redis layer",
+        "Extension bridge and local dashboard",
+        "External news",
+        "Fixture paper simulator represented as TradingView backtesting",
+        "Unverified DOM clone success"
+      ],
+      "license": "Unconfirmed: README claims MIT; no license or notice file in reviewed tree",
+      "evidence": [
+        "README.md",
+        "package.json",
+        "src/sync/sync-manager.ts",
+        "src/llm/client.ts",
+        "src/dashboard/server.ts",
+        "src/browser/extension-driver.ts",
+        "src/tools/registry.ts"
+      ],
+      "license_files": [],
+      "package": {
+        "name": "tradingview-chrome-mcp",
+        "version": "0.8.0",
+        "engines": {
+          "node": ">=22.5.0"
+        },
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.0.4",
+          "@supabase/supabase-js": "^2.110.7",
+          "@upstash/redis": "^1.38.0",
+          "chrome-remote-interface": "^0.33.2",
+          "express": "^4.19.2",
+          "pino": "^9.4.0",
+          "pino-pretty": "^11.2.2",
+          "playwright": "^1.48.0",
+          "zod": "^3.23.8"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 329,
+        "root_lock_install_script_flags": [
+          "node_modules/esbuild",
+          "node_modules/fsevents",
+          "node_modules/tsx/node_modules/fsevents"
+        ]
+      },
+      "static_tool_literal_count": 65,
+      "source_evidence": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/README.md",
+          "fetched": true
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/package.json",
+          "fetched": true
+        },
+        {
+          "path": "src/sync/sync-manager.ts",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/src/sync/sync-manager.ts",
+          "fetched": true
+        },
+        {
+          "path": "src/llm/client.ts",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/src/llm/client.ts",
+          "fetched": true
+        },
+        {
+          "path": "src/dashboard/server.ts",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/src/dashboard/server.ts",
+          "fetched": true
+        },
+        {
+          "path": "src/browser/extension-driver.ts",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/src/browser/extension-driver.ts",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/registry.ts",
+          "url": "https://github.com/firyomaefx/tradingview-chrome-mcp/blob/d20f0acf7a2d888ef7fe9304178fae35c233c42c/src/tools/registry.ts",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": ".env.example",
+          "blob_sha": "db6c22b817676af8d289c0166bd55ba41dd45a24"
+        },
+        {
+          "path": "PRIVACY.md",
+          "blob_sha": "e03868b032e25faac0ac4f71a89d66bf0c33ead8"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "092a8391a2bd7635b0e11b105563af0539486baa"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "aabaceabb03af5654b9016eb964da4658f9630cc"
+        },
+        {
+          "path": "TELEMETRY.md",
+          "blob_sha": "0ca2be06041ecfaf6a8d70db39a9af4eb4e04cc5"
+        },
+        {
+          "path": "extension/background.js",
+          "blob_sha": "8a4a8d00c8d821f10f6d9d1e43a5f6951dfba565"
+        },
+        {
+          "path": "extension/content.js",
+          "blob_sha": "1700acc1651470d720c1c9ba843526d8d06f787e"
+        },
+        {
+          "path": "extension/error_observer.js",
+          "blob_sha": "71cffd18889173479f0b31b4a41131893097c916"
+        },
+        {
+          "path": "extension/injected/commands.js",
+          "blob_sha": "cec1d8afd8e60a2aed64565237e042b9c187e556"
+        },
+        {
+          "path": "extension/injected/pine-injector.js",
+          "blob_sha": "8b11516417f41fe03a77f6dcf9cab9cda3f3110d"
+        },
+        {
+          "path": "extension/manifest.json",
+          "blob_sha": "1ce1e7d0f3ecc679e36dfab9a23ad9bb081ea8fb"
+        },
+        {
+          "path": "extension/popup.js",
+          "blob_sha": "96b6299fbb47becdde20727be71a00525889e463"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "4916477356b1c2cace6165bbd6c7e2d0d11f7aef"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "acffddbd99f290240d76d5ec0adaccd43260407d"
+        },
+        {
+          "path": "scripts/Launch-TV-MCP.ps1",
+          "blob_sha": "e73243b271e388e92f3f0874832abd45cb0a742d"
+        },
+        {
+          "path": "scripts/build-exe.mjs",
+          "blob_sha": "759db78667a37629218715a7b95e27c745408304"
+        },
+        {
+          "path": "scripts/check-extension-connection.mjs",
+          "blob_sha": "ab68bb6f2010497c269f3351763c2de3e84b000f"
+        },
+        {
+          "path": "scripts/install-cli.ps1",
+          "blob_sha": "d8746caff10ed2a604545301f0edb155caf2e566"
+        },
+        {
+          "path": "scripts/install.ps1",
+          "blob_sha": "a9b75c8ce165045fd32faccaa328a0522e786416"
+        },
+        {
+          "path": "scripts/installer.iss",
+          "blob_sha": "f2fd06fe2a84803d2014d090e9354c544481343e"
+        },
+        {
+          "path": "scripts/live-destructive.mjs",
+          "blob_sha": "fa617aae0481eb981b116c7ca7f075b1222d9023"
+        },
+        {
+          "path": "scripts/package-zip.ps1",
+          "blob_sha": "cc1495b5ac8597f538f39e6740f03d27420b4457"
+        },
+        {
+          "path": "scripts/register-codex.ps1",
+          "blob_sha": "64aab62f2e1ed0e0da012048a120151b2a11b578"
+        },
+        {
+          "path": "scripts/run.ps1",
+          "blob_sha": "77225414bf399e5f6c0cd4acc8940cb6d9be8e79"
+        },
+        {
+          "path": "scripts/start-chrome.ps1",
+          "blob_sha": "d8f9f1445925ad1d32b48d59fa0df67f8c801d09"
+        },
+        {
+          "path": "scripts/uninstall.ps1",
+          "blob_sha": "9c585a693d9e44ce90aa37fd519c20cc902482b8"
+        },
+        {
+          "path": "src/adapters/base64.ts",
+          "blob_sha": "924c29321d94d9d3b0e208bbf1610ca3c33306ff"
+        },
+        {
+          "path": "src/adapters/marketdata/cache.ts",
+          "blob_sha": "5e6b5dae71b0767bc8cc3dfb62ff61b7bb274627"
+        },
+        {
+          "path": "src/adapters/marketdata/fixtures.ts",
+          "blob_sha": "402b88c7188331be04ec886b71c67e6c58d569e0"
+        },
+        {
+          "path": "src/adapters/marketdata/screener.ts",
+          "blob_sha": "242683464a354b32f6615f92b5769ed5c7c40aa6"
+        },
+        {
+          "path": "src/adapters/marketdata/ta.ts",
+          "blob_sha": "a9e30940611bb1013453e0e9ca9cf38bddb8b04f"
+        },
+        {
+          "path": "src/adapters/marketdata/types.ts",
+          "blob_sha": "bc2fb57a854f09b61115a120bdc7bbba9a2a2e33"
+        },
+        {
+          "path": "src/adapters/news/index.ts",
+          "blob_sha": "4ba5ac08113daa2683788f688f12d8909f218a10"
+        },
+        {
+          "path": "src/adapters/news/rss.ts",
+          "blob_sha": "4fa89d01d6b7acad1e10440d7fed1094723b7f90"
+        },
+        {
+          "path": "src/adapters/news/sentiment.ts",
+          "blob_sha": "52c02874e576af5a1a6fc074ba79a481a55350cd"
+        },
+        {
+          "path": "src/adapters/news/types.ts",
+          "blob_sha": "6e71f419c1e2c082a125ffe952f5b966cf301813"
+        },
+        {
+          "path": "src/adapters/retry.ts",
+          "blob_sha": "ba26fba5c85b69430132932ce8c8d24270938a6f"
+        },
+        {
+          "path": "src/adapters/tradingview/adapter.ts",
+          "blob_sha": "58bb89f3228e059799f3fc529302435dbc9744e3"
+        },
+        {
+          "path": "src/audit/audit-chain.ts",
+          "blob_sha": "0c76943a0683a1895367ff317e7d7536c2471d79"
+        },
+        {
+          "path": "src/auth/api-keys.ts",
+          "blob_sha": "3d25d5c7c9c13c7e454976a88857f9aeb38be0a1"
+        },
+        {
+          "path": "src/backtest/paper/fixtures.ts",
+          "blob_sha": "8819c2e9aef5a240a088ca9d7431024970f3c737"
+        },
+        {
+          "path": "src/backtest/paper/index.ts",
+          "blob_sha": "fc122fea8753e804c808e7846f596b7117ffc038"
+        },
+        {
+          "path": "src/backtest/paper/simulator.ts",
+          "blob_sha": "7a6159b4bee59b3cd6caa87ea4e7fa18449d0128"
+        },
+        {
+          "path": "src/backtest/paper/types.ts",
+          "blob_sha": "1c33b9ed1fb44b92fffdf4f8cc3f3fd5959a5ea3"
+        },
+        {
+          "path": "src/browser/controller.ts",
+          "blob_sha": "8cbce54872f5444e9694b8774a79bf8942d280b8"
+        },
+        {
+          "path": "src/browser/driver-types.ts",
+          "blob_sha": "731da5aed5cf4ed02a0b4b41b0ca801bb79f3a21"
+        },
+        {
+          "path": "src/browser/extension-driver.ts",
+          "blob_sha": "6407da41b71be868192ea6ade1eab57b235a4c79"
+        },
+        {
+          "path": "src/browser/pool.ts",
+          "blob_sha": "23bd23953e7adc3f5a9cac00b77b099057fb3d85"
+        },
+        {
+          "path": "src/cli/index.ts",
+          "blob_sha": "4de61f3f9e5cff4ae275a5e19e184c6299eaeb77"
+        },
+        {
+          "path": "src/config.ts",
+          "blob_sha": "9bb5d8b093eeed5b6a229f82ccd4a9bf8bc2b5d2"
+        },
+        {
+          "path": "src/dashboard/server.ts",
+          "blob_sha": "44b0490cebb51d36ef0f688bee2231699ce7f05f"
+        },
+        {
+          "path": "src/db/checksum.ts",
+          "blob_sha": "72a4d5d425ba1da7714c7ff302b1c03e7452b9eb"
+        },
+        {
+          "path": "src/db/database.ts",
+          "blob_sha": "05250272895f178a9648b271c66a850922f617ab"
+        },
+        {
+          "path": "src/db/init.ts",
+          "blob_sha": "9c78ee392b7dcfa907d076dca18f9af980e35ff3"
+        },
+        {
+          "path": "src/db/migrations.ts",
+          "blob_sha": "7ebd4e21be28d2a39ea6935b2df9b6a45e325a2b"
+        },
+        {
+          "path": "src/db/migrations/001-initial.ts",
+          "blob_sha": "871f336aadcc4f384e9137cc0596b26d1dcbd10a"
+        },
+        {
+          "path": "src/db/repositories.ts",
+          "blob_sha": "935fd8cc50dfa4f84ef1a8e84294a9c2157d3634"
+        },
+        {
+          "path": "src/detect/client.ts",
+          "blob_sha": "29f75c94cdde55f2f67340294a388763a971f386"
+        },
+        {
+          "path": "src/features/flags.ts",
+          "blob_sha": "cef0a26fbcc233d97e99cfe8ab3044e43831ff9d"
+        },
+        {
+          "path": "src/licensing/edition.ts",
+          "blob_sha": "66374a9e596ec5c810a373c4bf61bb020e1be8b9"
+        },
+        {
+          "path": "src/licensing/licensing.ts",
+          "blob_sha": "00addc04939f377bea15809e6ce6682856192933"
+        },
+        {
+          "path": "src/llm/autofix.ts",
+          "blob_sha": "d0750bd6e5cbb1e97e21133c26c358c6df070973"
+        },
+        {
+          "path": "src/llm/client.ts",
+          "blob_sha": "dcd7bd1813e9dd99f4c9d48afd14c99e7843c867"
+        },
+        {
+          "path": "src/llm/static-fixes.ts",
+          "blob_sha": "c3fbd4887c0ae3d742e79b4b064a4b358ce3de36"
+        },
+        {
+          "path": "src/logging/logger.ts",
+          "blob_sha": "f35a78fabf8287c5dd8c45b7a3682b0ead95edec"
+        },
+        {
+          "path": "src/permissions/approvals.ts",
+          "blob_sha": "a5dad43bda774d8cdebf2c1a0a5d71c027747ada"
+        },
+        {
+          "path": "src/permissions/policy.ts",
+          "blob_sha": "1cf2002d186cbfd73cd764bd93b341b7abccf4e8"
+        },
+        {
+          "path": "src/server/caxa-entry.ts",
+          "blob_sha": "78dde76e6c948cbe85fac2cc7bfc976796219c0d"
+        },
+        {
+          "path": "src/server/http.ts",
+          "blob_sha": "6b9263b410a47086927ba59155f26df477dfdd84"
+        },
+        {
+          "path": "src/server/index.ts",
+          "blob_sha": "edb40996cc20a3e32897e6a149707c7f608ceaab"
+        },
+        {
+          "path": "src/server/mcp-server.ts",
+          "blob_sha": "42aaa9d8998b79d5865f6f6fe11940ee6c466148"
+        },
+        {
+          "path": "src/server/precheck.ts",
+          "blob_sha": "17e5380eff302a5b1826c95c604b226c56f041d1"
+        },
+        {
+          "path": "src/sessions/store.ts",
+          "blob_sha": "7c8dcc8fd3e98898734b2bdfcd49937257dd52d8"
+        },
+        {
+          "path": "src/sync/sync-manager.ts",
+          "blob_sha": "198f23e3e6b2b32487cf4a106e9972efbaa2e787"
+        },
+        {
+          "path": "src/telemetry/supabase.ts",
+          "blob_sha": "625e166d04f181202d8c881497a253e53312a720"
+        },
+        {
+          "path": "src/telemetry/telemetry.ts",
+          "blob_sha": "cc6d6b7548d2a2c43c03edd5eab300ee5bc56196"
+        },
+        {
+          "path": "src/tools/registry.ts",
+          "blob_sha": "6b292082e5f823a85d8f92f954de3dbcb05730a1"
+        },
+        {
+          "path": "src/validation/schemas.ts",
+          "blob_sha": "74969132cebbef5ec8c62c0cb604d2462cd8551f"
+        },
+        {
+          "path": "src/version.ts",
+          "blob_sha": "f14a63c938bb65edb5a83f6f479568b3b334c344"
+        },
+        {
+          "path": "vercel-hosted/app/api/messages/route.ts",
+          "blob_sha": "9478ac9afbd665f4a96a2c0964f639fa8633b56c"
+        },
+        {
+          "path": "vercel-hosted/app/api/sse/route.ts",
+          "blob_sha": "ff380bc31ec7666420a5562a41ff6a80bfa2f7c3"
+        },
+        {
+          "path": "vercel-hosted/app/layout.tsx",
+          "blob_sha": "d5e46b805111682da5bc8bdcdb13a6fbe42666ff"
+        },
+        {
+          "path": "vercel-hosted/lib/auth/api-keys.ts",
+          "blob_sha": "e2dddf0176e6ed225b945346e3c60d6a12e264b9"
+        },
+        {
+          "path": "vercel-hosted/lib/config.ts",
+          "blob_sha": "b4633cfda29348bc77350c1f05a2db52ddf9ff69"
+        },
+        {
+          "path": "vercel-hosted/lib/detect/client.ts",
+          "blob_sha": "d53677b5c8f8d1be4049d22160ec9a38733b6ef9"
+        },
+        {
+          "path": "vercel-hosted/lib/features/flags.ts",
+          "blob_sha": "f4918b2812b3e83b5a1ef975f61096df5f779cd2"
+        },
+        {
+          "path": "vercel-hosted/lib/rate-limit/limiter.ts",
+          "blob_sha": "3068d9b2c4931d008eb04519fa5f647d325cbe9e"
+        },
+        {
+          "path": "vercel-hosted/lib/server/mcp-server.ts",
+          "blob_sha": "c905c758207a208ce3d8c596d23660ba1485d0b9"
+        },
+        {
+          "path": "vercel-hosted/lib/sessions/store.ts",
+          "blob_sha": "a9735fc22cb5db90ebaf8537286fb0809e9ff160"
+        },
+        {
+          "path": "vercel-hosted/lib/telemetry/supabase.ts",
+          "blob_sha": "9eacb32d30dfe1908495ab1bdd03444a88276a77"
+        },
+        {
+          "path": "vercel-hosted/lib/telemetry/telemetry.ts",
+          "blob_sha": "d0ee587ddcff5bf3325bd16d4ee5bb67466e5bd2"
+        },
+        {
+          "path": "vercel-hosted/lib/tools/registry.ts",
+          "blob_sha": "57319dbb97b2ceb1964a70d622c5c132beb1a76d"
+        },
+        {
+          "path": "vercel-hosted/lib/validation/schemas.ts",
+          "blob_sha": "1ad3b55f6bcb8955ead942c4b34edd095dcd56ff"
+        },
+        {
+          "path": "vercel-hosted/package-lock.json",
+          "blob_sha": "9a9a1cd27d0b2ace8180f31674c3b48ab303e7b3"
+        },
+        {
+          "path": "vercel-hosted/package.json",
+          "blob_sha": "8c0fbddce8ce4409f0c12bf018d99310548d2abc"
+        }
+      ]
+    },
+    {
+      "repository": "tradesdontlie/tradingview-mcp",
+      "url": "https://github.com/tradesdontlie/tradingview-mcp",
+      "commit": "c05b8f5755ed8e64ea242de88ddbf46aa24d56a4",
+      "commit_url": "https://github.com/tradesdontlie/tradingview-mcp/commit/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4",
+      "tree_url": "https://github.com/tradesdontlie/tradingview-mcp/tree/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4",
+      "review_date": "2026-10-19",
+      "role": "Original shared chart/CDP/Pine API reference",
+      "reuse": "Original upstream attribution retained for shared API patterns inherited through forks.",
+      "ideas": [
+        "Chart widget API discovery",
+        "Pine editor integration",
+        "Study and drawing access",
+        "Tab/pane/replay workflows"
+      ],
+      "exclude": [
+        "Ungated ui_evaluate",
+        "Desktop launcher",
+        "Automatic update check and runtime self-update",
+        "Recent orders labeled as complete trade history"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/connection.js",
+        "src/core/data.js",
+        "src/core/pine.js",
+        "src/core/health.js",
+        "src/core/update.js",
+        "src/tools/ui.js"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/LICENSE",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        }
+      ],
+      "package": {
+        "name": "tradingview-mcp",
+        "version": "1.0.0",
+        "engines": {},
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.12.1",
+          "chrome-remote-interface": "^0.33.2"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 173,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 84,
+      "source_evidence": [
+        {
+          "path": "src/connection.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/connection.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/data.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/core/data.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/pine.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/core/pine.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/health.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/core/health.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/update.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/core/update.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/ui.js",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp/blob/c05b8f5755ed8e64ea242de88ddbf46aa24d56a4/src/tools/ui.js",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "7d5840b931a2056f2d0e05da8a1e4fc6a8ee2f34"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "c2228263c696083c3ef1e89e40ffb02a2519a521"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "cd5d98bc6e160807a9ec832bc432a260f0a217c1"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "ea4459eb8e7ca3dccabdd9a163290aa50a253713"
+        },
+        {
+          "path": "scripts/launch_tv_debug.bat",
+          "blob_sha": "1a8d8ed88a407be0200657835dc4fd24b65f66e5"
+        },
+        {
+          "path": "scripts/launch_tv_debug.vbs",
+          "blob_sha": "195261ababe6007dafade7fd498485337febb4d0"
+        },
+        {
+          "path": "scripts/launch_tv_debug_linux.sh",
+          "blob_sha": "619879e6b6c0c54d9ec541690a6a207cb9127850"
+        },
+        {
+          "path": "scripts/launch_tv_debug_mac.sh",
+          "blob_sha": "5295d54f4dd0ae62ab7384be0ecae5bba9787866"
+        },
+        {
+          "path": "scripts/pine_pull.js",
+          "blob_sha": "280603e48987f471fb3f3d94cff0c158b6524f34"
+        },
+        {
+          "path": "scripts/pine_push.js",
+          "blob_sha": "b32ac08811bcfea934287977c6e323dc314a6601"
+        },
+        {
+          "path": "src/cli/commands/alerts.js",
+          "blob_sha": "b2b30be7693f71b6f0573132c14f90ee9794fea8"
+        },
+        {
+          "path": "src/cli/commands/capture.js",
+          "blob_sha": "9dfe89a0c399bbf46c35bcdab37f7e17c240857e"
+        },
+        {
+          "path": "src/cli/commands/chart.js",
+          "blob_sha": "d866df64a5148ccf2d72f6f9e51b784e1859a880"
+        },
+        {
+          "path": "src/cli/commands/data.js",
+          "blob_sha": "97da53c2d200770e9557e26be33b196fd11a65db"
+        },
+        {
+          "path": "src/cli/commands/drawing.js",
+          "blob_sha": "b1097f8a9339899ab0b8a0e8cba19673a8d7381f"
+        },
+        {
+          "path": "src/cli/commands/health.js",
+          "blob_sha": "870cb247be20e00d772cf091465b92aa2a84bb17"
+        },
+        {
+          "path": "src/cli/commands/indicator.js",
+          "blob_sha": "0c64c61df39761b7473c0f961c05b20241ebf8b9"
+        },
+        {
+          "path": "src/cli/commands/layout.js",
+          "blob_sha": "8322defdb3667e01b39eaa5fac9a00015d00d182"
+        },
+        {
+          "path": "src/cli/commands/pane.js",
+          "blob_sha": "5d83b2878c9672e763a0444e64c58324c5c595ad"
+        },
+        {
+          "path": "src/cli/commands/pine.js",
+          "blob_sha": "db2d5c78b741eb9ab9ee0d493a7708a37ca17837"
+        },
+        {
+          "path": "src/cli/commands/replay.js",
+          "blob_sha": "c3a6bda1e44a27c86c4b83ac20c755024e4b07a5"
+        },
+        {
+          "path": "src/cli/commands/stream.js",
+          "blob_sha": "1a7ddcfc4b876b8882fa50b5b5da1c19afd33804"
+        },
+        {
+          "path": "src/cli/commands/tab.js",
+          "blob_sha": "be86f898174b0fe4f1696f7ea918f203b017f267"
+        },
+        {
+          "path": "src/cli/commands/ui.js",
+          "blob_sha": "8c47f79e50459ec253d500cd9f96512e79168507"
+        },
+        {
+          "path": "src/cli/commands/watchlist.js",
+          "blob_sha": "0d5748f4d56fed5a5b042be137171dcb54366b7a"
+        },
+        {
+          "path": "src/cli/index.js",
+          "blob_sha": "1e1cee7edc9254ce0737d1b0a5390463d7a08582"
+        },
+        {
+          "path": "src/cli/router.js",
+          "blob_sha": "983efd3ab7de5c50203215ff4570c3dd9b50cbff"
+        },
+        {
+          "path": "src/connection.js",
+          "blob_sha": "1891b8ce94e2d04ca3883ba831cd99653cc697ba"
+        },
+        {
+          "path": "src/core/alerts.js",
+          "blob_sha": "644fe062ca2bebf9e8f1d33da46aa484c0e7f9ef"
+        },
+        {
+          "path": "src/core/batch.js",
+          "blob_sha": "11246978cc622b70b33834f76f28da507d27c61a"
+        },
+        {
+          "path": "src/core/capture.js",
+          "blob_sha": "8b339e0cad59a76c681788a9149b0f160978f783"
+        },
+        {
+          "path": "src/core/chart.js",
+          "blob_sha": "f8c1b1c88ffc500a8a368b15cc6f17c19b87385f"
+        },
+        {
+          "path": "src/core/data.js",
+          "blob_sha": "cff8c679c89a1b319ce27d4c8a1af817d900c90d"
+        },
+        {
+          "path": "src/core/drawing.js",
+          "blob_sha": "ac3db3c2e9aa1eeb66c2b6450c561a31c7d08d4b"
+        },
+        {
+          "path": "src/core/health.js",
+          "blob_sha": "d53499893536663f8c8ff756744e59ff16f5fd76"
+        },
+        {
+          "path": "src/core/index.js",
+          "blob_sha": "cb144231864cba1a541152162243ac417b2ceb9f"
+        },
+        {
+          "path": "src/core/indicators.js",
+          "blob_sha": "e581fe5146e6f48939c989d100dac0fda07f3b62"
+        },
+        {
+          "path": "src/core/pane.js",
+          "blob_sha": "5b22a4e7ee4716cb9d60993645a33dadfd10a4bb"
+        },
+        {
+          "path": "src/core/pine.js",
+          "blob_sha": "056ab07dce52f7da9869b7f8c3284369a3ea2e6f"
+        },
+        {
+          "path": "src/core/replay.js",
+          "blob_sha": "587486f40b1a96a5325b557643163b5d55ce1261"
+        },
+        {
+          "path": "src/core/stream.js",
+          "blob_sha": "e0ca70998368534fa5d6f28cd7095424b5bbfcc7"
+        },
+        {
+          "path": "src/core/tab.js",
+          "blob_sha": "d4df3ccf12a260f35837cbcb8bae5db988190145"
+        },
+        {
+          "path": "src/core/ui.js",
+          "blob_sha": "274b22669413640f84a92ce3680b304ca659307c"
+        },
+        {
+          "path": "src/core/update.js",
+          "blob_sha": "07fde337703c42f053d8f31b4ae15d47e9d153f3"
+        },
+        {
+          "path": "src/core/watchlist.js",
+          "blob_sha": "32bf432e131fba2966cb6a2575a55fa94cc7cbb6"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "be48210ab59799757b6b695c06f113c61be5bf1f"
+        },
+        {
+          "path": "src/tools/_format.js",
+          "blob_sha": "5411edadcfe2fd2ba94630bf60e0a7ad9ae2209c"
+        },
+        {
+          "path": "src/tools/alerts.js",
+          "blob_sha": "5d8ded5fc89ff0827de3d580b2ec074943e6741c"
+        },
+        {
+          "path": "src/tools/batch.js",
+          "blob_sha": "3140b1a76a86ce4ed5043425baed734831db91f3"
+        },
+        {
+          "path": "src/tools/capture.js",
+          "blob_sha": "ade2d2bc1bf74dacc091829d7c3f5b2ee58f2b6b"
+        },
+        {
+          "path": "src/tools/chart.js",
+          "blob_sha": "0bc8c59f1ad41ba8d821845029e05076b18fae1d"
+        },
+        {
+          "path": "src/tools/data.js",
+          "blob_sha": "168385ef36a095edd29925aad7430799602c7424"
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "blob_sha": "08b990d76af52fdf286eeae942f8d5b2b8cfa6c6"
+        },
+        {
+          "path": "src/tools/health.js",
+          "blob_sha": "f0c19dbdc843d434c27661ab72bdcdbfb17f773a"
+        },
+        {
+          "path": "src/tools/indicators.js",
+          "blob_sha": "a6963e6e1992257bab63d81080bba08a2be78c8c"
+        },
+        {
+          "path": "src/tools/pane.js",
+          "blob_sha": "1826b9cf4c1e17da9754e07eaf96d8d3168dff3e"
+        },
+        {
+          "path": "src/tools/pine.js",
+          "blob_sha": "311c8b7c840d073975a7a68eb485ad558e07d4d8"
+        },
+        {
+          "path": "src/tools/replay.js",
+          "blob_sha": "3edfd1ce5cd9f544643e0528a575fe2030ef9295"
+        },
+        {
+          "path": "src/tools/tab.js",
+          "blob_sha": "9e65666d247d3ce9a8d66473caec67c3abf8a558"
+        },
+        {
+          "path": "src/tools/ui.js",
+          "blob_sha": "de3f807f1a282d9e6c69be923e25fdde92dd0dc7"
+        },
+        {
+          "path": "src/tools/watchlist.js",
+          "blob_sha": "41484d6c3f552822ea97ae776308e0451e85f72f"
+        },
+        {
+          "path": "src/wait.js",
+          "blob_sha": "4f8e6cb2f698fb79ebed6d595586be268d713c2b"
+        }
+      ]
+    },
+    {
+      "repository": "Chefy3x/tradingview-mcp-chefy",
+      "url": "https://github.com/Chefy3x/tradingview-mcp-chefy",
+      "commit": "abcad6c6a49a89a99f700abacffa2cdb61883fe7",
+      "commit_url": "https://github.com/Chefy3x/tradingview-mcp-chefy/commit/abcad6c6a49a89a99f700abacffa2cdb61883fe7",
+      "tree_url": "https://github.com/Chefy3x/tradingview-mcp-chefy/tree/abcad6c6a49a89a99f700abacffa2cdb61883fe7",
+      "review_date": "2026-10-19",
+      "role": "Aggregation and local research-session workflow ideas",
+      "reuse": "Feature ideas only in current design; preserve attribution if any source is later adapted.",
+      "ideas": [
+        "In-browser summary aggregation",
+        "Bounded equity output",
+        "Morning brief and local session concepts"
+      ],
+      "exclude": [
+        "Raw ui_evaluate",
+        "Desktop launcher",
+        "Recent-order data represented as all trades",
+        "Upstream filesystem policy"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/core/data.js",
+        "src/tools/morning.js",
+        "src/core/morning.js",
+        "src/tools/ui.js",
+        "NOTICE.md"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/LICENSE",
+          "blob_sha": "54adce3d32af8ed4344e9665ba30396bfd9af128"
+        },
+        {
+          "path": "NOTICE.md",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/NOTICE.md",
+          "blob_sha": "45de2a688cf0410640bf6fa0aee8e60023662b55"
+        }
+      ],
+      "package": {
+        "name": "tradingview-mcp-chefy",
+        "version": "0.1.0",
+        "engines": {},
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.12.1",
+          "chrome-remote-interface": "^0.33.2",
+          "dotenv": "^17.4.1"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 95,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 83,
+      "source_evidence": [
+        {
+          "path": "src/core/data.js",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/src/core/data.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/morning.js",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/src/tools/morning.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/morning.js",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/src/core/morning.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/ui.js",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/src/tools/ui.js",
+          "fetched": true
+        },
+        {
+          "path": "NOTICE.md",
+          "url": "https://github.com/Chefy3x/tradingview-mcp-chefy/blob/abcad6c6a49a89a99f700abacffa2cdb61883fe7/NOTICE.md",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "54adce3d32af8ed4344e9665ba30396bfd9af128"
+        },
+        {
+          "path": "NOTICE.md",
+          "blob_sha": "45de2a688cf0410640bf6fa0aee8e60023662b55"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "a0929a18edbd89701b984f9ad12eb3aa6c69084a"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "c2228263c696083c3ef1e89e40ffb02a2519a521"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "c732370043376488a9748827fc14819f2d8ef0a7"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "8bd74a227be4c59bc0b0cb529d8fa3fb1133addb"
+        },
+        {
+          "path": "scripts/launch_tv_debug.bat",
+          "blob_sha": "124cb7eca84e67ed1712165562acaefd1012d93c"
+        },
+        {
+          "path": "scripts/launch_tv_debug.vbs",
+          "blob_sha": "195261ababe6007dafade7fd498485337febb4d0"
+        },
+        {
+          "path": "scripts/launch_tv_debug_linux.sh",
+          "blob_sha": "619879e6b6c0c54d9ec541690a6a207cb9127850"
+        },
+        {
+          "path": "scripts/launch_tv_debug_mac.sh",
+          "blob_sha": "5295d54f4dd0ae62ab7384be0ecae5bba9787866"
+        },
+        {
+          "path": "scripts/pine_pull.js",
+          "blob_sha": "280603e48987f471fb3f3d94cff0c158b6524f34"
+        },
+        {
+          "path": "scripts/pine_push.js",
+          "blob_sha": "b32ac08811bcfea934287977c6e323dc314a6601"
+        },
+        {
+          "path": "src/cli/commands/alerts.js",
+          "blob_sha": "d53ec0e1aa18d3c6b9675243d1bd88d479bb9ae6"
+        },
+        {
+          "path": "src/cli/commands/capture.js",
+          "blob_sha": "9dfe89a0c399bbf46c35bcdab37f7e17c240857e"
+        },
+        {
+          "path": "src/cli/commands/chart.js",
+          "blob_sha": "d866df64a5148ccf2d72f6f9e51b784e1859a880"
+        },
+        {
+          "path": "src/cli/commands/data.js",
+          "blob_sha": "01ec5df4db5ba2c9726dd7ea6bf90e112f397520"
+        },
+        {
+          "path": "src/cli/commands/drawing.js",
+          "blob_sha": "b1097f8a9339899ab0b8a0e8cba19673a8d7381f"
+        },
+        {
+          "path": "src/cli/commands/health.js",
+          "blob_sha": "dd51ed69cbcb18d60a067be8769d06fa3ac809fc"
+        },
+        {
+          "path": "src/cli/commands/indicator.js",
+          "blob_sha": "0c64c61df39761b7473c0f961c05b20241ebf8b9"
+        },
+        {
+          "path": "src/cli/commands/layout.js",
+          "blob_sha": "8322defdb3667e01b39eaa5fac9a00015d00d182"
+        },
+        {
+          "path": "src/cli/commands/morning.js",
+          "blob_sha": "6dad58aa4a2f378311cb0692de79ce7b86b4b00a"
+        },
+        {
+          "path": "src/cli/commands/pane.js",
+          "blob_sha": "5d83b2878c9672e763a0444e64c58324c5c595ad"
+        },
+        {
+          "path": "src/cli/commands/pine.js",
+          "blob_sha": "093bc3df326a3f8481f9535abdfe7a9d7279e52e"
+        },
+        {
+          "path": "src/cli/commands/replay.js",
+          "blob_sha": "c3a6bda1e44a27c86c4b83ac20c755024e4b07a5"
+        },
+        {
+          "path": "src/cli/commands/stream.js",
+          "blob_sha": "1a7ddcfc4b876b8882fa50b5b5da1c19afd33804"
+        },
+        {
+          "path": "src/cli/commands/tab.js",
+          "blob_sha": "be86f898174b0fe4f1696f7ea918f203b017f267"
+        },
+        {
+          "path": "src/cli/commands/ui.js",
+          "blob_sha": "8c47f79e50459ec253d500cd9f96512e79168507"
+        },
+        {
+          "path": "src/cli/commands/watchlist.js",
+          "blob_sha": "637d3dc260768268dfab36bf1833517651a2e23f"
+        },
+        {
+          "path": "src/cli/index.js",
+          "blob_sha": "8e89f77c8d76fed45ce464e8d27086cde2a91212"
+        },
+        {
+          "path": "src/cli/router.js",
+          "blob_sha": "983efd3ab7de5c50203215ff4570c3dd9b50cbff"
+        },
+        {
+          "path": "src/connection.js",
+          "blob_sha": "282c89519b1bf724d231e7c3b2a32582df068cee"
+        },
+        {
+          "path": "src/core/alerts.js",
+          "blob_sha": "21eabdecc03b5548531b20a1e97b9d0c5aca762b"
+        },
+        {
+          "path": "src/core/batch.js",
+          "blob_sha": "80f6c46b88980fc1a5bb21d013493a4958475c7f"
+        },
+        {
+          "path": "src/core/capture.js",
+          "blob_sha": "7d846f71bd8fdf2695b02c88df77a7c7b76b3d7b"
+        },
+        {
+          "path": "src/core/chart.js",
+          "blob_sha": "e8785f0a507578fd016d01bce0f5e0a4979d9269"
+        },
+        {
+          "path": "src/core/data.js",
+          "blob_sha": "dbcb2c8f5163788e969f8b0315d41f140e5eaee0"
+        },
+        {
+          "path": "src/core/drawing.js",
+          "blob_sha": "c5192b0d071c4f854a812965ba0974a8edd4582a"
+        },
+        {
+          "path": "src/core/health.js",
+          "blob_sha": "aa8426b2a17bf3621657623b3cd92525a3a3c1ea"
+        },
+        {
+          "path": "src/core/index.js",
+          "blob_sha": "cb144231864cba1a541152162243ac417b2ceb9f"
+        },
+        {
+          "path": "src/core/indicators.js",
+          "blob_sha": "c56e75c2dda965829a340520ffff2a862719fc36"
+        },
+        {
+          "path": "src/core/morning.js",
+          "blob_sha": "bf02706ce0ca5141e9cb45698059dd1938b3c047"
+        },
+        {
+          "path": "src/core/pane.js",
+          "blob_sha": "18e5d0ccc5fcd526d062c9ed7cbdef4871236502"
+        },
+        {
+          "path": "src/core/pine.js",
+          "blob_sha": "459f9e7116ea0761078adbdd2cda451895d9e36d"
+        },
+        {
+          "path": "src/core/replay.js",
+          "blob_sha": "3034e8c765e599683ac8ef44d0c10852b0f78fe3"
+        },
+        {
+          "path": "src/core/stream.js",
+          "blob_sha": "e0ca70998368534fa5d6f28cd7095424b5bbfcc7"
+        },
+        {
+          "path": "src/core/tab.js",
+          "blob_sha": "90fcb95462194f018abab038c54fca6af11b5d05"
+        },
+        {
+          "path": "src/core/ui.js",
+          "blob_sha": "fc0a9dd91c2c65d27a4edfa8c4302cf88729fcee"
+        },
+        {
+          "path": "src/core/watchlist.js",
+          "blob_sha": "18619a0f9d79f1f34b15f43f5f1a2e5074c128f4"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "fc8c606ceae5991f9ff7556be0ed92acd3651e4e"
+        },
+        {
+          "path": "src/tools/_format.js",
+          "blob_sha": "5411edadcfe2fd2ba94630bf60e0a7ad9ae2209c"
+        },
+        {
+          "path": "src/tools/alerts.js",
+          "blob_sha": "ca3190d74a4dff095a54c336048eb14c688e29c1"
+        },
+        {
+          "path": "src/tools/batch.js",
+          "blob_sha": "3140b1a76a86ce4ed5043425baed734831db91f3"
+        },
+        {
+          "path": "src/tools/capture.js",
+          "blob_sha": "fd5eca6926d667cdf87a2101fa49e6edcd064e74"
+        },
+        {
+          "path": "src/tools/chart.js",
+          "blob_sha": "569423a383efa458869ed1c2944af45d6787f5fc"
+        },
+        {
+          "path": "src/tools/data.js",
+          "blob_sha": "695767fd0e327daeec4f860b85d5fed9cfdac1b4"
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "blob_sha": "08b990d76af52fdf286eeae942f8d5b2b8cfa6c6"
+        },
+        {
+          "path": "src/tools/health.js",
+          "blob_sha": "c741ac4299200b6438bb4570baeda4931e796f8e"
+        },
+        {
+          "path": "src/tools/indicators.js",
+          "blob_sha": "e1bcd2bfd3120a49b2177b38feb0575999e7ac9a"
+        },
+        {
+          "path": "src/tools/morning.js",
+          "blob_sha": "3ce81a66bcf68717b7119afa3ec3a539d7523239"
+        },
+        {
+          "path": "src/tools/pane.js",
+          "blob_sha": "1826b9cf4c1e17da9754e07eaf96d8d3168dff3e"
+        },
+        {
+          "path": "src/tools/pine.js",
+          "blob_sha": "645aa48e15ab2a927dcf560c5c07df5e31db71d4"
+        },
+        {
+          "path": "src/tools/replay.js",
+          "blob_sha": "03ba4203aff414fdace2cd8a2a842cc0fbb18c34"
+        },
+        {
+          "path": "src/tools/tab.js",
+          "blob_sha": "37702c998b46978acc6951c758e2823f1c6f594a"
+        },
+        {
+          "path": "src/tools/ui.js",
+          "blob_sha": "de3f807f1a282d9e6c69be923e25fdde92dd0dc7"
+        },
+        {
+          "path": "src/tools/watchlist.js",
+          "blob_sha": "4d0def580ce6d9b41907fde9eb485f8d65ae0fa2"
+        },
+        {
+          "path": "src/wait.js",
+          "blob_sha": "a55728f83c23b43aad36b2b4957032be747fdfec"
+        }
+      ]
+    },
+    {
+      "repository": "iliaal/tradingview-mcp",
+      "url": "https://github.com/iliaal/tradingview-mcp",
+      "commit": "233f29e180031291dacac4c4cc2736a8dde161be",
+      "commit_url": "https://github.com/iliaal/tradingview-mcp/commit/233f29e180031291dacac4c4cc2736a8dde161be",
+      "tree_url": "https://github.com/iliaal/tradingview-mcp/tree/233f29e180031291dacac4c4cc2736a8dde161be",
+      "review_date": "2026-10-19",
+      "role": "Pane batches, drawings, deep-backtest UI, public scanner and hotlist concepts",
+      "reuse": "Selected public scanner/hotlist API patterns independently reimplemented with fixed no-credential transport; cookie-bearing watchlist and outside RSS paths explicitly prohibited.",
+      "ideas": [
+        "Batch pane reads",
+        "Drawing mutation methods",
+        "Pine versions and deployment flow",
+        "Deep-backtest UI capability detection",
+        "Candlestick pattern and screener concepts"
+      ],
+      "exclude": [
+        "CDP Network.getCookies",
+        "Node raw Cookie-header authentication",
+        "Nasdaq/Yahoo news network",
+        "Desktop launcher and local REPL"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/core/watchlist.js",
+        "src/core/news.js",
+        "src/tools/strategy.js",
+        "src/tools/pane.js",
+        "src/tools/drawing.js"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/LICENSE",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        }
+      ],
+      "package": {
+        "name": "tradingview-mcp",
+        "version": "1.4.0",
+        "engines": {},
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.12.1",
+          "chrome-remote-interface": "^0.33.2"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 176,
+        "root_lock_install_script_flags": []
+      },
+      "static_tool_literal_count": 111,
+      "source_evidence": [
+        {
+          "path": "src/core/watchlist.js",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/src/core/watchlist.js",
+          "fetched": true
+        },
+        {
+          "path": "src/core/news.js",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/src/core/news.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/strategy.js",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/src/tools/strategy.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/pane.js",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/src/tools/pane.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "url": "https://github.com/iliaal/tradingview-mcp/blob/233f29e180031291dacac4c4cc2736a8dde161be/src/tools/drawing.js",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "b1c4d2824f8d5e45a8937e57755158f3534e21ea"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "e0ac2b8479e31d628186b03af642d26b05070e07"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "c2228263c696083c3ef1e89e40ffb02a2519a521"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "05291b841f61e7074d81c7ffd3cd0033bbd62190"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "464d5bf6609a9652be78c378c40cbea89687d040"
+        },
+        {
+          "path": "scripts/audit_forks.sh",
+          "blob_sha": "f7bc20102d6294929f42df8473c4c254a6e62c65"
+        },
+        {
+          "path": "scripts/launch_tv_debug.bat",
+          "blob_sha": "a681f68df681512f22468837feb90c9180d059c2"
+        },
+        {
+          "path": "scripts/launch_tv_debug.vbs",
+          "blob_sha": "195261ababe6007dafade7fd498485337febb4d0"
+        },
+        {
+          "path": "scripts/launch_tv_debug_linux.sh",
+          "blob_sha": "633f6db25b5fb4e4ef954e578fc33f852b744ae2"
+        },
+        {
+          "path": "scripts/launch_tv_debug_mac.sh",
+          "blob_sha": "f872347f2992e9a0eca7dc46febbb161739225a6"
+        },
+        {
+          "path": "scripts/pine_pull.js",
+          "blob_sha": "280603e48987f471fb3f3d94cff0c158b6524f34"
+        },
+        {
+          "path": "scripts/pine_push.js",
+          "blob_sha": "8fce3ce1a3ac870e35c8968c33e4c3f7ffe924ca"
+        },
+        {
+          "path": "src/cli/commands/alerts.js",
+          "blob_sha": "da68992c737415c5c011e4a505f3f39a75deead5"
+        },
+        {
+          "path": "src/cli/commands/capture.js",
+          "blob_sha": "2064024f948a7bfe0b4881c4064d21ee771b7ef0"
+        },
+        {
+          "path": "src/cli/commands/chart.js",
+          "blob_sha": "d866df64a5148ccf2d72f6f9e51b784e1859a880"
+        },
+        {
+          "path": "src/cli/commands/data.js",
+          "blob_sha": "49936ff82c4c3fea7d7bc584e376829497d4a87b"
+        },
+        {
+          "path": "src/cli/commands/drawing.js",
+          "blob_sha": "2dca7188409c398dc6e6cc114b9f32a0537a368b"
+        },
+        {
+          "path": "src/cli/commands/health.js",
+          "blob_sha": "dd51ed69cbcb18d60a067be8769d06fa3ac809fc"
+        },
+        {
+          "path": "src/cli/commands/hotlist.js",
+          "blob_sha": "f77a091bc22a0bd932083d6ee90ab967bdace27d"
+        },
+        {
+          "path": "src/cli/commands/indicator.js",
+          "blob_sha": "0c64c61df39761b7473c0f961c05b20241ebf8b9"
+        },
+        {
+          "path": "src/cli/commands/layout.js",
+          "blob_sha": "8322defdb3667e01b39eaa5fac9a00015d00d182"
+        },
+        {
+          "path": "src/cli/commands/news.js",
+          "blob_sha": "30c6f3c70c3d8ecb0942dac8c6d6bb62ba91588d"
+        },
+        {
+          "path": "src/cli/commands/pane.js",
+          "blob_sha": "5d83b2878c9672e763a0444e64c58324c5c595ad"
+        },
+        {
+          "path": "src/cli/commands/pine.js",
+          "blob_sha": "27f2fb79cf0ef9050bb13e8ab88c507aac49f8c0"
+        },
+        {
+          "path": "src/cli/commands/repl.js",
+          "blob_sha": "0889000a36641ea2e488662843fb294cf2f33ef0"
+        },
+        {
+          "path": "src/cli/commands/replay.js",
+          "blob_sha": "cd6211cdda9ecf534e388953781021f59cf15676"
+        },
+        {
+          "path": "src/cli/commands/screener.js",
+          "blob_sha": "514528a8bd9f61cc8dd03951adbb825bbf33e733"
+        },
+        {
+          "path": "src/cli/commands/strategy.js",
+          "blob_sha": "ec1c00bfc30a3ea16e33225985bf2934d4c8a63b"
+        },
+        {
+          "path": "src/cli/commands/stream.js",
+          "blob_sha": "1a7ddcfc4b876b8882fa50b5b5da1c19afd33804"
+        },
+        {
+          "path": "src/cli/commands/tab.js",
+          "blob_sha": "46f13159222ec98a91838bf4c79f43447ca666cc"
+        },
+        {
+          "path": "src/cli/commands/ui.js",
+          "blob_sha": "69f092ba780f5b4c9cda2e7d80cde65af0bde39b"
+        },
+        {
+          "path": "src/cli/commands/watchlist.js",
+          "blob_sha": "bd04441f72bce44e1715e8f99741498473bbb412"
+        },
+        {
+          "path": "src/cli/index.js",
+          "blob_sha": "d7b57c981a480a00afab8d562538a57e9e677d57"
+        },
+        {
+          "path": "src/cli/replay_parsers.js",
+          "blob_sha": "41fb738feb7ccd16f71245c85c770f54665ee9fd"
+        },
+        {
+          "path": "src/cli/router.js",
+          "blob_sha": "432a1e232d82543120a324260879389f0063a9ff"
+        },
+        {
+          "path": "src/connection.js",
+          "blob_sha": "735adb13d6fc86736486fd38f491edc40ba04fa3"
+        },
+        {
+          "path": "src/core/alerts.js",
+          "blob_sha": "e19d0c51edbc2f23b3ed078817b840d3feaa458a"
+        },
+        {
+          "path": "src/core/batch.js",
+          "blob_sha": "f61a33aa5cd29ec39a5b982e128c26daa471aed8"
+        },
+        {
+          "path": "src/core/capture.js",
+          "blob_sha": "4da5454bd68c6b6a3613767f30b2472559079780"
+        },
+        {
+          "path": "src/core/chart.js",
+          "blob_sha": "49228fdd1122b284f7999e43125aebc962e89200"
+        },
+        {
+          "path": "src/core/data.js",
+          "blob_sha": "74b1ee8d91243ac284480d9d3e0ac818c894c4ed"
+        },
+        {
+          "path": "src/core/dialog.js",
+          "blob_sha": "8b24ef92de6a08131c9957339c8da7956c4fca0c"
+        },
+        {
+          "path": "src/core/drawing.js",
+          "blob_sha": "55d2c20461309f09548300b75a2c95f129f66545"
+        },
+        {
+          "path": "src/core/health.js",
+          "blob_sha": "27e4351e0b4afb7fd787d05bcb562291b8d0ee2b"
+        },
+        {
+          "path": "src/core/hotlist.js",
+          "blob_sha": "51031f9f97a1cbac79f07ce0eef7985a35b5aba4"
+        },
+        {
+          "path": "src/core/index.js",
+          "blob_sha": "cb144231864cba1a541152162243ac417b2ceb9f"
+        },
+        {
+          "path": "src/core/indicators.js",
+          "blob_sha": "285ce98db4b195988c50f1f68acfb8758e695267"
+        },
+        {
+          "path": "src/core/news.js",
+          "blob_sha": "d41908062e4527dd84babbe2159e30df59b45f7f"
+        },
+        {
+          "path": "src/core/pane.js",
+          "blob_sha": "4ebbd1ed2aa5002e3109f63fc5649aaf64e38f18"
+        },
+        {
+          "path": "src/core/paths.js",
+          "blob_sha": "9993ded56c6aa23a649aea586cee0a85d3a34ef4"
+        },
+        {
+          "path": "src/core/patterns.js",
+          "blob_sha": "0212f20f98551f0af4ca8b8953d3cc969a51ad81"
+        },
+        {
+          "path": "src/core/pin_registry.js",
+          "blob_sha": "b23bd0324aa9a6ac6a70945cfb203d29c4bbeb7b"
+        },
+        {
+          "path": "src/core/pine-deploy.js",
+          "blob_sha": "9f9c86186b571a997e1696c2f4b14a87f15ecc81"
+        },
+        {
+          "path": "src/core/pine-publish.js",
+          "blob_sha": "ca3a47877bc129ac7f60527f86a818eaa7f3754e"
+        },
+        {
+          "path": "src/core/pine.js",
+          "blob_sha": "1a9a17eec77ec286d737fd8cf496ebed2559b98d"
+        },
+        {
+          "path": "src/core/replay.js",
+          "blob_sha": "015e55a2c3a40fd5b13f285762d6eb95561798a5"
+        },
+        {
+          "path": "src/core/scanner.js",
+          "blob_sha": "3e921b241bf46f6503dc72667176a8847d74fbed"
+        },
+        {
+          "path": "src/core/screener.js",
+          "blob_sha": "d644100af795937da64230f973d6595cc30cd6b6"
+        },
+        {
+          "path": "src/core/strategy.js",
+          "blob_sha": "c91b1b31ddc7ede7e54bd9460ca239e4b31cc7fc"
+        },
+        {
+          "path": "src/core/stream.js",
+          "blob_sha": "a012e8e8851adc9cb71d1af21b53135e6f9f14a0"
+        },
+        {
+          "path": "src/core/tab.js",
+          "blob_sha": "5be486879efd893d4c813c620b3bd5aa6c4db73f"
+        },
+        {
+          "path": "src/core/ui.js",
+          "blob_sha": "313daca69afa5aa1b9aabc2c632b04067e460510"
+        },
+        {
+          "path": "src/core/watchlist.js",
+          "blob_sha": "b7ff58f210d76f98584c1964831cf8c161f26de7"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "2f8bb392f4508a4b890dc8c9c69061b3634b0634"
+        },
+        {
+          "path": "src/tools/_format.js",
+          "blob_sha": "5411edadcfe2fd2ba94630bf60e0a7ad9ae2209c"
+        },
+        {
+          "path": "src/tools/_validation.js",
+          "blob_sha": "6fe3eb8f7a3b7cc6fb7fd7ec168717916b54f4af"
+        },
+        {
+          "path": "src/tools/alerts.js",
+          "blob_sha": "094e2862a2e443f3f61a237df13c47d5d0d77fb7"
+        },
+        {
+          "path": "src/tools/batch.js",
+          "blob_sha": "092c7c687ed96ff15c6b69007fff958110b1e324"
+        },
+        {
+          "path": "src/tools/capture.js",
+          "blob_sha": "87c4633f5e6ad3635a48989225a69d6fa0e74f5b"
+        },
+        {
+          "path": "src/tools/chart.js",
+          "blob_sha": "4da5142378e8af6e7946ae39b791b79ef256df5d"
+        },
+        {
+          "path": "src/tools/data.js",
+          "blob_sha": "d3efffc452a7be2cb95037f8130e8e2a405baac5"
+        },
+        {
+          "path": "src/tools/drawing.js",
+          "blob_sha": "091a1e32d0490c56ffada9f8655131e5dbdae81f"
+        },
+        {
+          "path": "src/tools/health.js",
+          "blob_sha": "62e5489e2f13789257124031d1cdcb9a2e69f667"
+        },
+        {
+          "path": "src/tools/hotlist.js",
+          "blob_sha": "16176fce4d46fa3b3b8c9a2467ab3a132593ede7"
+        },
+        {
+          "path": "src/tools/indicators.js",
+          "blob_sha": "4c2052596f3a3de5669c48c8c31ace9c3570b72e"
+        },
+        {
+          "path": "src/tools/news.js",
+          "blob_sha": "e8064dc669e7c625b4e96e02ffd200c7bff43b2f"
+        },
+        {
+          "path": "src/tools/pane.js",
+          "blob_sha": "340bb9dc64cdd82380461024947120e9235ac977"
+        },
+        {
+          "path": "src/tools/pine-deploy.js",
+          "blob_sha": "b762d7434b801143db0d952840236d8322a89db1"
+        },
+        {
+          "path": "src/tools/pine-publish.js",
+          "blob_sha": "7a6055b166e6bd8f5de2097b48a6315375780171"
+        },
+        {
+          "path": "src/tools/pine.js",
+          "blob_sha": "91ac6c2d4a8c5f64923bef3e7bfcc5f7def61d17"
+        },
+        {
+          "path": "src/tools/registry.js",
+          "blob_sha": "f045301e3bda0a92f3e046e3c3369391e0014560"
+        },
+        {
+          "path": "src/tools/replay.js",
+          "blob_sha": "a40e0d9f5dfca042d8e25023e65362b78ab16258"
+        },
+        {
+          "path": "src/tools/screener.js",
+          "blob_sha": "dfa0341522c5456390f4d362b71bdd9d77de3476"
+        },
+        {
+          "path": "src/tools/strategy.js",
+          "blob_sha": "8c881496380daa2f52f5d7e4e179084d1182fbd2"
+        },
+        {
+          "path": "src/tools/tab.js",
+          "blob_sha": "15c99b00f8362100eac5a0f9148942697934b046"
+        },
+        {
+          "path": "src/tools/ui.js",
+          "blob_sha": "27a417762c4174a79dc4d543ea4f45e4f1593072"
+        },
+        {
+          "path": "src/tools/watchlist.js",
+          "blob_sha": "697e5834d224768c716d186ce68eb1862a0bacd5"
+        },
+        {
+          "path": "src/wait.js",
+          "blob_sha": "49a1410b0826ae5480ae5efc854b5534eaad7033"
+        }
+      ]
+    },
+    {
+      "repository": "daviddme/tradingview-alerts-mcp-server",
+      "url": "https://github.com/daviddme/tradingview-alerts-mcp-server",
+      "commit": "5a61aa352c97403477052aead3a3dcab627c2dd0",
+      "commit_url": "https://github.com/daviddme/tradingview-alerts-mcp-server/commit/5a61aa352c97403477052aead3a3dcab627c2dd0",
+      "tree_url": "https://github.com/daviddme/tradingview-alerts-mcp-server/tree/5a61aa352c97403477052aead3a3dcab627c2dd0",
+      "review_date": "2026-10-19",
+      "role": "Native strategy-alert payload construction",
+      "reuse": "Data-only payload-construction ideas independently reimplemented; credential/config/HTTP layer excluded.",
+      "ideas": [
+        "Compiled Pine default positional inputs",
+        "Strategy condition and Pine version fields",
+        "Canonical symbol/currency token",
+        "Bulk alert selection and result envelopes"
+      ],
+      "exclude": [
+        "TV cookie environment variables",
+        "auth.json credential file",
+        "Node Cookie header",
+        "Active-by-default creation and ignore_warnings default",
+        "Raw webhook/message returns"
+      ],
+      "license": "MIT",
+      "evidence": [
+        "src/alerts.js",
+        "src/config.js",
+        "src/http.js",
+        "src/pine.js",
+        "src/format.js",
+        "src/tools.js"
+      ],
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/LICENSE",
+          "blob_sha": "2ceaf43b3e68991f64148119c839c2054dc0d963"
+        },
+        {
+          "path": "NOTICE.md",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/NOTICE.md",
+          "blob_sha": "5fa87b917143445c3b807b4874e71e794295ea20"
+        }
+      ],
+      "package": {
+        "name": "tradingview-alerts-mcp-server",
+        "version": "1.0.0",
+        "engines": {
+          "node": ">=20.0.0"
+        },
+        "runtime_dependencies": {
+          "@modelcontextprotocol/sdk": "^1.29.0",
+          "zod": "^4.4.3"
+        },
+        "lifecycle_scripts": {},
+        "lockfile_version": 3,
+        "root_lock_packages": 182,
+        "root_lock_install_script_flags": [
+          "node_modules/esbuild",
+          "node_modules/fsevents"
+        ]
+      },
+      "static_tool_literal_count": 9,
+      "source_evidence": [
+        {
+          "path": "src/alerts.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/alerts.js",
+          "fetched": true
+        },
+        {
+          "path": "src/config.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/config.js",
+          "fetched": true
+        },
+        {
+          "path": "src/http.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/http.js",
+          "fetched": true
+        },
+        {
+          "path": "src/pine.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/pine.js",
+          "fetched": true
+        },
+        {
+          "path": "src/format.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/format.js",
+          "fetched": true
+        },
+        {
+          "path": "src/tools.js",
+          "url": "https://github.com/daviddme/tradingview-alerts-mcp-server/blob/5a61aa352c97403477052aead3a3dcab627c2dd0/src/tools.js",
+          "fetched": true
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "LICENSE",
+          "blob_sha": "2ceaf43b3e68991f64148119c839c2054dc0d963"
+        },
+        {
+          "path": "NOTICE.md",
+          "blob_sha": "5fa87b917143445c3b807b4874e71e794295ea20"
+        },
+        {
+          "path": "README.md",
+          "blob_sha": "9ce49387884e46b730b374a049630aa2e5d805cd"
+        },
+        {
+          "path": "auth.example.json",
+          "blob_sha": "ab89189e22bf1f8c0ee40bd94e953915225e4372"
+        },
+        {
+          "path": "package-lock.json",
+          "blob_sha": "76ea2f7890c365ea457666789e7e1a2b16907574"
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "1f00fb75bf84385d6c2df2b760ec0ae766c475b9"
+        },
+        {
+          "path": "src/alerts.js",
+          "blob_sha": "e7b05f482ba60004b7d511a25b0c48c4c72af08a"
+        },
+        {
+          "path": "src/config.js",
+          "blob_sha": "a3d2ab93f2511570da5fb392179e69c9581f5de6"
+        },
+        {
+          "path": "src/format.js",
+          "blob_sha": "8f12ec818319d31656d237186be856df8f953717"
+        },
+        {
+          "path": "src/http.js",
+          "blob_sha": "00fa0235d04f0bb115d6bee3e3d063bd40a5f1cb"
+        },
+        {
+          "path": "src/pine.js",
+          "blob_sha": "774deef50c875293f589d611023b39841537ec16"
+        },
+        {
+          "path": "src/server.js",
+          "blob_sha": "5ccc4422d2da3f8d53e9ada6b79fa9791b59a3e2"
+        },
+        {
+          "path": "src/symbols.js",
+          "blob_sha": "9d14b69b1a26c293c2863e429699a175c01369da"
+        },
+        {
+          "path": "src/tools.js",
+          "blob_sha": "7afd03a859d18ba72bbf974dbedf3e786ca63d30"
+        }
+      ]
+    }
+  ]
+}
