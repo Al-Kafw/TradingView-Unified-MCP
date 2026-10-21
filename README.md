@@ -240,7 +240,7 @@ npm run manifest      # Regenerate release hashes after final validation
 
 Tests use synthetic fixtures and local temporary directories. The ordinary test suite does not contact TradingView or start Chrome. `test:live` deliberately contacts the configured browser and public TradingView scanner; it saves an anonymized summary, with no raw account response, to `docs/LIVE_VALIDATION.json`. If multiple chart tabs are open, run `node scripts/live-check.mjs TARGET_ID`.
 
-CI runs automated checks on Linux and macOS with Node 24. To contribute, add regression coverage for security-sensitive behavior, preserve exact-target and uncertainty guards, and update the generated catalog when changing tools. Do not commit browser profiles, cookies, session exports, credentials, runtime state, or account screenshots.
+The CI workflow is configured for Linux and macOS with Node 24. Hosted jobs did not start during this release review, so the published passing test evidence comes from the local run. To contribute, add regression coverage for security-sensitive behavior, preserve exact-target and uncertainty guards, and update the generated catalog when changing tools. Do not commit browser profiles, cookies, session exports, credentials, runtime state, or account screenshots.
 
 ## Documentation map
 

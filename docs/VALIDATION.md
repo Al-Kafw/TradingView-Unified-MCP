@@ -8,6 +8,7 @@
 - Runtime imports, unique tool names, registered schemas, and JavaScript syntax checks passed.
 - The narrow static source gate found no prohibited patterns or npm dependencies.
 - Real stdio-process and authenticated loopback HTTP tests passed, including readonly discovery, host/origin/auth checks, oversized request refusal, and clean shutdown.
+- Hosted CI jobs did not start during this review; no hosted test pass is claimed. Linux/macOS workflow configuration is supplied for subsequent runs.
 
 ## Live evidence
 

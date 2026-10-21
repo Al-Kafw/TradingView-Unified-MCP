@@ -34,8 +34,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 22807,
-      "sha256": "c97d4538196a274ad6e0c6ddb79ac1e4388cc01954b25a8b77fdf11da93e3be9"
+      "bytes": 22932,
+      "sha256": "03a4be6f5c4138b8de5925f6a45eb084c7789cf02cfd3969f77c66b4af738980"
     },
     {
       "path": "SECURITY.md",
@@ -124,8 +124,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 3647,
-      "sha256": "dc403e58ec66e41984624de5334119d1effa88804ca09aa64e78821de64328b7"
+      "bytes": 3798,
+      "sha256": "eba5e765474e9e71eb5a5edbf865e33bcea33fe26a33a2ba50685227754c38b9"
     },
     {
       "path": "docs/WATCHLISTS.md",
