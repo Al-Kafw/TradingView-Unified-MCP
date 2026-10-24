@@ -1,12 +1,13 @@
 import { randomUUID } from 'node:crypto';
 import { ToolContext } from './context.mjs';
 import { ToolError, checkAbort } from './errors.mjs';
+import { createMutationPolicy } from './mutation-policy.mjs';
 import { validate, validateSchemaDefinition } from './schema.mjs';
 import { redact } from './security.mjs';
 
 export class ToolRegistry {
-  constructor({browser,store,readonly=!(process.env.TV_READONLY==='0'&&process.env.TV_ENABLE_WRITES==='1')}={}){
-    this.browser=browser;this.store=store;this.readonly=readonly;this.tools=new Map();this.lock=Promise.resolve();this.emergencyStop=false;this.activeControllers=new Set();
+  constructor({browser,store,readonly=!(process.env.TV_READONLY==='0'&&process.env.TV_ENABLE_WRITES==='1'),mutationPolicy=null}={}){
+    this.browser=browser;this.store=store;this.readonly=readonly;this.mutationPolicy=mutationPolicy??createMutationPolicy();this.tools=new Map();this.lock=Promise.resolve();this.emergencyStop=false;this.activeControllers=new Set();
   }
   add(descriptor){
     const d={scope:'browser',mutates:false,requiresLayout:true,needsTarget:true,...descriptor};
@@ -28,6 +29,7 @@ export class ToolRegistry {
   get(name){const d=this.tools.get(name);if(!d||this.readonly&&d.mutates)throw new ToolError('UNKNOWN_TOOL',`Tool ${name} is not registered.`);return d;}
   async execute(name,args={}, {signal,runId=randomUUID()}={}){
     const d=this.get(name);validate(d.inputSchema,args);
+    if(d.scope==='browser'&&d.mutates)this.mutationPolicy.assert(d,args);
     const execute=async()=>{
       const operationController=new AbortController();
       const operationSignal=signal?AbortSignal.any([signal,operationController.signal]):operationController.signal;
@@ -61,6 +63,7 @@ export class ToolRegistry {
   }
   async executeNested(name,args,context){
     const d=this.get(name);validate(d.inputSchema,args);checkAbort(context.signal);
+    if(d.scope==='browser'&&d.mutates)this.mutationPolicy.assert(d,args);
     if(this.emergencyStop)throw new ToolError('EMERGENCY_STOP','Emergency stop is active.');
     let ctx=context;
     if(d.scope==='browser' && args.target_id && args.target_id!==ctx.targetId)ctx=await context.forTarget(args.target_id,args.expected_layout_id);

@@ -101,7 +101,7 @@ async function fixture(t, { barCount = 10003 } = {}) {
     }
   });
   const dir = await mkdtemp(join(tmpdir(), 'tv-research-integration-'));
-  const runtime = buildRuntime({ browser: h.browser, store: new LocalStore(dir), readonly: false });
+  const runtime = buildRuntime({ browser: h.browser, store: new LocalStore(dir), readonly: false, mutationPolicy: { assert() {} } });
   t.after(async () => { await h.close(); await rm(dir, { recursive: true, force: true }); });
   const ids = { target_id: 'chart-1', expected_layout_id: 'source01' };
   return { ...h, ...runtime, state, chart, main, dir, ids, execute: (name, args = {}) => runtime.registry.execute(name, { ...ids, ...args }) };

@@ -53,7 +53,7 @@ async function fixture(t) {
     webpackChunktradingview: { push: parts => parts[2]({ c: { pine: { exports: { pineFacadeFetch: nativeFetch } } } }) }
   } });
   const dir = await mkdtemp(join(tmpdir(), 'tv-pine-lifecycle-'));
-  const store = new LocalStore(dir), registry = new ToolRegistry({ readonly: false,  browser: h.browser, store });registry.addAll(tools);
+  const store = new LocalStore(dir), registry = new ToolRegistry({ readonly: false, mutationPolicy: { assert() {} },  browser: h.browser, store });registry.addAll(tools);
   t.after(async () => { await h.close();await rm(dir, { recursive: true, force: true }); });
   return { ...h, state, scripts, facade, pe, registry, execute: (name, args = {}) => registry.execute(name, { target_id: 'chart-1', expected_layout_id: 'source01', ...args }) };
 }
