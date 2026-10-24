@@ -105,13 +105,58 @@ export async function pinePage(a) {
     if(a.op==='check'){
       const body=new URLSearchParams({source:a.source});
       const response=await fetch('https://pine-facade.tradingview.com/pine-facade/translate_light?user_name=Guest&pine_id=00000000-0000-0000-0000-000000000000',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body,credentials:'omit',redirect:'error'});
-      if(!response.ok)return fail('TRADINGVIEW_HTTP_ERROR',`Pine compiler returned HTTP ${response.status}.`);
-      const data=await response.json();const result=data?.result;
-      const errors=Array.isArray(result?.errors2)?result.errors2:[];const warnings=Array.isArray(result?.warnings2)?result.warnings2:[];
-      if(typeof data?.error==='string')errors.push({message:data.error});
-      const compiled=Boolean(result&&typeof result.ilTemplate==='string'&&result.ilTemplate.length>0&&errors.length===0);
-      if(!compiled&&!errors.length)return fail('COMPILE_OUTCOME_UNVERIFIED','Compiler response contains neither recognised compiled output nor diagnostics. No success was inferred.',{response_keys:Object.keys(result??data??{})});
-      return {ok:true,compiled,errors:errors.map(e=>({message:e.message,line:e.start?.line,column:e.start?.column,end_line:e.end?.line,end_column:e.end?.column})),warnings:warnings.map(w=>({message:w.message,line:w.start?.line,column:w.start?.column})),compiler_mode:'guest',note:'Guest checks may not resolve private imports; the editor buffer is untouched.'};
+      if(!response.ok)return fail('TRADINGVIEW_HTTP_ERROR','Pine compiler returned HTTP '+response.status+'.');
+
+      const data=await response.json();
+      const result=data?.result;
+      const unverified=()=>fail('COMPILE_OUTCOME_UNVERIFIED','Unrecognised or contradictory light compiler response. No successful compilation was inferred.',{response_keys:Object.keys(result&&typeof result==='object'?result:data??{})});
+
+      if(typeof data?.success!=='boolean'||!result||typeof result!=='object'||Array.isArray(result))return unverified();
+
+      const allowedTop=new Set(['success','result']);
+      const allowedResult=new Set(['functions2','types','enums','errors2','warnings2']);
+
+      if(Object.keys(data).some(k=>!allowedTop.has(k)))return unverified();
+      if(Object.keys(result).some(k=>!allowedResult.has(k)))return unverified();
+
+      const own=k=>Object.prototype.hasOwnProperty.call(result,k);
+      const errors=own('errors2')?result.errors2:[];
+      const warnings=own('warnings2')?result.warnings2:[];
+
+      if(!Array.isArray(errors)||!Array.isArray(warnings))return unverified();
+
+      const validDiagnostic=d=>d&&typeof d==='object'&&!Array.isArray(d)&&typeof d.message==='string'&&d.message.trim().length>0;
+      if(!errors.every(validDiagnostic)||!warnings.every(validDiagnostic))return unverified();
+
+      const format=d=>({message:d.message,line:d.start?.line,column:d.start?.column,end_line:d.end?.line,end_column:d.end?.column});
+
+      if(data.success===false&&Object.keys(result).some(k=>!['errors2','warnings2'].includes(k)))return unverified();
+
+      if(data.success===false&&errors.length)return {
+        ok:true,
+        status:'diagnostics_failed',
+        compiled:false,
+        editor_compiled:false,
+        errors:errors.map(format),
+        warnings:warnings.map(format),
+        compiler_mode:'guest',
+        note:'TradingView light compiler diagnostics; editor buffer untouched.'
+      };
+
+      if(data.success!==true||errors.length)return unverified();
+
+      if(!['functions2','types','enums'].every(k=>Array.isArray(result[k])))return unverified();
+
+      return {
+        ok:true,
+        status:'light_check_accepted',
+        compiled:false,
+        editor_compiled:false,
+        errors:[],
+        warnings:warnings.map(format),
+        compiler_mode:'guest',
+        note:'Recognised TradingView light response only. Full Pine Editor compilation and chart execution remain unverified.'
+      };
     }
     let m=editor();
     if(a.op==='open'){

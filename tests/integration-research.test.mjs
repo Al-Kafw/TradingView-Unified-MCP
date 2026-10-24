@@ -96,7 +96,7 @@ async function fixture(t, { barCount = 10003 } = {}) {
       const u = new URL(url);
       if (u.pathname.endsWith('/list/')) return new Response(JSON.stringify([{ scriptIdPart: 'user-script-1', scriptName: 'Fixture', scriptTitle: 'Fixture', version: 7 }]));
       if (u.pathname.endsWith('/get/user-script-1/7')) return new Response(JSON.stringify({ source: state.source }));
-      if (u.pathname.endsWith('/translate_light')) return new Response(JSON.stringify({ result: { ilTemplate: 'fixture-compiled-output', errors2: [], warnings2: [] } }));
+      if (u.pathname.endsWith('/translate_light')) return new Response(JSON.stringify({ success: true, result: { functions2: [], types: [], enums: [] } }));
       throw new Error('Unexpected request from a domain tool: ' + u.pathname);
     }
   });
@@ -186,7 +186,10 @@ test('Pine source crosses actual CDP as inert JSON, checks omit credentials and 
   assert.equal(f.context.COMPROMISED, undefined);
   assert.equal(f.pageTraffic.length, 0);
   const checked = await f.execute('pine_check', { source: hostile });
-  assert.equal(checked.compiled, true);
+  assert.equal(checked.ok, true);
+  assert.equal(checked.status, 'light_check_accepted');
+  assert.equal(checked.compiled, false);
+  assert.equal(checked.editor_compiled, false);
   assert.equal(f.pageTraffic[0].credentials, 'omit');
   assert.equal(f.pageTraffic[0].body.get('source'), hostile);
   const saved = await f.execute('pine_get_saved_source', { script_id: 'user-script-1' });
