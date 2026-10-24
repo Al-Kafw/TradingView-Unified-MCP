@@ -51,10 +51,27 @@ export function createMutationPolicy(env = process.env) {
     assert(descriptor, args = {}) {
       if (!descriptor.mutates || descriptor.scope === 'local') return;
 
-      if (!APPROVED_TOOLS.has(descriptor.name)) {
+      const qaCopy =
+        descriptor.name === 'layout_copy' &&
+        env.TV_ALLOW_QA_LAYOUT_COPY === '1';
+
+      if (!APPROVED_TOOLS.has(descriptor.name) && !qaCopy) {
         throw new ToolError(
           'MUTATION_TOOL_NOT_APPROVED',
           'This TradingView mutation has not been approved for isolated QA.'
+        );
+      }
+
+      if (qaCopy && (
+        args.save_source !== false ||
+        typeof args.name !== 'string' ||
+        !/^MCP QA Recovery [A-Za-z0-9][A-Za-z0-9 _-]{0,50}$/.test(args.name) ||
+        typeof args.idempotency_key !== 'string' ||
+        args.idempotency_key.trim().length < 12
+      )) {
+        throw new ToolError(
+          'MUTATION_COPY_ARGS_INVALID',
+          'QA copying requires a recovery-only name, unique operation key and save_source=false.'
         );
       }
 
@@ -72,6 +89,14 @@ export function createMutationPolicy(env = process.env) {
       this.assert(descriptor, args);
 
       if (!descriptor.mutates || descriptor.scope === 'local') return;
+
+      if (descriptor.name === 'layout_copy' &&
+          actual.has_changes !== false) {
+        throw new ToolError(
+          'MUTATION_SOURCE_NOT_CLEAN',
+          'QA layout copying requires a clean saved source.'
+        );
+      }
 
       if (
         actual.layout_id !== args.expected_layout_id ||
