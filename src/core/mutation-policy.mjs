@@ -24,7 +24,28 @@ export function createMutationPolicy(env = process.env) {
     );
   }
 
+  const rawNames = env.TV_ALLOWED_LAYOUT_NAMES ?? '';
+  const names = rawNames === '' ? [] :
+    rawNames.split(',').map(name => name.trim());
+
+  const isQaName = name =>
+    name === 'MCP Test' ||
+    /^MCP QA(?:[ -][A-Za-z0-9][A-Za-z0-9 _.+-]{0,80})?$/.test(name);
+
+  if (
+    rawNames.length > 2048 ||
+    names.length !== ids.length ||
+    names.some(name => !isQaName(name)) ||
+    new Set(names).size !== names.length
+  ) {
+    throw new ToolError(
+      'MUTATION_POLICY_CONFIG_INVALID',
+      'Approved layouts require matching, unique QA layout names.'
+    );
+  }
+
   const layouts = new Set(ids);
+  const expectedNames = new Map(ids.map((id, i) => [id, names[i]]));
 
   return {
     assert(descriptor, args = {}) {
@@ -44,6 +65,21 @@ export function createMutationPolicy(env = process.env) {
         throw new ToolError(
           'MUTATION_LAYOUT_NOT_APPROVED',
           'The requested saved layout is not approved for writable QA.'
+        );
+      }
+    },
+    assertVerifiedLayout(descriptor, args = {}, actual = {}) {
+      this.assert(descriptor, args);
+
+      if (!descriptor.mutates || descriptor.scope === 'local') return;
+
+      if (
+        actual.layout_id !== args.expected_layout_id ||
+        actual.name !== expectedNames.get(args.expected_layout_id)
+      ) {
+        throw new ToolError(
+          'MUTATION_LAYOUT_NAME_MISMATCH',
+          'The native layout identity or name does not match the approved QA asset.'
         );
       }
     }

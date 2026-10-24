@@ -43,7 +43,10 @@ export class ToolRegistry {
       if(d.scope==='browser')this.activeControllers.add(operationController);
       const started=Date.now();
       try{
-        if(d.scope==='browser'&&d.mutates&&d.requiresLayout)await ctx.assertLayout();
+        if(d.scope==='browser'&&d.mutates&&d.requiresLayout){
+          const actual=await ctx.assertLayout();
+          this.mutationPolicy.assertVerifiedLayout(d,args,actual);
+        }
         checkAbort(operationSignal);
         if(d.scope==='browser'&&this.emergencyStop)throw new ToolError('EMERGENCY_STOP','Emergency stop became active before dispatch.');
         const data=await d.handler(args,ctx);
@@ -68,7 +71,10 @@ export class ToolRegistry {
     let ctx=context;
     if(d.scope==='browser' && args.target_id && args.target_id!==ctx.targetId)ctx=await context.forTarget(args.target_id,args.expected_layout_id);
     else if(args.expected_layout_id!==ctx.expectedLayoutId)ctx=new ToolContext({...ctx,expectedLayoutId:args.expected_layout_id});
-    if(d.scope==='browser'&&d.mutates&&d.requiresLayout)await ctx.assertLayout();
+    if(d.scope==='browser'&&d.mutates&&d.requiresLayout){
+          const actual=await ctx.assertLayout();
+          this.mutationPolicy.assertVerifiedLayout(d,args,actual);
+        }
     checkAbort(ctx.signal);
     if(this.emergencyStop)throw new ToolError('EMERGENCY_STOP','Emergency stop became active before nested dispatch.');
     const data=await d.handler(args,ctx);

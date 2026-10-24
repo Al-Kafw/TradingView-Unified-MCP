@@ -11,7 +11,8 @@ const descriptor = name => ({
 });
 
 const approved = () => createMutationPolicy({
-  TV_ALLOWED_LAYOUT_IDS: 'TestQa01'
+  TV_ALLOWED_LAYOUT_IDS: 'TestQa01',
+  TV_ALLOWED_LAYOUT_NAMES: 'MCP Test'
 });
 
 test('no configured layouts means no browser writes', () => {
@@ -179,5 +180,82 @@ test('writable registry always has a mutation policy', async () => {
     );
 
     assert.equal(touched, 0);
+  }
+});
+
+
+test('native protected-layout name is rejected before dispatch', async () => {
+  let writes = 0;
+
+  const registry = new ToolRegistry({
+    readonly: false,
+    mutationPolicy: approved(),
+    browser: {
+      resolveTarget: async id => ({ id }),
+      evaluate: async () => ({
+        layout_id: 'TestQa01',
+        name: 'Protected Production Layout'
+      })
+    },
+    store: { audit: async () => {} }
+  });
+
+  registry.add({
+    name: 'chart_set_symbol',
+    mutates: true,
+    handler: async () => ({ writes: ++writes })
+  });
+
+  await assert.rejects(
+    registry.execute('chart_set_symbol', {
+      target_id: 'dummy-tab',
+      expected_layout_id: 'TestQa01'
+    }),
+    e => e.code === 'MUTATION_LAYOUT_NAME_MISMATCH'
+  );
+
+  assert.equal(writes, 0);
+});
+
+test('matching native QA layout name passes both guards', async () => {
+  let writes = 0;
+
+  const registry = new ToolRegistry({
+    readonly: false,
+    mutationPolicy: approved(),
+    browser: {
+      resolveTarget: async id => ({ id }),
+      evaluate: async () => ({
+        layout_id: 'TestQa01',
+        name: 'MCP Test'
+      })
+    },
+    store: { audit: async () => {} }
+  });
+
+  registry.add({
+    name: 'chart_set_symbol',
+    mutates: true,
+    handler: async () => ({ writes: ++writes })
+  });
+
+  const result = await registry.execute('chart_set_symbol', {
+    target_id: 'dummy-tab',
+    expected_layout_id: 'TestQa01'
+  });
+
+  assert.equal(result.writes, 1);
+  assert.equal(writes, 1);
+});
+
+test('missing or non-QA name configuration fails closed', () => {
+  for (const name of ['', 'Protected Production Layout', 'MCP Test,Other']) {
+    assert.throws(
+      () => createMutationPolicy({
+        TV_ALLOWED_LAYOUT_IDS: 'TestQa01',
+        TV_ALLOWED_LAYOUT_NAMES: name
+      }),
+      e => e.code === 'MUTATION_POLICY_CONFIG_INVALID'
+    );
   }
 });

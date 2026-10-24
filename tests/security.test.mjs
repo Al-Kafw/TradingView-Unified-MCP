@@ -74,11 +74,11 @@ test('Mutation cannot use a URL layout ID when native widget identity is absent'
 });
 test('A changed native layout blocks the write and log contains no input body',async()=>{
  let wrote=false;const logs=[];const browser={resolveTarget:async()=>({id:'chart-1'}),evaluate:async()=>({layout_id:'unexpected'})};
- const registry=new ToolRegistry({ readonly: false, mutationPolicy: { assert() {} }, browser,store:{audit:async v=>logs.push(v)}});registry.add({name:'test_change',inputSchema:O({message:S()}),mutates:true,handler:async()=>{wrote=true;}});
+ const registry=new ToolRegistry({ readonly: false, mutationPolicy: { assert() {}, assertVerifiedLayout() {} }, browser,store:{audit:async v=>logs.push(v)}});registry.add({name:'test_change',inputSchema:O({message:S()}),mutates:true,handler:async()=>{wrote=true;}});
  await assert.rejects(registry.execute('test_change',{target_id:'chart-1',expected_layout_id:'wanted',message:'SECRET_JSON_CANARY'}),e=>e.code==='LAYOUT_MISMATCH');assert.equal(wrote,false);assert.equal(JSON.stringify(logs).includes('SECRET_JSON_CANARY'),false);
 });
 test('A logging failure preserves a completed action receipt instead of inviting duplicate retries',async()=>{
- let writes=0;const registry=new ToolRegistry({ readonly: false, mutationPolicy: { assert() {} }, browser:{resolveTarget:async()=>({id:'t'}),evaluate:async()=>({layout_id:'a'})},store:{audit:async()=>{throw new Error('disk full');}}});
+ let writes=0;const registry=new ToolRegistry({ readonly: false, mutationPolicy: { assert() {}, assertVerifiedLayout() {} }, browser:{resolveTarget:async()=>({id:'t'}),evaluate:async()=>({layout_id:'a'})},store:{audit:async()=>{throw new Error('disk full');}}});
  registry.add({name:'test_change',mutates:true,inputSchema:O(),handler:async()=>({created_id:'new-id',writes:++writes})});
  const r=await registry.execute('test_change',{target_id:'t',expected_layout_id:'a'});assert.equal(r.created_id,'new-id');assert.equal(writes,1);assert.match(r.audit_warning,/Do not retry/);
 });
