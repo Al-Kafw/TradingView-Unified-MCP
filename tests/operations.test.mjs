@@ -107,7 +107,7 @@ test('changed drawing inventory and stale fingerprints both fail before mutation
 test('emergency stop arriving during target resolution prevents dispatch after resolution completes', async () => {
   const started = deferred(), release = deferred(); let writes = 0;
   const browser = { async resolveTarget() { started.resolve(); await release.promise; return { id: 'tab-1' }; } };
-  const registry = new ToolRegistry({ browser, store: memoryStore() });
+  const registry = new ToolRegistry({ readonly: false,  browser, store: memoryStore() });
   registry.addAll(browserTools.filter(tool => tool.name.startsWith('emergency_')));
   registry.add({ name: 'fixture_write', mutates: true, requiresLayout: false, inputSchema: emptySchema, handler: async () => { writes++; return { written: true }; } });
   const pending = registry.execute('fixture_write', { target_id: 'tab-1' });
@@ -118,7 +118,7 @@ test('emergency stop arriving during target resolution prevents dispatch after r
 test('emergency stop during native-layout precondition reading prevents handler dispatch', async () => {
   const started = deferred(), release = deferred(); let writes = 0;
   const browser = { async resolveTarget() { return { id: 'tab-1' }; }, async evaluate() { started.resolve(); await release.promise; return { layout_id: 'Layout01' }; } };
-  const registry = new ToolRegistry({ browser, store: memoryStore() });
+  const registry = new ToolRegistry({ readonly: false,  browser, store: memoryStore() });
   registry.addAll(browserTools.filter(tool => tool.name.startsWith('emergency_')));
   registry.add({ name: 'fixture_write', mutates: true, inputSchema: emptySchema, handler: async () => { writes++; return { written: true }; } });
   const pending = registry.execute('fixture_write', { target_id: 'tab-1', expected_layout_id: 'Layout01' });
@@ -129,7 +129,7 @@ test('emergency stop during native-layout precondition reading prevents handler 
 test('emergency stop during a nested target change prevents dispatch of a target-only mutation', async () => {
   const started = deferred(), release = deferred(); let writes = 0;
   const browser = { async resolveTarget(id) { if (id === 'tab-2') { started.resolve(); await release.promise; } return { id }; } };
-  const registry = new ToolRegistry({ browser, store: memoryStore() });
+  const registry = new ToolRegistry({ readonly: false,  browser, store: memoryStore() });
   registry.addAll(browserTools.filter(tool => tool.name.startsWith('emergency_')));
   registry.add({ name: 'fixture_child', mutates: true, requiresLayout: false, inputSchema: emptySchema, handler: async () => { writes++; return { written: true }; } });
   registry.add({ name: 'fixture_parent', mutates: true, requiresLayout: false, inputSchema: emptySchema,
@@ -142,7 +142,7 @@ test('emergency stop during a nested target change prevents dispatch of a target
 function jobFixture() {
   const writes = [], waitStarted = deferred(); const store = memoryStore();
   const browser = { async resolveTarget(id) { return { id: id ?? 'tab-1' }; }, async evaluate() { return { layout_id: 'Layout01' }; } };
-  const registry = new ToolRegistry({ browser, store }); registry.addAll(jobTools);
+  const registry = new ToolRegistry({ readonly: false,  browser, store }); registry.addAll(jobTools);
   const inputSchema = { type: 'object', properties: { message: { type: 'string' } }, additionalProperties: false };
   registry.add({ name: 'fixture_success', inputSchema, mutates: true, handler: async () => { writes.push('success'); return { receipt_id: 'success-1' }; } });
   registry.add({ name: 'fixture_failure', inputSchema, mutates: true, handler: async () => { writes.push('failure'); throw new ToolError('FIXTURE_FAILURE', 'Submitted operation could not verify.', { alert_id: '9011', layout_id: 'Copied02' }); } });
@@ -250,7 +250,7 @@ test('paper fractional closure does not retain an uncloseable floating-point dus
 });
 
 async function paperFixture() {
-  const store = memoryStore(); const registry = new ToolRegistry({ store }); registry.addAll(paperTools);
+  const store = memoryStore(); const registry = new ToolRegistry({ readonly: false,  store }); registry.addAll(paperTools);
   const created = await registry.execute('paper_account_create', { name: 'Arithmetic fixture', currency: 'USD', initial_balance: 1000, idempotency_key: 'paper-account-test' });
   return { store, registry, id: created.account.id };
 }
@@ -279,7 +279,7 @@ test('paper marking with a missing later position does not persist an earlier pa
 test('paper account retry after losing an atomic-write acknowledgement cannot create a second account', async () => {
   const store = memoryStore(); const write = store.write.bind(store); let fail = true;
   store.write = async (area, key, value) => { const saved = await write(area, key, value); if (area === 'paper' && fail) { fail = false; throw new Error('Injected failure after account was durably stored'); } return saved; };
-  const registry = new ToolRegistry({ store }); registry.addAll(paperTools);
+  const registry = new ToolRegistry({ readonly: false,  store }); registry.addAll(paperTools);
   const args = { name: 'Crash recovery fixture', initial_balance: 1000, currency: 'USD', idempotency_key: 'paper-recovery-account' };
   await assert.rejects(registry.execute('paper_account_create', args));
   const firstIds = [...store.areas.get('paper').keys()]; assert.equal(firstIds.length, 1);

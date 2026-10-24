@@ -100,7 +100,7 @@ const workflowArgs = () => ({ target_id: 'source-tab', expected_layout_id: 'Sour
 test('actual registry + guarded CDP + two page adapters complete and reconcile the exact copy workflow', async () => {
   const temp = await mkdtemp(join(tmpdir(), 'tv-workflow-acceptance-'));
   const fixture = multiPageFixture(); const store = new LocalStore(temp);
-  const registry = new ToolRegistry({ browser: fixture.browser, store });
+  const registry = new ToolRegistry({ readonly: false,  browser: fixture.browser, store });
   registry.addAll([...layoutTools, ...alertTools, ...chartTools, ...workflowTools]);
   try {
     const args = workflowArgs(); const result = await registry.execute('workflow_copy_chart_create_alert', args);
@@ -129,7 +129,7 @@ test('actual registry + guarded CDP + two page adapters complete and reconcile t
 
 test('actual registry rejects a matching URL with mismatched native widget identity before the first write', async () => {
   const temp = await mkdtemp(join(tmpdir(), 'tv-workflow-precondition-'));
-  const fixture = multiPageFixture(); const registry = new ToolRegistry({ browser: fixture.browser, store: new LocalStore(temp) });
+  const fixture = multiPageFixture(); const registry = new ToolRegistry({ readonly: false,  browser: fixture.browser, store: new LocalStore(temp) });
   registry.addAll([...layoutTools, ...alertTools, ...chartTools, ...workflowTools]);
   fixture.pages.get('source-tab').state.layoutId = 'Other003';
   try {

@@ -29,7 +29,7 @@ test('Resource and prompt lookups reject inherited names and non-string identifi
  }
 });
 test('The complete delivered tool catalog is discoverable through MCP pagination without omissions',async()=>{
- const {buildRuntime}=await import('../src/runtime.mjs');const runtime=buildRuntime({genericUi:true});const p=runtime.protocol;await p.handle(initialize);const expected=runtime.registry.list().map(t=>t.name);const actual=[];let cursor,id=2;
+ const {buildRuntime}=await import('../src/runtime.mjs');const runtime=buildRuntime({genericUi:true,readonly:false});const p=runtime.protocol;await p.handle(initialize);const expected=runtime.registry.list().map(t=>t.name);const actual=[];let cursor,id=2;
  do{const page=await p.handle({jsonrpc:'2.0',id:id++,method:'tools/list',params:cursor===undefined?{}:{cursor}});assert.ok(page.result.tools.length<=100);actual.push(...page.result.tools.map(t=>t.name));cursor=page.result.nextCursor;}while(cursor!==undefined);
  assert.deepEqual(actual,expected);assert.equal(new Set(actual).size,expected.length);assert.ok(expected.length>100);assert.equal((await p.handle({jsonrpc:'2.0',id:99,method:'tools/list',params:{cursor:'not-a-cursor'}})).error.code,-32602);p.close();await runtime.browser.close();
 });

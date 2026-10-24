@@ -5,7 +5,7 @@ import { validate, validateSchemaDefinition } from './schema.mjs';
 import { redact } from './security.mjs';
 
 export class ToolRegistry {
-  constructor({browser,store,readonly=process.env.TV_READONLY==='1'}={}){
+  constructor({browser,store,readonly=!(process.env.TV_READONLY==='0'&&process.env.TV_ENABLE_WRITES==='1')}={}){
     this.browser=browser;this.store=store;this.readonly=readonly;this.tools=new Map();this.lock=Promise.resolve();this.emergencyStop=false;this.activeControllers=new Set();
   }
   add(descriptor){
