@@ -82,9 +82,28 @@ export async function layoutPage({ operation, data = {} }) {
           const entry = { name: study.name ?? study.title ?? null, inputs: null, properties: null };
           try {
             const handle = chart.getStudyById(study.id);
-            entry.inputs = plain(handle.getInputValues());
-            if (typeof handle.getProperties === 'function') entry.properties = plain(handle.getProperties());
-          } catch { result.unverified_fields.push(`panes.${index}.study.${entry.name}.inputs`); }
+            if (typeof handle?.getInputValues === 'function') entry.inputs = plain(handle.getInputValues());
+          } catch { /* Missing inputs are reported below. */ }
+          if (entry.inputs === null) result.unverified_fields.push(`panes.${index}.study.${entry.name}.inputs`);
+          try {
+            const handle = chart.getStudyById(study.id);
+            if (typeof handle?.getProperties === 'function') entry.properties = plain(handle.getProperties());
+          } catch { /* A matching model source may provide a fallback. */ }
+          if (entry.properties === null && study.id != null) {
+            try {
+              const sources = model?.model?.().dataSources?.();
+              if (Array.isArray(sources)) {
+                const matches = sources.filter(source => {
+                  try { return typeof source.id === 'function' && String(source.id()) === String(study.id); }
+                  catch { return false; }
+                });
+                if (matches.length === 1) {
+                  const state = matches[0].properties?.()?.state?.();
+                  if (state != null) entry.properties = plain(state);
+                }
+              }
+            } catch { /* Unreadable properties remain unverified. */ }
+          }
           if (entry.properties === null) result.unverified_fields.push(`panes.${index}.study.${entry.name}.properties`);
           pane.studies.push(entry);
         }
