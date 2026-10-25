@@ -75,8 +75,12 @@ export function createMutationPolicy(env = process.env) {
         descriptor.name === 'pine_compile_qa_draft' &&
         env.TV_ALLOW_QA_PINE_COMPILE === '1';
 
+      const qaRollback =
+        descriptor.name === 'pine_remove_qa_study' &&
+        env.TV_ALLOW_QA_PINE_ROLLBACK === '1';
+
       if (!APPROVED_TOOLS.has(descriptor.name) &&
-          !qaCopy && !qaDraft && !qaCompile) {
+          !qaCopy && !qaDraft && !qaCompile && !qaRollback) {
         throw new ToolError(
           'MUTATION_TOOL_NOT_APPROVED',
           'This TradingView mutation has not been approved for isolated QA.'
@@ -93,6 +97,28 @@ export function createMutationPolicy(env = process.env) {
         throw new ToolError(
           'MUTATION_COPY_ARGS_INVALID',
           'QA copying requires a recovery-only name, unique operation key and save_source=false.'
+        );
+      }
+
+      if (qaRollback && (
+        args.expected_layout_id !== env.TV_QA_PINE_ROLLBACK_LAYOUT_ID ||
+        !/^MCP QA Recovery RestoreLab [A-Za-z0-9]{8}$/.test(
+          expectedNames.get(args.expected_layout_id) ?? ''
+        ) ||
+        !/^[A-Za-z0-9_-]{1,128}$/.test(
+          env.TV_QA_PINE_ROLLBACK_STUDY_ID ?? ''
+        ) ||
+        !/^[A-Za-z0-9_-]{1,128}$/.test(
+          env.TV_QA_PINE_ROLLBACK_BASELINE_ID ?? ''
+        ) ||
+        args.entity_id !== env.TV_QA_PINE_ROLLBACK_STUDY_ID ||
+        args.baseline_entity_id !==
+          env.TV_QA_PINE_ROLLBACK_BASELINE_ID ||
+        args.entity_id === args.baseline_entity_id
+      )) {
+        throw new ToolError(
+          'MUTATION_PINE_ROLLBACK_ARGS_INVALID',
+          'Rollback requires exact approved study IDs and QA layout.'
         );
       }
 

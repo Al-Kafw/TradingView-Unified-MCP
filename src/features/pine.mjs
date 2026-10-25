@@ -159,6 +159,74 @@ export async function pinePage(a) {
       };
     }
 
+    if (a.op === 'qa_remove_study') {
+      const api = window.TradingViewApi;
+      const uid = api?._chartWidgetCollection?.metaInfo?.uid;
+      const nativeId = typeof uid?.value === 'function'
+        ? uid.value() : uid;
+
+      if (String(nativeId ?? '') !== a.expected_layout_id)
+        return fail('LAYOUT_MISMATCH', 'Native layout changed.');
+
+      const chart = api?._activeChartWidgetWV?.value?.();
+
+      if (
+        typeof chart?.getAllStudies !== 'function' ||
+        typeof chart?.removeEntity !== 'function'
+      ) return fail(
+        'CAPABILITY_UNAVAILABLE',
+        'Native study inspection/removal unavailable.'
+      );
+
+      const before = chart.getAllStudies();
+
+      if (
+        !Array.isArray(before) ||
+        before.length !== 2 ||
+        before.filter(s =>
+          s.id === a.baseline_entity_id &&
+          s.name === 'Volume'
+        ).length !== 1 ||
+        before.filter(s =>
+          s.id === a.entity_id &&
+          s.name === 'MCP QA Disposable Draft'
+        ).length !== 1
+      ) return fail(
+        'PRECONDITION_FAILED',
+        'Expected exactly the original Volume and approved QA indicator.'
+      );
+
+      await chart.removeEntity(a.entity_id);
+
+      const deadline = Date.now() +
+        Math.min(a.timeout_ms ?? 15000, 30000);
+
+      while (Date.now() < deadline) {
+        await new Promise(r => setTimeout(r, 200));
+
+        const after = chart.getAllStudies();
+
+        if (
+          Array.isArray(after) &&
+          after.length === 1 &&
+          after[0].id === a.baseline_entity_id &&
+          after[0].name === 'Volume'
+        ) return {
+          ok: true,
+          verified: true,
+          mutation_attempted: true,
+          removed_entity_id: a.entity_id,
+          live_study_baseline_restored: true,
+          persisted_layout_restoration_verified: false
+        };
+      }
+
+      return fail(
+        'ROLLBACK_UNVERIFIED',
+        'Removal submitted, but exact study restoration not verified.',
+        { mutation_attempted: true }
+      );
+    }
     if (a.op === 'qa_compile_draft') {
       const before = await nativeBinding();
       const fixedSource =
@@ -348,7 +416,7 @@ export async function pinePage(a) {
       return fail('VERIFICATION_FAILED',`${a.op} was submitted but no independent success indication was observed. Reconcile before retrying.`,{mutation_attempted:true,action});
     }
     return fail('INVALID_ARGUMENT','Unknown Pine operation.');
-  }catch(error){const message=String(error?.message??error).slice(0,600);return fail(/^([A-Z_]+):/.exec(message)?.[1]??'PINE_OPERATION_FAILED',message,{mutation_attempted:['set_source','save','compile','open','native_open_script','native_new_buffer','qa_compile_draft'].includes(a.op)});}
+  }catch(error){const message=String(error?.message??error).slice(0,600);return fail(/^([A-Z_]+):/.exec(message)?.[1]??'PINE_OPERATION_FAILED',message,{mutation_attempted:['set_source','save','compile','open','native_open_script','native_new_buffer','qa_compile_draft','qa_remove_study'].includes(a.op)});}
 }
 
 /** Loaded first-party Pine facade only. Operation names and endpoint paths are fixed. */
@@ -473,6 +541,28 @@ export default [
   }},
   {name:'pine_new_buffer',description:'Create a native unsaved Pine draft from a clean saved document, verify draft identity, and set exact supplied source. Does not create a cloud script.',inputSchema:schema({source:text,expected_binding_sha256:hash,...timeout},['source','expected_binding_sha256']),mutates:true,handler:async(args,ctx)=>{const before=await readBinding(args,ctx);const backup=await ctx.exportJson('pine-before-new-buffer',before);try{return {...await pineRead('native_new_buffer',{...args,...bindingArgs(before)},ctx),backup_file:backup};}catch(error){throw new ToolError(error.code??'BINDING_UNVERIFIED',error.message,{...(error.details??{}),backup_file:backup});}}},
 
+
+  {
+    name: 'pine_remove_qa_study',
+    description: 'Remove only the approved disposable QA Pine study while preserving the original Volume study.',
+    inputSchema: schema({
+      entity_id: {
+        type: 'string',
+        minLength: 1,
+        maxLength: 128
+      },
+      baseline_entity_id: {
+        type: 'string',
+        minLength: 1,
+        maxLength: 128
+      },
+      ...timeout
+    }, ['entity_id', 'baseline_entity_id']),
+    mutates: true,
+    destructive: true,
+    handler: (args, ctx) =>
+      pineRead('qa_remove_study', args, ctx)
+  },
   {
     name: 'pine_compile_qa_draft',
     description: 'Compile only the fixed disposable Pine draft on an approved QA restore lab and verify a newly registered chart study.',
