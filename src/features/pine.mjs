@@ -158,6 +158,134 @@ export async function pinePage(a) {
         note:'Recognised TradingView light response only. Full Pine Editor compilation and chart execution remain unverified.'
       };
     }
+
+    if (a.op === 'qa_compile_draft') {
+      const before = await nativeBinding();
+      const fixedSource =
+        '//@version=6\nindicator("MCP QA Disposable Draft", overlay=true)\nplot(close)\n';
+
+      if (
+        before.binding.host !== 'dialog' ||
+        before.binding.is_draft !== true ||
+        before.binding.script_id !== null ||
+        before.binding.version !== null ||
+        before.source !== fixedSource ||
+        before.source !== a.expected_source ||
+        JSON.stringify(before.binding) !== a.expected_binding_json
+      ) return fail(
+        'PRECONDITION_FAILED',
+        'Exact disposable Pine draft identity/source is required.'
+      );
+
+      const api = window.TradingViewApi;
+      const uid = api?._chartWidgetCollection?.metaInfo?.uid;
+      const nativeId = typeof uid?.value === 'function'
+        ? uid.value() : uid;
+
+      if (String(nativeId ?? '') !== a.expected_layout_id)
+        return fail('LAYOUT_MISMATCH', 'Native layout ID changed.');
+
+      const service = api?.getSaveChartService?.();
+      if (service?.hasChanges?.() !== false)
+        return fail('PRECONDITION_FAILED', 'QA layout must be clean.');
+
+      const m = editor();
+      const widget = m?.container?.closest('.tv-script-widget');
+
+      if (!widget || !visible(widget))
+        return fail('CAPABILITY_UNAVAILABLE', 'Pine widget unavailable.');
+
+      const buttons = selector =>
+        [...widget.querySelectorAll(selector)].filter(visible);
+
+      const add = buttons('button[title="Add to chart"]');
+      const save = buttons('button[title="Save script"]');
+
+      if (
+        add.length !== 1 ||
+        save.length !== 1 ||
+        add[0] === save[0] ||
+        add[0].disabled ||
+        add[0].getAttribute('aria-disabled') === 'true'
+      ) return fail(
+        'CAPABILITY_UNAVAILABLE',
+        'Unique enabled Add to chart control not verified.'
+      );
+
+      const chart = api?._activeChartWidgetWV?.value?.();
+
+      if (typeof chart?.getAllStudies !== 'function')
+        return fail('CAPABILITY_UNAVAILABLE', 'Studies unavailable.');
+
+      const prior = chart.getAllStudies();
+
+      if (
+        !Array.isArray(prior) ||
+        prior.some(s => typeof s.id !== 'string' || !s.id) ||
+        prior.some(s => s.name === 'MCP QA Disposable Draft')
+      ) return fail(
+        'PRECONDITION_FAILED',
+        'Studies are ambiguous or QA indicator already exists.'
+      );
+
+      const priorIds = new Set(prior.map(s => s.id));
+
+      add[0].click();
+
+      const deadline = Date.now() +
+        Math.min(a.timeout_ms ?? 15000, 30000);
+
+      while (Date.now() < deadline) {
+        await new Promise(r => setTimeout(r, 200));
+
+        const current = chart.getAllStudies();
+        const added = Array.isArray(current)
+          ? current.filter(s => !priorIds.has(s.id))
+          : [];
+
+        if (added.length > 1)
+          return fail(
+            'VERIFICATION_FAILED',
+            'Multiple new studies appeared.',
+            { mutation_attempted: true }
+          );
+
+        if (added.length === 1) {
+          const study = added[0];
+          const after = await nativeBinding();
+
+          if (
+            study.name !== 'MCP QA Disposable Draft' ||
+            !study.id ||
+            after.source !== before.source ||
+            after.binding.is_draft !== true ||
+            after.binding.script_id !== null
+          ) return fail(
+            'VERIFICATION_FAILED',
+            'New study or draft binding not verified.',
+            { mutation_attempted: true }
+          );
+
+          return {
+            ok: true,
+            compiled: true,
+            added_to_chart: true,
+            verified: true,
+            mutation_attempted: true,
+            study_id: study.id,
+            study_name: study.name,
+            draft_still_unsaved: true,
+            verification_source: 'exact_new_study_and_native_draft'
+          };
+        }
+      }
+
+      return fail(
+        'COMPILE_OUTCOME_UNVERIFIED',
+        'Add to chart submitted, but expected study did not appear.',
+        { mutation_attempted: true }
+      );
+    }
     let m=editor();
     if(a.op==='open'){
       if(m)return {ok:true,editor_open:true,already_open:true,title:title()};
@@ -220,7 +348,7 @@ export async function pinePage(a) {
       return fail('VERIFICATION_FAILED',`${a.op} was submitted but no independent success indication was observed. Reconcile before retrying.`,{mutation_attempted:true,action});
     }
     return fail('INVALID_ARGUMENT','Unknown Pine operation.');
-  }catch(error){const message=String(error?.message??error).slice(0,600);return fail(/^([A-Z_]+):/.exec(message)?.[1]??'PINE_OPERATION_FAILED',message,{mutation_attempted:['set_source','save','compile','open','native_open_script','native_new_buffer'].includes(a.op)});}
+  }catch(error){const message=String(error?.message??error).slice(0,600);return fail(/^([A-Z_]+):/.exec(message)?.[1]??'PINE_OPERATION_FAILED',message,{mutation_attempted:['set_source','save','compile','open','native_open_script','native_new_buffer','qa_compile_draft'].includes(a.op)});}
 }
 
 /** Loaded first-party Pine facade only. Operation names and endpoint paths are fixed. */
@@ -344,6 +472,35 @@ export default [
     try{return {...await pineRead('native_open_script',{...args,...bindingArgs(before),script_id:saved.script_id,version:saved.version,wanted_source:saved.source},ctx),backup_file:backup};}catch(error){throw new ToolError(error.code??'BINDING_UNVERIFIED',error.message,{...(error.details??{}),backup_file:backup});}
   }},
   {name:'pine_new_buffer',description:'Create a native unsaved Pine draft from a clean saved document, verify draft identity, and set exact supplied source. Does not create a cloud script.',inputSchema:schema({source:text,expected_binding_sha256:hash,...timeout},['source','expected_binding_sha256']),mutates:true,handler:async(args,ctx)=>{const before=await readBinding(args,ctx);const backup=await ctx.exportJson('pine-before-new-buffer',before);try{return {...await pineRead('native_new_buffer',{...args,...bindingArgs(before)},ctx),backup_file:backup};}catch(error){throw new ToolError(error.code??'BINDING_UNVERIFIED',error.message,{...(error.details??{}),backup_file:backup});}}},
+
+  {
+    name: 'pine_compile_qa_draft',
+    description: 'Compile only the fixed disposable Pine draft on an approved QA restore lab and verify a newly registered chart study.',
+    inputSchema: schema({
+      expected_binding_sha256: hash,
+      expected_source_sha256: hash,
+      ...timeout
+    }, ['expected_binding_sha256', 'expected_source_sha256']),
+    mutates: true,
+    handler: async (args, ctx) => {
+      const before = await pineRead('native_binding', {}, ctx);
+
+      if (
+        before.binding_sha256 !== args.expected_binding_sha256 ||
+        before.source_sha256 !== args.expected_source_sha256
+      ) throw new ToolError(
+        'PRECONDITION_FAILED',
+        'Pine draft binding/source does not match QA approval.'
+      );
+
+      return pineRead('qa_compile_draft', {
+        expected_layout_id: args.expected_layout_id,
+        expected_source: before.source,
+        expected_binding_json: JSON.stringify(before.native_binding),
+        timeout_ms: args.timeout_ms
+      }, ctx);
+    }
+  },
   {name:'pine_save_new',description:'Create a new cloud Pine script from supplied source, refuse duplicate names, and independently verify new ID/version/full source. Leaves the editor binding unchanged.',inputSchema:schema({name:str,source:text,...timeout},['name','source']),mutates:true,handler:(args,ctx)=>pineLibraryRead('save_new',args,ctx)},
   {name:'pine_save_as',description:'Save the exactly hashed visible Pine buffer as a uniquely named new cloud script, then natively bind the editor to its verified new ID/version/source. Returns a reconciliation receipt if binding fails after saving.',inputSchema:schema({name:str,expected_binding_sha256:hash,...timeout},['name','expected_binding_sha256']),mutates:true,handler:async(args,ctx)=>{
     const before=await readBinding(args,ctx);const backup=await ctx.exportJson('pine-before-save-as',before);const saved=await pineLibraryRead('save_new',{name:args.name,source:before.source,timeout_ms:args.timeout_ms},ctx);

@@ -1,5 +1,6 @@
 
 import { ToolError } from './errors.mjs';
+import { createHash } from 'node:crypto';
 
 export const QA_PINE_DRAFT_SOURCE = [
   '//@version=6',
@@ -7,6 +8,10 @@ export const QA_PINE_DRAFT_SOURCE = [
   'plot(close)',
   ''
 ].join('\n');
+
+export const QA_PINE_DRAFT_SHA256 = createHash('sha256')
+  .update(QA_PINE_DRAFT_SOURCE, 'utf8')
+  .digest('hex');
 
 // P2 initial scope: chart-context changes only.
 // Other browser mutations require separate security reviews.
@@ -66,7 +71,12 @@ export function createMutationPolicy(env = process.env) {
         descriptor.name === 'pine_new_buffer' &&
         env.TV_ALLOW_QA_PINE_DRAFT === '1';
 
-      if (!APPROVED_TOOLS.has(descriptor.name) && !qaCopy && !qaDraft) {
+      const qaCompile =
+        descriptor.name === 'pine_compile_qa_draft' &&
+        env.TV_ALLOW_QA_PINE_COMPILE === '1';
+
+      if (!APPROVED_TOOLS.has(descriptor.name) &&
+          !qaCopy && !qaDraft && !qaCompile) {
         throw new ToolError(
           'MUTATION_TOOL_NOT_APPROVED',
           'This TradingView mutation has not been approved for isolated QA.'
@@ -83,6 +93,24 @@ export function createMutationPolicy(env = process.env) {
         throw new ToolError(
           'MUTATION_COPY_ARGS_INVALID',
           'QA copying requires a recovery-only name, unique operation key and save_source=false.'
+        );
+      }
+
+      if (qaCompile && (
+        args.expected_layout_id !== env.TV_QA_PINE_COMPILE_LAYOUT_ID ||
+        !/^MCP QA Recovery RestoreLab [A-Za-z0-9]{8}$/.test(
+          expectedNames.get(args.expected_layout_id) ?? ''
+        ) ||
+        args.expected_source_sha256 !== QA_PINE_DRAFT_SHA256 ||
+        !/^[a-f0-9]{64}$/.test(
+          env.TV_QA_PINE_COMPILE_BINDING_SHA256 ?? ''
+        ) ||
+        args.expected_binding_sha256 !==
+          env.TV_QA_PINE_COMPILE_BINDING_SHA256
+      )) {
+        throw new ToolError(
+          'MUTATION_PINE_COMPILE_ARGS_INVALID',
+          'QA compilation requires exact draft source, binding and layout.'
         );
       }
 
@@ -120,7 +148,8 @@ export function createMutationPolicy(env = process.env) {
       if (!descriptor.mutates || descriptor.scope === 'local') return;
 
       if ((descriptor.name === 'layout_copy' ||
-           descriptor.name === 'pine_new_buffer') &&
+           descriptor.name === 'pine_new_buffer' ||
+           descriptor.name === 'pine_compile_qa_draft') &&
           actual.has_changes !== false) {
         throw new ToolError(
           'MUTATION_SOURCE_NOT_CLEAN',
