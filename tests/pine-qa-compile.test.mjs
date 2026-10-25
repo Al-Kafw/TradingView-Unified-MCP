@@ -94,7 +94,11 @@ function fixture({
   draft = true,
   duplicateButtons = false,
   addStudy = true,
-  existingIndicator = false
+  existingIndicator = false,
+  postScriptId = null,
+  postVersion = null,
+  draftAfter = true,
+  removeVolumeOnAdd = false
 } = {}) {
   let clicks = 0;
   let saves = 0;
@@ -114,11 +118,13 @@ function fixture({
     disabled: false,
     click() {
       clicks++;
-      if (addStudy)
+      if (addStudy) {
+        if (removeVolumeOnAdd) studies.splice(0, 1);
         studies.push({
           id: 'qa-indicator',
           name: 'MCP QA Disposable Draft'
         });
+      }
     }
   };
 
@@ -153,11 +159,15 @@ function fixture({
   const facade = {
     getSource: () => QA_PINE_DRAFT_SOURCE,
     getScriptIdVersion: () => ({
-      scriptIdPart: draft ? null : 'USER;protected',
-      version: draft ? null : '1.0'
+      scriptIdPart: draft
+        ? (clicks > 0 ? postScriptId : null)
+        : 'USER;protected',
+      version: draft
+        ? (clicks > 0 ? postVersion : null)
+        : '1.0'
     }),
     isModified: () => false,
-    isDraft: () => draft
+    isDraft: () => draft && (clicks === 0 || draftAfter)
   };
 
   const h = createFakeCdp({
@@ -259,6 +269,76 @@ test('no new chart study cannot count as compile success', async () => {
     const result = await h.call();
     assert.equal(result.ok, false);
     assert.equal(result.code, 'COMPILE_OUTCOME_UNVERIFIED');
+    assert.equal(h.clicks(), 1);
+    assert.equal(h.saves(), 0);
+  } finally { await h.close(); }
+});
+
+
+test('realistic draft-associated ID verifies successful compile', async () => {
+  const id = 'USER;' + 'a'.repeat(32);
+  const h = fixture({ postScriptId: id, postVersion: '0.4' });
+  try {
+    const r = await h.call();
+    assert.equal(r.ok, true);
+    assert.equal(r.compiled, true);
+    assert.equal(r.study_id, 'qa-indicator');
+    assert.equal(r.native_draft_verified, true);
+    assert.equal(r.draft_associated_script_id, id);
+    assert.equal(r.draft_associated_version, '0.4');
+    assert.equal(r.saved_library_state_verified, false);
+    assert.equal(h.clicks(), 1);
+    assert.equal(h.saves(), 0);
+  } finally { await h.close(); }
+});
+
+test('unexpected assigned script identity does not verify', async () => {
+  const h = fixture({
+    postScriptId: 'USER;protected',
+    postVersion: '1.0'
+  });
+  try {
+    const r = await h.call();
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'VERIFICATION_FAILED');
+    assert.equal(h.clicks(), 1);
+    assert.equal(h.saves(), 0);
+  } finally { await h.close(); }
+});
+
+test('assigned script ID without version does not verify', async () => {
+  const h = fixture({
+    postScriptId: 'USER;' + 'b'.repeat(32),
+    postVersion: null
+  });
+  try {
+    const r = await h.call();
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'VERIFICATION_FAILED');
+    assert.equal(h.clicks(), 1);
+  } finally { await h.close(); }
+});
+
+test('draft changing to saved state does not verify', async () => {
+  const h = fixture({
+    postScriptId: 'USER;' + 'c'.repeat(32),
+    postVersion: '0.4',
+    draftAfter: false
+  });
+  try {
+    const r = await h.call();
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'VERIFICATION_FAILED');
+    assert.equal(h.clicks(), 1);
+  } finally { await h.close(); }
+});
+
+test('removal of original Volume blocks compile verification', async () => {
+  const h = fixture({ removeVolumeOnAdd: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'VERIFICATION_FAILED');
     assert.equal(h.clicks(), 1);
     assert.equal(h.saves(), 0);
   } finally { await h.close(); }

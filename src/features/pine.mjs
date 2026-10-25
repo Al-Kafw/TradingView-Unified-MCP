@@ -296,7 +296,11 @@ export async function pinePage(a) {
         'Studies are ambiguous or QA indicator already exists.'
       );
 
-      const priorIds = new Set(prior.map(s => s.id));
+      const priorSnapshot = prior.map(s => ({
+        id: s.id,
+        name: s.name
+      }));
+      const priorIds = new Set(priorSnapshot.map(s => s.id));
 
       add[0].click();
 
@@ -322,12 +326,37 @@ export async function pinePage(a) {
           const study = added[0];
           const after = await nativeBinding();
 
+          const draftId = after.binding.script_id;
+          const draftVersion = after.binding.version;
+
+          const validDraftBinding =
+            after.binding.host === before.binding.host &&
+            after.binding.is_draft === true &&
+            after.binding.is_modified === false &&
+            after.source === before.source &&
+            (
+              (draftId === null && draftVersion === null) ||
+              (
+                typeof draftId === 'string' &&
+                /^USER;[a-f0-9]{32}$/.test(draftId) &&
+                typeof draftVersion === 'string' &&
+                /^\d+(?:\.\d+)*$/.test(draftVersion)
+              )
+            );
+
+          const originalStudiesPreserved =
+            Array.isArray(current) &&
+            current.length === priorSnapshot.length + 1 &&
+            new Set(current.map(s => s.id)).size === current.length &&
+            priorSnapshot.every(old => current.some(s =>
+              s.id === old.id && s.name === old.name
+            ));
+
           if (
             study.name !== 'MCP QA Disposable Draft' ||
             !study.id ||
-            after.source !== before.source ||
-            after.binding.is_draft !== true ||
-            after.binding.script_id !== null
+            !validDraftBinding ||
+            !originalStudiesPreserved
           ) return fail(
             'VERIFICATION_FAILED',
             'New study or draft binding not verified.',
@@ -342,7 +371,10 @@ export async function pinePage(a) {
             mutation_attempted: true,
             study_id: study.id,
             study_name: study.name,
-            draft_still_unsaved: true,
+            native_draft_verified: true,
+            draft_associated_script_id: draftId,
+            draft_associated_version: draftVersion,
+            saved_library_state_verified: false,
             verification_source: 'exact_new_study_and_native_draft'
           };
         }
