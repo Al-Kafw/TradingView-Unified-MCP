@@ -1,6 +1,13 @@
 
 import { ToolError } from './errors.mjs';
 
+export const QA_PINE_DRAFT_SOURCE = [
+  '//@version=6',
+  'indicator("MCP QA Disposable Draft", overlay=true)',
+  'plot(close)',
+  ''
+].join('\n');
+
 // P2 initial scope: chart-context changes only.
 // Other browser mutations require separate security reviews.
 const APPROVED_TOOLS = new Set([
@@ -55,7 +62,11 @@ export function createMutationPolicy(env = process.env) {
         descriptor.name === 'layout_copy' &&
         env.TV_ALLOW_QA_LAYOUT_COPY === '1';
 
-      if (!APPROVED_TOOLS.has(descriptor.name) && !qaCopy) {
+      const qaDraft =
+        descriptor.name === 'pine_new_buffer' &&
+        env.TV_ALLOW_QA_PINE_DRAFT === '1';
+
+      if (!APPROVED_TOOLS.has(descriptor.name) && !qaCopy && !qaDraft) {
         throw new ToolError(
           'MUTATION_TOOL_NOT_APPROVED',
           'This TradingView mutation has not been approved for isolated QA.'
@@ -75,6 +86,24 @@ export function createMutationPolicy(env = process.env) {
         );
       }
 
+      if (qaDraft && (
+        args.expected_layout_id !== env.TV_QA_PINE_DRAFT_LAYOUT_ID ||
+        !/^MCP QA Recovery RestoreLab [A-Za-z0-9]{8}$/.test(
+          expectedNames.get(args.expected_layout_id) ?? ''
+        ) ||
+        args.source !== QA_PINE_DRAFT_SOURCE ||
+        !/^[a-f0-9]{64}$/.test(
+          env.TV_QA_PINE_DRAFT_BINDING_SHA256 ?? ''
+        ) ||
+        args.expected_binding_sha256 !==
+          env.TV_QA_PINE_DRAFT_BINDING_SHA256
+      )) {
+        throw new ToolError(
+          'MUTATION_PINE_DRAFT_ARGS_INVALID',
+          'QA Pine drafts require an exact restore lab, binding hash and fixed disposable source.'
+        );
+      }
+
       if (
         typeof args.expected_layout_id !== 'string' ||
         !layouts.has(args.expected_layout_id)
@@ -90,7 +119,8 @@ export function createMutationPolicy(env = process.env) {
 
       if (!descriptor.mutates || descriptor.scope === 'local') return;
 
-      if (descriptor.name === 'layout_copy' &&
+      if ((descriptor.name === 'layout_copy' ||
+           descriptor.name === 'pine_new_buffer') &&
           actual.has_changes !== false) {
         throw new ToolError(
           'MUTATION_SOURCE_NOT_CLEAN',
