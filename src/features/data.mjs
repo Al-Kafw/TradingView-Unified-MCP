@@ -17,7 +17,64 @@ export function dataPage(a) {
   const context = { layout_id: nativeId == null || nativeId === '' ? null : String(nativeId), symbol: chart.symbol(), resolved_symbol: symbolInfo?.pro_name ?? symbolInfo?.full_name ?? symbolInfo?.name ?? null, timeframe: chart.resolution(), session: typeof main?.sessionId === 'function' ? unwrap(main.sessionId()) : null, observed_at: new Date().toISOString() };
   try {
     if (a.op === 'ohlcv' || a.op === 'last_bar') {
-      if (context.resolved_symbol !== null && context.resolved_symbol !== context.symbol) return fail('CHART_NOT_READY', 'The chart label and resolved instrument differ; loaded bars cannot yet be attributed to the requested symbol.', context);
+
+      // Approve only independently identified ES/NQ/YM delayed-feed aliases.
+      const approvedAliases = {
+        'CME_MINI_DL:ES1!': 'CME_MINI:ES1!',
+        'CME_MINI_DL:NQ1!': 'CME_MINI:NQ1!',
+        'CBOT_MINI_DL:YM1!': 'CBOT_MINI:YM1!'
+      };
+
+      const exactIdentity =
+        typeof context.symbol === 'string' &&
+        context.symbol === context.resolved_symbol;
+
+      let verifiedAlias = false;
+
+      if (!exactIdentity) {
+        let extended = null;
+
+        if (typeof chart.symbolExt === 'function') {
+          try { extended = chart.symbolExt(); }
+          catch { extended = null; }
+        }
+
+        const approved = Object.hasOwn(
+          approvedAliases, context.symbol
+        ) ? approvedAliases[context.symbol] : null;
+
+        const ticker = typeof context.symbol === 'string'
+          ? context.symbol.split(':')[1] : null;
+
+        verifiedAlias =
+          approved !== null &&
+          approved === context.resolved_symbol &&
+          symbolInfo?.full_name === context.symbol &&
+          symbolInfo?.pro_name === context.resolved_symbol &&
+          (
+            symbolInfo?.symbol === ticker ||
+            (
+              symbolInfo?.symbol == null &&
+              symbolInfo?.name === ticker
+            )
+          ) &&
+          extended?.full_name === context.symbol &&
+          extended?.pro_name === context.resolved_symbol &&
+          extended?.symbol === ticker &&
+          extended?.type === 'futures';
+      }
+
+      if (!exactIdentity && !verifiedAlias) return fail(
+        'CHART_NOT_READY',
+        'Displayed and resolved symbols are not independently verified.',
+        context
+      );
+
+      context.delayed_feed_alias = verifiedAlias;
+      context.symbol_identity_verified_by = verifiedAlias
+        ? 'exact_approved_alias_and_two_native_metadata_sources'
+        : 'exact_displayed_and_resolved_symbol';
+
       const bars = main?.bars?.();
       if (!bars || !['firstIndex','lastIndex','valueAt','size'].every(k => typeof bars[k] === 'function')) return fail('CAPABILITY_UNAVAILABLE', 'Loaded bar series cannot be read on this TradingView build.');
       const first = bars.firstIndex(), last = bars.lastIndex(), size = bars.size();
