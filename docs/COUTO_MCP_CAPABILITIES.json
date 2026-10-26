@@ -70,6 +70,16 @@
       "limitations": "Guest light-check is not equivalent to actual editor compilation"
     },
     {
+      "id": "pine_graphics_readback",
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
+      "tools": [
+        "data_get_pine_lines",
+        "data_get_pine_labels"
+      ],
+      "limitations": "Read-only native objects verified on YM 30M: SMT v0.11 exposed 7 lines and 8 labels; QTF TPD logging study exposed 24 labels. Some other studies returned zero. Coordinates may be bar-relative. No guarantee of visual fidelity or hover text."
+    },
+    {
       "id": "complete_visual_qa",
       "status": "partial",
       "approved_for_consumer": false,
