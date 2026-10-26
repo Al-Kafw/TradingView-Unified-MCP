@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "c0c79b52f44151cb956f175aa4240cdb6320cceb",
+  "verified_code_checkpoint": "82f6ce558e5956e8d2f14696891740a654c4a8f7",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -95,6 +95,11 @@
           "verified_index_1_time": 1792132200,
           "limitations": "Loaded index timestamps matched independent OHLC. Future projections, unavailable collections and complete visual fidelity remain unverified live."
         }
+      },
+      "pagination_evidence": {
+        "status": "offline_verified_not_live",
+        "description": "Coverage describes accessible native collections, not pagination. Per-study next_offset and all_items_returned_in_this_call distinguish partial pagination from a full single-call read.",
+        "limitations": "Pagination across separate calls is not an atomic snapshot; collections, layout, or history may change between calls. The running Pilot retains earlier code until separately restarted."
       }
     },
     {
@@ -105,7 +110,7 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 387,
+    "automated_tests_passed": 392,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
