@@ -117,26 +117,10 @@ export function dataPage(a) {
       const selected = sources.filter(s => typeof s.metaInfo === 'function' && (!a.entity_id || s.id?.() === a.entity_id));
       if (a.entity_id && selected.length !== 1) return fail('TARGET_NOT_FOUND', 'No exact study entity ID matched.');
       if (!selected.length) return fail('CAPABILITY_UNAVAILABLE', 'No readable Pine study was found; graphics coverage cannot be asserted.', context);
-      // Never guess future bar timestamps or convert arbitrary native X values.
-      // Resolve a time only when the native X is an actual loaded bar index.
-      const loadedBars = main?.bars?.();
-      const timeForLoadedIndex = x => {
-        if (!Number.isSafeInteger(x) ||
-            typeof loadedBars?.firstIndex !== 'function' ||
-            typeof loadedBars?.lastIndex !== 'function' ||
-            typeof loadedBars?.valueAt !== 'function') return null;
-        const first = loadedBars.firstIndex();
-        const last = loadedBars.lastIndex();
-        if (!Number.isSafeInteger(first) || !Number.isSafeInteger(last) ||
-            x < first || x > last) return null;
-        let bar;
-        try { bar = loadedBars.valueAt(x); }
-        catch { return null; }
-        const timestamp = Array.isArray(bar) ? bar[0] : null;
-        return Number.isSafeInteger(timestamp) &&
-          timestamp >= 1262304000 && timestamp <= 4102444800
-          ? timestamp : null;
-      };
+      // Native Pine X can use a projection-specific coordinate domain.
+      // Numeric equality with a loaded OHLC index is NOT proof that both
+      // coordinates refer to the same candle. Keep timestamp fields null
+      // until the native coordinate basis is independently established.
       const out = [], unavailable = [];
       for (const s of selected) {
         const meta = s.metaInfo();
@@ -153,18 +137,15 @@ export function dataPage(a) {
         const all = Array.from(values.entries());
         const items = all.slice(a.offset ?? 0, (a.offset ?? 0) + (a.limit ?? 500)).map(([id,v]) => {
           if (a.op === 'lines') {
-            const t1 = timeForLoadedIndex(v.x1);
-            const t2 = timeForLoadedIndex(v.x2);
             return { id, x1: v.x1, y1: v.y1, x2: v.x2, y2: v.y2, style: v.st, width: v.w, color: v.ci,
-              x1_time_unix_seconds: t1, x2_time_unix_seconds: t2,
-              x1_coordinate_basis: t1 === null ? 'unresolved_native_x' : 'verified_loaded_bar_index',
-              x2_coordinate_basis: t2 === null ? 'unresolved_native_x' : 'verified_loaded_bar_index' };
+              x1_time_unix_seconds: null, x2_time_unix_seconds: null,
+              x1_coordinate_basis: 'unresolved_native_x',
+              x2_coordinate_basis: 'unresolved_native_x' };
           }
           if (a.op === 'labels') {
-            const t = timeForLoadedIndex(v.x);
             return { id, text: v.t, x: v.x, price: v.y, location: v.yl, size: v.sz, color: v.ci, text_color: v.tci,
-              x_time_unix_seconds: t,
-              x_coordinate_basis: t === null ? 'unresolved_native_x' : 'verified_loaded_bar_index' };
+              x_time_unix_seconds: null,
+              x_coordinate_basis: 'unresolved_native_x' };
           }
           if (a.op === 'tables') return { id, table_id: v.tid ?? 0, row: v.row, column: v.col, text: v.t ?? '' };
           return { id, left: v.x1, top: v.y1, right: v.x2, bottom: v.y2, text: v.t, background_color: v.bci, border_color: v.ci };
@@ -172,7 +153,7 @@ export function dataPage(a) {
         out.push({ entity_id: s.id?.(), name: meta.description, total: all.length, returned: items.length, items });
       }
       if (selected.length && !out.length) return fail('CAPABILITY_UNAVAILABLE', 'Graphics collections unavailable for the selected studies.', { unavailable });
-      return { ok: true, ...context, kind: a.op, studies: out, unavailable, coverage: unavailable.length ? 'partial' : 'complete', coordinates: ['lines', 'labels'].includes(a.op) ? 'Native x retained unchanged; *_time_unix_seconds verified only by matching loaded bar index; unresolved (including projected/future x) is null' : 'TradingView native graphics coordinates; X may be bar index, not Unix time' };
+      return { ok: true, ...context, kind: a.op, studies: out, unavailable, coverage: unavailable.length ? 'partial' : 'complete', coordinates: ['lines', 'labels'].includes(a.op) ? 'Native x retained unchanged; timestamps unverified because numerical index equality does not prove a shared coordinate domain; *_time_unix_seconds is null' : 'TradingView native graphics coordinates; X may be bar index, not Unix time' };
     }
     return fail('INVALID_ARGUMENT', 'Unknown data operation.');
   } catch (error) { return fail('BROWSER_OPERATION_FAILED', String(error?.message ?? error).slice(0,600)); }

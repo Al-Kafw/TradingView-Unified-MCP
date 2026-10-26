@@ -53,7 +53,7 @@ function fixture({
   };
 }
 
-test('Pine lines preserve native coordinates and verify loaded index times', async () => {
+test('Pine lines preserve native X but do not infer times from coincident indexes', async () => {
   const f = fixture();
   try {
     const r = await f.read('lines');
@@ -62,14 +62,14 @@ test('Pine lines preserve native coordinates and verify loaded index times', asy
     const item = r.studies[0].items[0];
     assert.equal(item.x1, 5);
     assert.equal(item.x2, 7);
-    assert.equal(item.x1_time_unix_seconds, 1792786500);
-    assert.equal(item.x2_time_unix_seconds, 1792788300);
-    assert.equal(item.x1_coordinate_basis, 'verified_loaded_bar_index');
-    assert.equal(item.x2_coordinate_basis, 'verified_loaded_bar_index');
+    assert.equal(item.x1_time_unix_seconds, null);
+    assert.equal(item.x2_time_unix_seconds, null);
+    assert.equal(item.x1_coordinate_basis, 'unresolved_native_x');
+    assert.equal(item.x2_coordinate_basis, 'unresolved_native_x');
   } finally { await f.close(); }
 });
 
-test('Pine labels attach time only for verified loaded candle indexes', async () => {
+test('Pine labels leave timestamp unverified without coordinate provenance', async () => {
   const f = fixture();
   try {
     const r = await f.read('labels');
@@ -77,8 +77,8 @@ test('Pine labels attach time only for verified loaded candle indexes', async ()
     const item = r.studies[0].items[0];
     assert.equal(item.text, 'SMT');
     assert.equal(item.x, 6);
-    assert.equal(item.x_time_unix_seconds, 1792787400);
-    assert.equal(item.x_coordinate_basis, 'verified_loaded_bar_index');
+    assert.equal(item.x_time_unix_seconds, null);
+    assert.equal(item.x_coordinate_basis, 'unresolved_native_x');
   } finally { await f.close(); }
 });
 
@@ -92,7 +92,7 @@ test('future projections and epoch-like X values are not guessed into candle tim
     assert.equal(r.ok, true);
     const future = r.studies[0].items[0];
     const epoch = r.studies[0].items[1];
-    assert.equal(future.x1_time_unix_seconds, 1792789200);
+    assert.equal(future.x1_time_unix_seconds, null);
     assert.equal(future.x2_time_unix_seconds, null);
     assert.equal(future.x2_coordinate_basis, 'unresolved_native_x');
     assert.equal(epoch.x1_time_unix_seconds, null);
@@ -130,5 +130,24 @@ test('no matching studies cannot be reported as complete graphics coverage', asy
     const r = await f.read('lines');
     assert.equal(r.ok, false);
     assert.equal(r.code, 'CAPABILITY_UNAVAILABLE');
+  } finally { await f.close(); }
+});
+
+
+test('projected side-candle label never inherits a coincident chart-bar timestamp', async () => {
+  // The native projected-label X can equal a loaded OHLC index while
+  // representing a different coordinate plane (not the same candle).
+  const f = fixture({ labels: [[
+    'projected', { x: 6, y: 5002, t: '12:30' }
+  ]] });
+  try {
+    const r = await f.read('labels');
+    assert.equal(r.ok, true);
+    const item = r.studies[0].items[0];
+    assert.equal(item.text, '12:30');
+    assert.equal(item.x, 6);
+    assert.equal(item.x_time_unix_seconds, null);
+    assert.equal(item.x_coordinate_basis, 'unresolved_native_x');
+    assert.equal(r.coverage, 'complete');
   } finally { await f.close(); }
 });
