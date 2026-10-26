@@ -7,6 +7,7 @@ function fixture({
   lines = [[ 'L1', { x1: 5, y1: 5000, x2: 7, y2: 5005, st: 2 } ]],
   labels = [[ 'A1', { x: 6, y: 5002, t: 'SMT' } ]],
   missingCollectionData = false,
+  missingLineCollectionData = false,
   extraUnavailableStudy = false,
   noStudies = false
 } = {}) {
@@ -24,7 +25,7 @@ function fixture({
     metaInfo: () => ({ description: 'SMT fixture' }),
     _graphics: {
       _primitivesCollection: {
-        dwglines: { get: () => missingCollectionData
+        dwglines: { get: () => (missingCollectionData || missingLineCollectionData)
           ? {} : { _primitivesDataById: new Map(lines) } },
         dwglabels: { get: () => missingCollectionData
           ? {} : { _primitivesDataById: new Map(labels) } }
@@ -296,5 +297,100 @@ test('qa snapshot correctly reports exposed zero-line collection as complete', a
     assert.equal(r.coverage, 'complete');
     assert.equal(r.graphics.lines.total, 0);
     assert.equal(r.graphics.lines.status, 'complete');
+  } finally { await f.close(); }
+});
+
+
+test('study diagnostics sees exact present study and complete native collections', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'QA_READ_1', expected_name: 'SMT fixture' });
+    assert.equal(r.ok, true);
+    assert.equal(r.study_status, 'present');
+    assert.equal(r.exact_name_match, true);
+    assert.equal(r.graphics.lines.status, 'complete');
+    assert.equal(r.graphics.labels.status, 'complete');
+    assert.equal(r.graphics.lines.total, 1);
+    assert.equal(r.graphics_coverage, 'complete');
+    assert.equal(r.readiness.bars_present, true);
+  } finally { await f.close(); }
+});
+
+test('stale study ID is only not observed; graphics are not declared empty', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'stale-id', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, true);
+    assert.equal(r.study_status, 'not_observed_at_capture');
+    assert.equal(r.observed_study_count, 1);
+    assert.equal(r.observed_studies[0].entity_id, 'study1');
+    assert.equal(r.graphics, null);
+    assert.equal(r.graphics_coverage, 'not_checked');
+  } finally { await f.close(); }
+});
+
+test('exact study-name candidate does not silently replace a stale entity ID', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'stale-id', expected_layout_id: 'QA_READ_1', expected_name: 'SMT fixture' });
+    assert.equal(r.study_status, 'not_observed_at_capture');
+    assert.deepEqual(r.same_name_candidates, [{ entity_id: 'study1', name: 'SMT fixture' }]);
+    assert.equal(r.graphics, null);
+  } finally { await f.close(); }
+});
+
+test('unavailable line primitives are distinct from readable labels', async () => {
+  const f = fixture({ missingLineCollectionData: true });
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.study_status, 'present');
+    assert.equal(r.graphics.lines.status, 'unavailable');
+    assert.equal(r.graphics.lines.total, null);
+    assert.equal(r.graphics.labels.status, 'complete');
+    assert.equal(r.graphics.labels.total, 1);
+    assert.equal(r.graphics_coverage, 'partial');
+  } finally { await f.close(); }
+});
+
+test('exposed empty native line map is confirmed zero, unlike unavailable', async () => {
+  const f = fixture({ lines: [] });
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.graphics.lines.status, 'complete');
+    assert.equal(r.graphics.lines.total, 0);
+    assert.equal(r.graphics.labels.total, 1);
+  } finally { await f.close(); }
+});
+
+test('study diagnostics fail closed on layout mismatch', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'wrong' });
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'LAYOUT_MISMATCH');
+    assert.equal(r.observed_layout_id, 'QA_READ_1');
+  } finally { await f.close(); }
+});
+
+test('diagnostic graphics remain explicitly truncated when object cap is reached', async () => {
+  const f = fixture({ lines: [['a', {x1:1, x2:2}], ['b', {x1:3, x2:4}]] });
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'QA_READ_1', max_items_per_kind: 1 });
+    assert.equal(r.graphics.lines.status, 'truncated');
+    assert.equal(r.graphics.lines.total, 2);
+    assert.equal(r.graphics.lines.next_offset, 1);
+    assert.equal(r.all_graphics_returned_in_this_call, false);
+  } finally { await f.close(); }
+});
+
+test('zero currently observed studies means no observed ID, not removed indicator', async () => {
+  const f = fixture({ noStudies: true });
+  try {
+    const r = await f.read('study_diagnostics', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, true);
+    assert.equal(r.observed_study_count, 0);
+    assert.equal(r.study_status, 'not_observed_at_capture');
+    assert.equal(r.graphics, null);
+    assert.match(r.inference_limit, /not proven removed/);
   } finally { await f.close(); }
 });

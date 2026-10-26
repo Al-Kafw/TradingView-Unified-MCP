@@ -92,6 +92,65 @@ export function dataPage(a) {
       if (a.op === 'last_bar') result.note = 'Latest loaded candle values; this is not a bid/ask quote or guaranteed real-time tick.';
       return result;
     }
+    if (a.op === 'study_diagnostics') {
+      // Presence is only what is observable NOW. A missing study ID does not
+      // establish that a saved study was removed or that its graphics count is 0.
+      if (!a.expected_layout_id || typeof a.expected_layout_id !== 'string')
+        return fail('EXPECTED_LAYOUT_REQUIRED', 'An exact expected saved-layout ID is required.');
+      if (context.layout_id !== a.expected_layout_id)
+        return fail('LAYOUT_MISMATCH', 'The chart layout differs from the expected layout; no diagnostics were claimed.',
+          { expected_layout_id: a.expected_layout_id, observed_layout_id: context.layout_id });
+      if (!Array.isArray(sources)) return fail('CAPABILITY_UNAVAILABLE', 'Native study sources are unavailable.', context);
+      const observed = sources.filter(s => typeof s.metaInfo === 'function' && typeof s.id === 'function')
+        .map(s => {
+          const meta = s.metaInfo();
+          return { entity_id: s.id(), name: meta?.description ?? meta?.shortDescription ?? null };
+        }).filter(s => typeof s.entity_id === 'string');
+      const exact = observed.filter(s => s.entity_id === a.entity_id);
+      const expectedName = a.expected_name ?? null;
+      const sameNameCandidates = expectedName === null ? [] : observed.filter(s => s.name === expectedName);
+      const bars = main?.bars?.();
+      const barCount = typeof bars?.size === 'function' ? bars.size() : null;
+      const readiness = {
+        data_sources_observed: true,
+        loaded_bar_count: typeof barCount === 'number' ? barCount : null,
+        bars_present: typeof barCount === 'number' && barCount > 0
+      };
+      const common = {
+        ...context,
+        requested_entity_id: a.entity_id,
+        expected_name: expectedName,
+        observed_study_count: observed.length,
+        observed_studies: observed.slice(0, 100),
+        observed_studies_truncated: observed.length > 100,
+        same_name_candidates: sameNameCandidates.slice(0, 20),
+        same_name_candidates_truncated: sameNameCandidates.length > 20,
+        readiness,
+        capture_scope: 'single_synchronous_chart_page_evaluation',
+        inference_limit: 'Absence means not observed now, not proven removed or zero graphics. Chart can change after capture.'
+      };
+      if (exact.length !== 1)
+        return { ok: true, ...common, study_status: 'not_observed_at_capture',
+          exact_name_match: null, graphics: null, graphics_coverage: 'not_checked' };
+      const snap = dataPage({ op: 'qa_snapshot', expected_layout_id: a.expected_layout_id,
+        entity_id: a.entity_id, max_items_per_kind: a.max_items_per_kind ?? 50 });
+      if (!snap.ok) return fail(snap.code ?? 'ADAPTER_MISMATCH', snap.message ?? 'Graphics diagnostics failed.', common);
+      if (snap.layout_id !== context.layout_id || snap.symbol !== context.symbol ||
+          snap.resolved_symbol !== context.resolved_symbol || snap.timeframe !== context.timeframe ||
+          snap.session !== context.session)
+        return fail('CHART_CHANGED', 'Chart identity changed during diagnostics; no combined evidence is claimed.', common);
+      const graphics = {};
+      for (const kind of ['lines', 'labels']) {
+        const g = snap.graphics[kind];
+        graphics[kind] = { status: g.status, total: g.total, returned: g.returned,
+          next_offset: g.next_offset, reason: g.reason ?? null,
+          all_items_returned_in_this_call: g.all_items_returned_in_this_call };
+      }
+      return { ok: true, ...common, study_status: 'present',
+        exact_name_match: expectedName === null ? null : exact[0].name === expectedName,
+        actual_study: exact[0], graphics, graphics_coverage: snap.coverage,
+        all_graphics_returned_in_this_call: snap.all_graphics_returned_in_this_call };
+    }
     if (a.op === 'qa_snapshot') {
       if (!a.expected_layout_id || typeof a.expected_layout_id !== 'string')
         return fail('EXPECTED_LAYOUT_REQUIRED', 'An exact expected saved-layout ID is required.');
@@ -244,6 +303,7 @@ const tools = [
   def('data_get_last_bar','last_bar','Read the latest loaded candle; this is not a bid/ask quote.'),
   def('data_get_study_values','study_values','Read current Data Window values for all studies or one exact entity.',entity),
   def('data_get_qa_snapshot','qa_snapshot','Capture a bounded read-only single-study line/label QA snapshot with exact layout guard and explicit completeness.',{...entity,max_items_per_kind:{type:'integer',minimum:1,maximum:1000}},['entity_id','target_id','expected_layout_id']),
+  def('data_get_study_diagnostics','study_diagnostics','Diagnose the currently observed study identity, readiness and graphics availability without inferring removal or zero drawings.',{...entity,expected_name:{type:'string',minLength:1,maxLength:300},max_items_per_kind:{type:'integer',minimum:1,maximum:1000}},['entity_id','target_id','expected_layout_id']),
   def('data_get_pine_lines','lines','Read Pine-generated line primitives with per-study pagination.',{...entity,...pagination}),
   def('data_get_pine_labels','labels','Read Pine-generated label text, prices and native coordinates.',{...entity,...pagination}),
   def('data_get_pine_tables','tables','Read Pine table cells preserving original row/column coordinates and blanks.',{...entity,...pagination}),
