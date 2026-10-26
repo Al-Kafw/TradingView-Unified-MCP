@@ -81,7 +81,7 @@
       "coordinate_enrichment": {
         "status": "native_x_live_verified_time_mapping_unverified",
         "method": "Native graphics X is preserved. Numerically matching an OHLC index cannot independently establish the native X coordinate basis. Absolute time is withheld.",
-        "limitations": "Fail-closed null timestamp output now offline-tested only. Running Pilot retains prior implementation until a separately authorized MCP process restart. Future study-specific time mapping needs independent coordinate provenance.",
+        "limitations": "Fail-closed null timestamps live-verified on seven lines and seven labels. Independent native X-to-time provenance remains unresolved.",
         "prior_live_evidence": {
           "date": "2026-10-26",
           "layout": "KrnVg2oE",
@@ -97,9 +97,23 @@
         }
       },
       "pagination_evidence": {
-        "status": "offline_verified_not_live",
+        "status": "live_verified_scoped",
         "description": "Coverage describes accessible native collections, not pagination. Per-study next_offset and all_items_returned_in_this_call distinguish partial pagination from a full single-call read.",
-        "limitations": "Pagination across separate calls is not an atomic snapshot; collections, layout, or history may change between calls. The running Pilot retains earlier code until separately restarted."
+        "limitations": "Separate pagination calls are not atomic. Live verification is scoped to YM 30M SMT v0.11.",
+        "live_evidence": {
+          "date": "2026-10-26",
+          "layout": "KrnVg2oE",
+          "symbol": "CBOT_MINI_DL:YM1!",
+          "timeframe": "30",
+          "study": "Couto SMT v0.11 MARKER RESEARCH",
+          "labels": "7/7 returned",
+          "lines": "7/7 returned",
+          "partial_page": "2/7, next_offset=2",
+          "second_page": "2/7, next_offset=4",
+          "full_read": "next_offset=null, all_items_returned=true",
+          "timestamps": "All unresolved native coordinates returned null",
+          "security": "Read-only confirmed"
+        }
       }
     },
     {
