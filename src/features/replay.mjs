@@ -19,6 +19,54 @@ export async function replayPage(a) {
   try{
     const before=state();
     if(a.op==='status')return {ok:true,...before};
+
+    if (a.qa_replay_guard === true) {
+      const root = window.TradingViewApi;
+      const meta = root?._chartWidgetCollection?.metaInfo;
+      const unwrap = value =>
+        typeof value?.value === 'function'
+          ? value.value() : value;
+
+      const chart = root?._activeChartWidgetWV?.value?.();
+      const service = root?.getSaveChartService?.();
+
+      const studies = typeof chart?.getAllStudies === 'function'
+        ? chart.getAllStudies() : null;
+
+      const valid =
+        a.expected_layout_id === 'AIibRZIx' &&
+        location.pathname === '/chart/AIibRZIx/' &&
+        String(unwrap(meta?.uid) ?? '') === 'AIibRZIx' &&
+        unwrap(meta?.name) ===
+          'MCP QA Recovery RestoreLab e8150714' &&
+        chart?.symbol?.() === 'CME_MINI_DL:ES1!' &&
+        chart?.resolution?.() === '15' &&
+        Array.isArray(studies) &&
+        studies.length === 1 &&
+        studies[0].id === 'aMROG1' &&
+        studies[0].name === 'Volume' &&
+        (
+          (a.op !== 'start' && a.op !== 'qa_preflight') ||
+          service?.hasChanges?.() === false
+        );
+
+      if (!valid) return fail(
+        'QA_REPLAY_GUARD_FAILED',
+        'Exact disposable QA chart baseline not verified.'
+      );
+    }
+    if(a.op==='qa_preflight') {
+      if(a.qa_replay_guard !== true)
+        return fail('QA_REPLAY_GUARD_REQUIRED',
+          'An explicit native QA guard is required.');
+      return {
+        ok:true,
+        verified:true,
+        qa_guard_verified:true,
+        read_only:true,
+        observed:before
+      };
+    }
     if(a.op==='start'){
       if(before.available!==true)return fail('REPLAY_UNAVAILABLE','Replay is not confirmed available for this symbol/timeframe.',{observed:before});
       if(before.started!==false)return fail('PRECONDITION_FAILED','Replay must be confirmed stopped before selecting a new start date.',{observed:before});
@@ -77,7 +125,13 @@ export async function replayPage(a) {
 }
 
 const schema=(properties={},required=[])=>({type:'object',properties,required,additionalProperties:false});
-const def=(name,op,description,properties={},required=[],mutates=true)=>({name,description,inputSchema:schema(properties,required),mutates,handler:async(args,ctx)=>{const result=await ctx.callPage(replayPage,{...args,op},{timeoutMs:op==='step'?(args.bars??1)*5500+5000:30000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Replay did not verify.',result);return result;}});
+const def=(name,op,description,properties={},required=[],mutates=true)=>({name,description,inputSchema:schema(properties,required),mutates,handler:async(args,ctx)=>{const result=await ctx.callPage(replayPage,{
+    ...args,
+    op,
+    qa_replay_guard:
+      process.env.TV_ALLOW_QA_REPLAY === '1' &&
+      op !== 'status'
+  },{timeoutMs:op==='step'?(args.bars??1)*5500+5000:30000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Replay did not verify.',result);return result;}});
 export default [
   def('replay_status','status','Read replay availability, cursor, autoplay and simulated position with tri-state booleans.',{},[],false),
   def('replay_start','start','Start browser Bar Replay at a Unix-second timestamp; verify cursor and stop on excessive unapproved relocation.',{time:{type:'number',minimum:0},allow_relocation:{type:'boolean'},maximum_relocation_seconds:{type:'number',minimum:0,maximum:315360000}},['time']),

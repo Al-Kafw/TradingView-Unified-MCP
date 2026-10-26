@@ -79,8 +79,47 @@ export function createMutationPolicy(env = process.env) {
         descriptor.name === 'pine_remove_qa_study' &&
         env.TV_ALLOW_QA_PINE_ROLLBACK === '1';
 
+      const qaReplay =
+        env.TV_ALLOW_QA_REPLAY === '1' &&
+        [
+          'replay_start',
+          'replay_step',
+          'replay_stop',
+          'replay_autoplay'
+        ].includes(descriptor.name);
+
+      if (qaReplay && (
+        args.expected_layout_id !== env.TV_QA_REPLAY_LAYOUT_ID ||
+        !/^MCP QA Recovery RestoreLab [A-Za-z0-9]{8}$/.test(
+          expectedNames.get(args.expected_layout_id) ?? ''
+        ) ||
+        (descriptor.name === 'replay_start' && (
+          !Number.isSafeInteger(args.time) ||
+          args.time < 1262304000 ||
+          args.time > 4102444800 ||
+          args.allow_relocation === true ||
+          (args.maximum_relocation_seconds !== undefined &&
+            (
+              !Number.isFinite(args.maximum_relocation_seconds) ||
+              args.maximum_relocation_seconds < 0 ||
+              args.maximum_relocation_seconds > 1800
+            )
+          )
+        )) ||
+        (descriptor.name === 'replay_step' &&
+          args.bars !== 1) ||
+        (descriptor.name === 'replay_autoplay' &&
+          (args.enabled !== false || args.delay_ms !== undefined))
+      )) {
+        throw new ToolError(
+          'MUTATION_QA_REPLAY_ARGS_INVALID',
+          'Replay requires the exact approved QA layout and bounded action.'
+        );
+      }
+
       if (!APPROVED_TOOLS.has(descriptor.name) &&
-          !qaCopy && !qaDraft && !qaCompile && !qaRollback) {
+          !qaCopy && !qaDraft && !qaCompile &&
+          !qaRollback && !qaReplay) {
         throw new ToolError(
           'MUTATION_TOOL_NOT_APPROVED',
           'This TradingView mutation has not been approved for isolated QA.'
@@ -175,7 +214,9 @@ export function createMutationPolicy(env = process.env) {
 
       if ((descriptor.name === 'layout_copy' ||
            descriptor.name === 'pine_new_buffer' ||
-           descriptor.name === 'pine_compile_qa_draft') &&
+           descriptor.name === 'pine_compile_qa_draft' ||
+           (descriptor.name === 'replay_start' &&
+            env.TV_ALLOW_QA_REPLAY === '1')) &&
           actual.has_changes !== false) {
         throw new ToolError(
           'MUTATION_SOURCE_NOT_CLEAN',
