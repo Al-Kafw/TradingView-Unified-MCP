@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "6a557a9ee7b5854f5ecb456090c899bef9a61808",
+  "verified_code_checkpoint": "7000e047236b5f6130a6759dd9d91a93186ca78a",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -149,10 +149,19 @@
         "runtime": "Local read-only MCP",
         "timestamp_policy": "Unverified timestamps null"
       }
+    },
+    {
+      "id": "study_diagnostics",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_study_diagnostics"
+      ],
+      "limitations": "Exact layout and study-ID guard. Reports currently observed studies, exact-name candidates, bar readiness, and per-kind native line/label availability. Does not infer an absent study was deleted or that missing graphics equal zero. Uses single synchronous page evaluation; chart may change afterward. Requires scoped live verification before consumer approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 398,
+    "automated_tests_passed": 406,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
