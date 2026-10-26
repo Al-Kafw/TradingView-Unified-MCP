@@ -1,4 +1,7 @@
 import { BrowserManager } from './browser.mjs';
+import {
+  withQaReplayProcessLock
+} from './qa-replay-process-lock.mjs';
 import { createMutationPolicy } from './mutation-policy.mjs';
 import { buildRuntime } from '../runtime.mjs';
 import {
@@ -75,9 +78,10 @@ export async function runPolicyBoundQaReplayCanary({
     protectedTargetId
   });
 
-  const runtimeBrowser = new BrowserManager({
-    endpoint: ENDPOINT
-  });
+  return withQaReplayProcessLock(async () => {
+    const runtimeBrowser = new BrowserManager({
+      endpoint: ENDPOINT
+    });
 
   try {
     const mutationPolicy = createMutationPolicy(process.env);
@@ -113,4 +117,5 @@ export async function runPolicyBoundQaReplayCanary({
   } finally {
     await runtimeBrowser.close();
   }
+  });
 }
