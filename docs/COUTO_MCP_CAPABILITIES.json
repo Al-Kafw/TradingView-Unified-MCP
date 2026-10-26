@@ -178,12 +178,28 @@
     },
     {
       "id": "visual_qa_evidence_pack",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_visual_qa_evidence"
       ],
-      "limitations": "Read-only exact target/layout/study guard, bounded 1-200 graphics items per kind and 6 MiB PNG cap. The screenshot is viewport-only and foregrounds the requested browser tab without changing chart data. Two native snapshots bracket the image; only matching readbacks are correlated. A transient between reads cannot be excluded. Native graphics coordinates do not have verified pixel or timestamp mapping. Offscreen or hover-only graphics and signal correctness are not certified. Requires live validation before approval."
+      "limitations": "Live verified on C123 v0.3 YM1! 30M. Screenshot is viewport-only; matching bracket reads are not atomic and cannot exclude transient changes. Native-to-screen pixel and timestamp mapping remain unverified. Hover-only details and signal correctness are not certified. Requires MCP restart and connector refresh for direct access.",
+      "live_evidence": {
+        "date": "2026-10-26",
+        "layout": "ljpmBuY2",
+        "market": "YM1! 30M",
+        "indicator": "C123 Projected Research v0.3",
+        "study_id_at_capture": "SIVQwR",
+        "lines": "60/60 complete",
+        "labels": "54/54 complete",
+        "capture_consistency": "matching_bracket_reads",
+        "chart_identity_consistent": true,
+        "native_graphics_consistent": true,
+        "screenshot_bytes": 102314,
+        "screenshot_sha256": "31c14e538d6dce52ce86dd2cac9461fd972111d1fc71bd65732f781dc8d5f49b",
+        "coordinate_mapping": "unverified_no_pixel_or_time_inference",
+        "read_only": true
+      }
     }
   ],
   "validation": {
