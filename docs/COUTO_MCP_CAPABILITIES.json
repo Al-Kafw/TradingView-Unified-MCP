@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "98a11efbb47d9efb1858bcf6dff904b6a588a637",
+  "verified_code_checkpoint": "2e078e4d376512b4ffc5d93b1cba5f1759f1679b",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -77,7 +77,12 @@
         "data_get_pine_lines",
         "data_get_pine_labels"
       ],
-      "limitations": "Read-only native objects verified on YM 30M: SMT v0.11 exposed 7 lines and 8 labels; QTF TPD logging study exposed 24 labels. Some other studies returned zero. Coordinates may be bar-relative. No guarantee of visual fidelity or hover text."
+      "limitations": "Read-only native objects verified on YM 30M: SMT v0.11 exposed 7 lines and 8 labels; QTF TPD logging study exposed 24 labels. Some other studies returned zero. Coordinates may be bar-relative. No guarantee of visual fidelity or hover text. Offline-only coordinate enrichment now distinguishes loaded bar-index evidence from unresolved projections and unavailable collections.",
+      "coordinate_enrichment": {
+        "status": "offline_verified_not_live",
+        "method": "Native X preserved; corresponding Unix seconds included only where X equals an index in the loaded chart bar series.",
+        "limitations": "Future or otherwise unmatched native X remains unresolved; no interpolation or assumed timestamps. No new live graphics adapter test performed."
+      }
     },
     {
       "id": "complete_visual_qa",
@@ -87,7 +92,7 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 380,
+    "automated_tests_passed": 386,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
