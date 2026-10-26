@@ -158,3 +158,33 @@ test('real registered descriptors obey QA mutation policy', () => {
     e => e.code === 'MUTATION_TOOL_NOT_APPROVED'
   );
 });
+
+
+test('explicit discard consent remains QA scoped', () => {
+  const consent = {
+    ...approved,
+    TV_QA_CANARY_RUN:
+      'I_APPROVE_ES_QA_REPLAY_AND_DISCARD_UNSAVED_CHANGES'
+  };
+
+  assert.equal(assertQaReplayRunnerEnvironment(consent), true);
+
+  assert.throws(
+    () => assertQaReplayRunnerEnvironment({
+      ...consent,
+      TV_ALLOWED_LAYOUT_IDS: 'KrnVg2oE'
+    }),
+    /QA_CANARY_ENV_NOT_APPROVED/
+  );
+});
+
+test('similar but invalid discard consent is rejected', () => {
+  assert.throws(
+    () => assertQaReplayRunnerEnvironment({
+      ...approved,
+      TV_QA_CANARY_RUN:
+        'I_APPROVE_ES_QA_REPLAY_AND_DISCARD'
+    }),
+    /QA_CANARY_ENV_NOT_APPROVED/
+  );
+});

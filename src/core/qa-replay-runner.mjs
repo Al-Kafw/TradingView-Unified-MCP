@@ -19,8 +19,7 @@ export function assertQaReplayRunnerEnvironment(env) {
     TV_ALLOW_QA_REPLAY: '1',
     TV_QA_REPLAY_LAYOUT_ID: QA,
     TV_ALLOWED_LAYOUT_IDS: QA,
-    TV_ALLOWED_LAYOUT_NAMES: ES_QA_BASELINE.layout_name,
-    TV_QA_CANARY_RUN: 'I_APPROVE_ES_QA_REPLAY_NO_RELOAD'
+    TV_ALLOWED_LAYOUT_NAMES: ES_QA_BASELINE.layout_name
   };
 
   const disabled = [
@@ -36,7 +35,11 @@ export function assertQaReplayRunnerEnvironment(env) {
     Object.entries(required).some(
       ([key, value]) => env[key] !== value
     ) ||
-    disabled.some(key => env[key] === '1')
+    disabled.some(key => env[key] === '1') ||
+    ![
+      'I_APPROVE_ES_QA_REPLAY_NO_RELOAD',
+      'I_APPROVE_ES_QA_REPLAY_AND_DISCARD_UNSAVED_CHANGES'
+    ].includes(env.TV_QA_CANARY_RUN)
   ) {
     throw Error('QA_CANARY_ENV_NOT_APPROVED');
   }
@@ -72,7 +75,8 @@ export async function runPolicyBoundQaReplayCanary({
   qaTargetId,
   protectedTargetId
 }) {
-  assertQaReplayRunnerEnvironment(process.env);
+  const env = Object.freeze({ ...process.env });
+  assertQaReplayRunnerEnvironment(env);
   assertQaReplayRunnerTargets({
     qaTargetId,
     protectedTargetId
@@ -84,7 +88,7 @@ export async function runPolicyBoundQaReplayCanary({
     });
 
   try {
-    const mutationPolicy = createMutationPolicy(process.env);
+    const mutationPolicy = createMutationPolicy(env);
 
     const runtime = buildRuntime({
       browser: runtimeBrowser,
@@ -108,7 +112,8 @@ export async function runPolicyBoundQaReplayCanary({
         endpoint: ENDPOINT
       }),
       registry: runtime.registry,
-      allowDirtyReload: false,
+      allowDirtyReload: env.TV_QA_CANARY_RUN ===
+        'I_APPROVE_ES_QA_REPLAY_AND_DISCARD_UNSAVED_CHANGES',
       qaTargetId,
       protectedTargetId,
       maxAttempts: 40,
