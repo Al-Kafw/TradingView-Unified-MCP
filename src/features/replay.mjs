@@ -33,6 +33,40 @@ export async function replayPage(a) {
       const studies = typeof chart?.getAllStudies === 'function'
         ? chart.getAllStudies() : null;
 
+
+      const hasOriginalVolume =
+        Array.isArray(studies) &&
+        studies.filter(s =>
+          s.id === 'aMROG1' &&
+          s.name === 'Volume'
+        ).length === 1 &&
+        studies.filter(s =>
+          s.id === 'aMROG1'
+        ).length === 1;
+
+      const exactBaseline =
+        hasOriginalVolume &&
+        studies.length === 1;
+
+      const temporaryReplayStudy =
+        hasOriginalVolume &&
+        studies.length === 2 &&
+        studies.some(s =>
+          s.id !== 'aMROG1' &&
+          typeof s.id === 'string' &&
+          /^[A-Za-z0-9_-]{1,128}$/.test(s.id) &&
+          s.name === 'Unnamed Study'
+        );
+
+      const inventoryAllowed =
+        a.op === 'start' || a.op === 'qa_preflight'
+          ? exactBaseline &&
+            service?.hasChanges?.() === false
+          : a.op === 'step'
+            ? before.started === true &&
+              (exactBaseline || temporaryReplayStudy)
+            : a.op === 'stop' || a.op === 'autoplay';
+
       const valid =
         a.expected_layout_id === 'AIibRZIx' &&
         location.pathname === '/chart/AIibRZIx/' &&
@@ -41,13 +75,13 @@ export async function replayPage(a) {
           'MCP QA Recovery RestoreLab e8150714' &&
         chart?.symbol?.() === 'CME_MINI_DL:ES1!' &&
         chart?.resolution?.() === '15' &&
-        Array.isArray(studies) &&
-        studies.length === 1 &&
-        studies[0].id === 'aMROG1' &&
-        studies[0].name === 'Volume' &&
+        inventoryAllowed &&
         (
-          (a.op !== 'start' && a.op !== 'qa_preflight') ||
-          service?.hasChanges?.() === false
+          a.op !== 'qa_preflight' ||
+          (
+            before.started === false &&
+            before.autoplay === false
+          )
         );
 
       if (!valid) return fail(

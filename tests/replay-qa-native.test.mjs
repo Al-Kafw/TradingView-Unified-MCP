@@ -11,6 +11,8 @@ function fixture({
   timeframe = '15',
   studies = [{ id: 'aMROG1', name: 'Volume' }],
   dirty = false,
+  replayGeneratedStudy = false,
+  replayGeneratedStudyName = 'Unnamed Study',
   pathname = '/chart/AIibRZIx/'
 } = {}) {
   const calls = [];
@@ -30,6 +32,13 @@ function fixture({
       calls.push('start');
       cursor = ms / 1000;
       started = true;
+      if (replayGeneratedStudy) {
+        studies.push({
+          id: 'ReplayQA1',
+          name: replayGeneratedStudyName
+        });
+        dirty = true;
+      }
     },
     doStep: async () => {
       calls.push('step');
@@ -38,6 +47,13 @@ function fixture({
     stopReplay: async () => {
       calls.push('stop');
       started = false;
+      if (replayGeneratedStudy) {
+        const index = studies.findIndex(
+          s => s.id === 'ReplayQA1'
+        );
+        if (index >= 0) studies.splice(index, 1);
+        dirty = false;
+      }
     }
   };
 
@@ -175,4 +191,65 @@ test('protected native QA preflight fails closed', async () => {
     assert.equal(r.code, 'QA_REPLAY_GUARD_FAILED');
     assert.deepEqual(f.calls, []);
   } finally { await f.close(); }
+});
+
+test('temporary Replay study permits step and stop', async () => {
+  const f = fixture({ replayGeneratedStudy: true });
+
+  try {
+    const start = await f.run('start', {
+      time: 1790000000,
+      maximum_relocation_seconds: 0
+    });
+    assert.equal(start.ok, true);
+
+    const step = await f.run('step', { bars: 1 });
+    assert.equal(step.ok, true);
+    assert.equal(step.advanced_bars, 1);
+
+    const stop = await f.run('stop');
+    assert.equal(stop.ok, true);
+    assert.deepEqual(f.calls, ['start', 'step', 'stop']);
+  } finally {
+    await f.close();
+  }
+});
+
+test('unexpected Replay study blocks step but not cleanup', async () => {
+  const f = fixture({
+    replayGeneratedStudy: true,
+    replayGeneratedStudyName: 'Unexpected Indicator'
+  });
+
+  try {
+    assert.equal((await f.run('start', {
+      time: 1790000000
+    })).ok, true);
+
+    const step = await f.run('step', { bars: 1 });
+    assert.equal(step.code, 'QA_REPLAY_GUARD_FAILED');
+
+    const stop = await f.run('stop');
+    assert.equal(stop.ok, true);
+    assert.deepEqual(f.calls, ['start', 'stop']);
+  } finally {
+    await f.close();
+  }
+});
+
+test('preflight rejects an already started Replay', async () => {
+  const f = fixture();
+
+  try {
+    assert.equal((await f.run('start', {
+      time: 1790000000
+    })).ok, true);
+
+    const result = await f.run('qa_preflight');
+    assert.equal(result.code, 'QA_REPLAY_GUARD_FAILED');
+
+    assert.equal((await f.run('stop')).ok, true);
+  } finally {
+    await f.close();
+  }
 });
