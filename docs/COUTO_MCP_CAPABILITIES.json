@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "2e078e4d376512b4ffc5d93b1cba5f1759f1679b",
+  "verified_code_checkpoint": "c0c79b52f44151cb956f175aa4240cdb6320cceb",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -77,12 +77,12 @@
         "data_get_pine_lines",
         "data_get_pine_labels"
       ],
-      "limitations": "Read-only native objects verified on YM 30M: SMT v0.11 exposed 7 lines and 8 labels; QTF TPD logging study exposed 24 labels. Some other studies returned zero. Coordinates may be bar-relative. No guarantee of visual fidelity or hover text. Live-scoped coordinate enrichment distinguishes loaded bar-index evidence from unresolved projections and unavailable collections.",
+      "limitations": "Read-only native Pine lines and labels remain live-verified on YM 30M. Unambiguous graphics collection coverage is handled offline. Native X is preserved. The earlier numeric-index time claim is retracted because projected labels can use a different coordinate basis. Do not treat output timestamps from the older running Pilot as validated event times. Hover-only text and full visual fidelity remain unverified.",
       "coordinate_enrichment": {
-        "status": "live_verified_scoped",
-        "method": "Native X preserved; corresponding Unix seconds included only where X equals an index in the loaded chart bar series.",
-        "limitations": "Future or otherwise unmatched native X remains unresolved; no interpolation or assumed timestamps. No new live graphics adapter test performed.",
-        "live_evidence": {
+        "status": "native_x_live_verified_time_mapping_unverified",
+        "method": "Native graphics X is preserved. Numerically matching an OHLC index cannot independently establish the native X coordinate basis. Absolute time is withheld.",
+        "limitations": "Fail-closed null timestamp output now offline-tested only. Running Pilot retains prior implementation until a separately authorized MCP process restart. Future study-specific time mapping needs independent coordinate provenance.",
+        "prior_live_evidence": {
           "date": "2026-10-26",
           "layout": "KrnVg2oE",
           "symbol": "CBOT_MINI_DL:YM1!",
@@ -105,7 +105,7 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 386,
+    "automated_tests_passed": 387,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
