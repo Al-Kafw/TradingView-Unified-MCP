@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "82f6ce558e5956e8d2f14696891740a654c4a8f7",
+  "verified_code_checkpoint": "6a557a9ee7b5854f5ecb456090c899bef9a61808",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -121,10 +121,19 @@
       "status": "partial",
       "approved_for_consumer": false,
       "limitations": "Some projected graphics and hover-only details still need manual evidence"
+    },
+    {
+      "id": "single_call_pine_qa_snapshot",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_qa_snapshot"
+      ],
+      "limitations": "Read-only exact-target, exact-study, exact-layout snapshot of native Pine lines and labels in one synchronous page evaluation. Per-kind complete/truncated/unavailable and native coordinates reported; timestamps remain null. Bounded at 1-1000 objects per kind; hover, full visual fidelity, live behavior and snapshots under concurrent chart activity remain unverified. Requires live acceptance before consumer approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 392,
+    "automated_tests_passed": 398,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
