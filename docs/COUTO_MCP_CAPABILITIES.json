@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "ce19378a99c002dc08fceaafea0068bbbb362fd7",
+  "verified_code_checkpoint": "98a11efbb47d9efb1858bcf6dff904b6a588a637",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -61,7 +61,7 @@
       "id": "automated_qa_recovery",
       "status": "manual_restoration_live_verified",
       "approved_for_consumer": false,
-      "limitations": "Manual refresh followed by 3 stable read-only baseline checks verified. Automatic dirty-layout reload remains disabled; change attribution is incomplete"
+      "limitations": "Manual restoration verified with three stable baseline reads. Explicit discard-consent guard passed offline tests; no automatic dirty-layout reload has been tested live. Reload remains disabled by default and requires separate per-run operator approval on the disposable ES QA layout. Change attribution is incomplete."
     },
     {
       "id": "automatic_pine_edit_and_compile",
@@ -87,13 +87,13 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 378,
+    "automated_tests_passed": 380,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
     "integrated_live_canary": "Replay start/step/stop verified; automatic reload safely held",
     "note": "Automated tests alone never establish live trading or Pine correctness",
     "manual_restoration": "verified_3_stable_reads",
-    "automatic_dirty_reload": "disabled_not_live_verified"
+    "automatic_dirty_reload": "explicit_consent_guard_offline_verified_live_unverified"
   }
 }
