@@ -152,12 +152,29 @@
     },
     {
       "id": "study_diagnostics",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_study_diagnostics"
       ],
-      "limitations": "Exact layout and study-ID guard. Reports currently observed studies, exact-name candidates, bar readiness, and per-kind native line/label availability. Does not infer an absent study was deleted or that missing graphics equal zero. Uses single synchronous page evaluation; chart may change afterward. Requires scoped live verification before consumer approval."
+      "limitations": "Live verified for present studies on two YM 30M charts. Stale-ID and missing-graphics distinctions passed offline tests but were not separately live verified. Chart state may change after capture. Direct ChatGPT action requires connector refresh.",
+      "live_evidence": {
+        "date": "2026-10-26",
+        "C123": {
+          "layout": "ljpmBuY2",
+          "market": "YM1! 30M",
+          "study_status": "present",
+          "lines": "47/47 complete",
+          "labels": "41/41 complete"
+        },
+        "SMT_v011": {
+          "layout": "KrnVg2oE",
+          "market": "YM1! 30M",
+          "study_status": "present",
+          "lines": "8/8 complete",
+          "labels": "9/9 complete"
+        }
+      }
     }
   ],
   "validation": {
