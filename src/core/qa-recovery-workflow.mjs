@@ -4,6 +4,10 @@ import {
   verifyQaSavedBaseline
 } from './qa-recovery-verifier.mjs';
 
+import {
+  consumeQaReplayRecoveryPermit
+} from './qa-recovery-permit.mjs';
+
 const pathname = tab => {
   try { return new URL(tab.url).pathname; }
   catch { return null; }
@@ -26,8 +30,7 @@ export async function recoverQaSavedLayout({
   protectedLayoutId,
   authorizedQaLayoutId,
   expected,
-  authorizeDiscard = false,
-  cleanupReason = null,
+  recoveryPermit = null,
   maxAttempts = 40,
   intervalMs = 500,
   sleep
@@ -111,10 +114,8 @@ export async function recoverQaSavedLayout({
       return fail('QA_PREFLIGHT_UNSAFE');
 
     if (before.unsaved_changes === true) {
-      if (
-        authorizeDiscard !== true ||
-        cleanupReason !== 'qa_replay_test_cleanup'
-      ) return fail('QA_DISCARD_NOT_AUTHORIZED');
+      if (!recoveryPermit)
+        return fail('QA_REPLAY_PERMIT_REQUIRED');
 
       // Re-check the native state immediately before navigation.
       const second = await browser.evaluate(
@@ -126,6 +127,13 @@ export async function recoverQaSavedLayout({
         second.unsaved_changes !== true ||
         !targetsValid(await browser.listTargets())
       ) return fail('QA_PRENAVIGATION_STATE_CHANGED');
+
+      if (!consumeQaReplayRecoveryPermit(recoveryPermit, {
+        qaTargetId,
+        protectedTargetId,
+        protectedLayoutId,
+        expected
+      })) return fail('QA_REPLAY_PERMIT_INVALID');
 
       navigationAttempted = true;
 

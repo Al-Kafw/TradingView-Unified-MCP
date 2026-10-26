@@ -4,6 +4,10 @@ import {
   recoverQaSavedLayout
 } from '../src/core/qa-recovery-workflow.mjs';
 
+import {
+  issueQaReplayRecoveryPermit
+} from '../src/core/qa-recovery-permit.mjs';
+
 const expected = {
   layout_id: 'AIibRZIx',
   layout_name: 'MCP QA Recovery RestoreLab e8150714',
@@ -79,6 +83,39 @@ function fixture({
 
   return {
     calls,
+    setDirty: value => { state.dirty = value; },
+    issuePermit: (changes = {}) =>
+      issueQaReplayRecoveryPermit({
+        qaTargetId: 'qa-tab',
+        protectedTargetId: 'protected-tab',
+        protectedLayoutId: 'KrnVg2oE',
+        expected: asset,
+        before: {
+          pathname: `/chart/${asset.layout_id}/`,
+          ...asset,
+          unsaved_changes: false,
+          replay_started: false,
+          autoplay: false
+        },
+        start: {
+          verified: true,
+          mutation_attempted: true,
+          observed: {
+            started: true,
+            autoplay: false,
+            current_time: 1790000000
+          }
+        },
+        stop: {
+          verified: true,
+          mutation_attempted: true,
+          observed: {
+            started: false,
+            autoplay: false
+          }
+        },
+        ...changes
+      }),
     run: (changes = {}) =>
       recoverQaSavedLayout({
         browserFactory,
@@ -102,15 +139,14 @@ test('dirty QA without authorization cannot reload', async () => {
   const f = fixture();
   const r = await f.run();
 
-  assert.equal(r.code, 'QA_DISCARD_NOT_AUTHORIZED');
+  assert.equal(r.code, 'QA_REPLAY_PERMIT_REQUIRED');
   assert.equal(count(f, 'navigate'), 0);
 });
 
 test('authorized Replay cleanup navigates exactly once', async () => {
   const f = fixture();
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.ok, true);
@@ -131,8 +167,7 @@ test('clean QA verifies without navigating', async () => {
 test('active Replay cannot be discarded', async () => {
   const f = fixture({ started: true });
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.code, 'QA_PREFLIGHT_UNSAFE');
@@ -142,8 +177,7 @@ test('active Replay cannot be discarded', async () => {
 test('wrong asset identity blocks navigation', async () => {
   const f = fixture({ wrongSymbol: true });
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.code, 'QA_PREFLIGHT_UNSAFE');
@@ -153,8 +187,7 @@ test('wrong asset identity blocks navigation', async () => {
 test('missing protected-tab identity blocks navigation', async () => {
   const f = fixture({ missingProtected: true });
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.code, 'TARGET_IDENTITY_MISMATCH');
@@ -164,8 +197,7 @@ test('missing protected-tab identity blocks navigation', async () => {
 test('CDP disconnect after submitted navigation reconciles', async () => {
   const f = fixture({ navigationThrows: true });
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.ok, true);
@@ -176,8 +208,7 @@ test('CDP disconnect after submitted navigation reconciles', async () => {
 test('failed restoration never retries navigation', async () => {
   const f = fixture({ navigationRestores: false });
   const r = await f.run({
-    authorizeDiscard: true,
-    cleanupReason: 'qa_replay_test_cleanup'
+    recoveryPermit: f.issuePermit()
   });
 
   assert.equal(r.ok, false);
@@ -209,4 +240,63 @@ test('protected layout cannot be authorized as QA', async () => {
   );
 
   assert.equal(count(f, 'navigate'), 0);
+});
+
+test('old boolean authorization cannot trigger reload', async () => {
+  const f = fixture();
+
+  const r = await f.run({
+    authorizeDiscard: true,
+    cleanupReason: 'qa_replay_test_cleanup'
+  });
+
+  assert.equal(r.code, 'QA_REPLAY_PERMIT_REQUIRED');
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+test('fabricated permit cannot trigger reload', async () => {
+  const f = fixture();
+  const r = await f.run({ recoveryPermit: {} });
+
+  assert.equal(r.code, 'QA_REPLAY_PERMIT_INVALID');
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+test('permit cannot be issued without verified stop', () => {
+  const f = fixture();
+
+  assert.throws(
+    () => f.issuePermit({
+      stop: {
+        verified: false,
+        mutation_attempted: true,
+        observed: { started: false, autoplay: false }
+      }
+    }),
+    /QA_REPLAY_EVIDENCE_NOT_VERIFIED/
+  );
+});
+
+test('permit is scoped and cannot be reused', async () => {
+  const f = fixture();
+  const permit = f.issuePermit();
+
+  const wrongScope = await f.run({
+    recoveryPermit: f.issuePermit({
+      protectedTargetId: 'some-other-tab'
+    })
+  });
+
+  assert.equal(wrongScope.code, 'QA_REPLAY_PERMIT_INVALID');
+  assert.equal(count(f, 'navigate'), 0);
+
+  const first = await f.run({ recoveryPermit: permit });
+  assert.equal(first.ok, true);
+  assert.equal(count(f, 'navigate'), 1);
+
+  f.setDirty(true);
+
+  const second = await f.run({ recoveryPermit: permit });
+  assert.equal(second.code, 'QA_REPLAY_PERMIT_INVALID');
+  assert.equal(count(f, 'navigate'), 1);
 });
