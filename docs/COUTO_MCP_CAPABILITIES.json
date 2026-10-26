@@ -124,12 +124,31 @@
     },
     {
       "id": "single_call_pine_qa_snapshot",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_qa_snapshot"
       ],
-      "limitations": "Read-only exact-target, exact-study, exact-layout snapshot of native Pine lines and labels in one synchronous page evaluation. Per-kind complete/truncated/unavailable and native coordinates reported; timestamps remain null. Bounded at 1-1000 objects per kind; hover, full visual fidelity, live behavior and snapshots under concurrent chart activity remain unverified. Requires live acceptance before consumer approval."
+      "limitations": "Live verified on C123 and SMT v0.11 only. Native X-to-time mapping, hover details and visual fidelity remain unverified. Direct ChatGPT connector action requires tool-list refresh.",
+      "live_evidence": {
+        "date": "2026-10-26",
+        "C123": {
+          "layout": "ljpmBuY2",
+          "study": "Jcrj1e",
+          "labels": "18/18 complete",
+          "lines": "unavailable, not confirmed zero",
+          "coverage": "partial"
+        },
+        "SMT_v011": {
+          "layout": "KrnVg2oE",
+          "study": "4zOWc4",
+          "lines": "8/8 complete",
+          "labels": "9/9 complete",
+          "coverage": "complete"
+        },
+        "runtime": "Local read-only MCP",
+        "timestamp_policy": "Unverified timestamps null"
+      }
     }
   ],
   "validation": {
