@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "7000e047236b5f6130a6759dd9d91a93186ca78a",
+  "verified_code_checkpoint": "34d055c75289835ecf4425501ef104af203e9c71",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -175,10 +175,19 @@
           "labels": "9/9 complete"
         }
       }
+    },
+    {
+      "id": "visual_qa_evidence_pack",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_visual_qa_evidence"
+      ],
+      "limitations": "Read-only exact target/layout/study guard, bounded 1-200 graphics items per kind and 6 MiB PNG cap. The screenshot is viewport-only and foregrounds the requested browser tab without changing chart data. Two native snapshots bracket the image; only matching readbacks are correlated. A transient between reads cannot be excluded. Native graphics coordinates do not have verified pixel or timestamp mapping. Offscreen or hover-only graphics and signal correctness are not certified. Requires live validation before approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 406,
+    "automated_tests_passed": 415,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
