@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-26",
+  "source_repository": "Al-Kafw/TradingView-Unified-MCP",
+  "source_branch": "qa/mcp-safety-p2-20261024",
+  "verified_code_checkpoint": "ad8fc6f56c6b48cfcca8805711771e44f2fe70ed",
+  "consumer_repository": "Al-Kafw/couto-qtf-trading",
+  "consumer": "HTF Profiler 12 and successors",
+  "usage_policy": {
+    "refresh": "At each new engineering session and relevant MCP milestone",
+    "approval": "Use only capabilities marked approved_for_consumer",
+    "promotion": "Requires scope-specific live evidence, automated checks and documented limitations",
+    "protected_layout": "KrnVg2oE",
+    "protected_layout_writes": false
+  },
+  "capabilities": [
+    {
+      "id": "chart_inspection",
+      "status": "live_verified",
+      "approved_for_consumer": true,
+      "tools": ["browser_list_tabs", "layout_get", "chart_get_state", "indicator_list"],
+      "limitations": "Native observable data only; not every hover or graphical detail"
+    },
+    {
+      "id": "historical_market_data",
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
+      "tools": ["data_get_last_bar", "data_get_ohlcv", "data_get_study_values"],
+      "limitations": "Available chart history and verified futures aliases; independently synchronize assets and timeframes"
+    },
+    {
+      "id": "replay_inspection",
+      "status": "live_verified",
+      "approved_for_consumer": true,
+      "tools": ["replay_status"],
+      "limitations": "Read-only inspection"
+    },
+    {
+      "id": "replay_mutation",
+      "status": "live_verified_es15_only",
+      "approved_for_consumer": false,
+      "tools": ["replay_start", "replay_step", "replay_stop"],
+      "limitations": "Disposable ES 15M QA only; integrated recovery canary pending"
+    },
+    {
+      "id": "automated_qa_recovery",
+      "status": "offline_tested",
+      "approved_for_consumer": false,
+      "limitations": "Integrated live canary and final change-attribution safeguards pending"
+    },
+    {
+      "id": "automatic_pine_edit_and_compile",
+      "status": "unverified_end_to_end",
+      "approved_for_consumer": false,
+      "limitations": "Guest light-check is not equivalent to actual editor compilation"
+    },
+    {
+      "id": "complete_visual_qa",
+      "status": "partial",
+      "approved_for_consumer": false,
+      "limitations": "Some projected graphics and hover-only details still need manual evidence"
+    }
+  ],
+  "validation": {
+    "automated_tests_passed": 369,
+    "automated_tests_failed": 0,
+    "static_audits_passed": true,
+    "independent_process_lock_test": "verified_locally",
+    "integrated_live_canary": "pending",
+    "note": "Automated tests alone never establish live trading or Pine correctness"
+  }
+}
