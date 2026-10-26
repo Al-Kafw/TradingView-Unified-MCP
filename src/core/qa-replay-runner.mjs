@@ -20,7 +20,7 @@ export function assertQaReplayRunnerEnvironment(env) {
     TV_QA_REPLAY_LAYOUT_ID: QA,
     TV_ALLOWED_LAYOUT_IDS: QA,
     TV_ALLOWED_LAYOUT_NAMES: ES_QA_BASELINE.layout_name,
-    TV_QA_CANARY_RUN: 'I_APPROVE_ES_QA_REPLAY_AND_RESTORE'
+    TV_QA_CANARY_RUN: 'I_APPROVE_ES_QA_REPLAY_NO_RELOAD'
   };
 
   const disabled = [
@@ -108,6 +108,7 @@ export async function runPolicyBoundQaReplayCanary({
         endpoint: ENDPOINT
       }),
       registry: runtime.registry,
+      allowDirtyReload: false,
       qaTargetId,
       protectedTargetId,
       maxAttempts: 40,

@@ -58,7 +58,8 @@ export async function runQaReplayCanaryCore({
   protectedTargetId,
   maxAttempts = 40,
   intervalMs = 500,
-  sleep
+  sleep,
+  allowDirtyReload = false
 }) {
   if (
     activeRun ||
@@ -251,6 +252,13 @@ export async function runQaReplayCanaryCore({
           typeof postStop.unsaved_changes !== 'boolean'
         ) throw Error('QA_POST_STOP_IDENTITY_FAILED');
 
+        if (postStop.unsaved_changes === true && !allowDirtyReload) {
+          recovery = {
+            ok: false,
+            code: 'QA_DIRTY_RELOAD_HELD',
+            navigation_attempted: false
+          };
+        } else {
         const recoveryPermit = issueQaReplayRecoveryPermit({
           qaTargetId,
           protectedTargetId,
@@ -273,6 +281,7 @@ export async function runQaReplayCanaryCore({
           intervalMs,
           ...(sleep ? { sleep } : {})
         });
+        }
 
       } catch (error) {
         recoveryError = errorText(error);
@@ -290,9 +299,10 @@ export async function runQaReplayCanaryCore({
 
     return {
       ok,
-      code: ok
-        ? 'QA_REPLAY_AND_RECOVERY_VERIFIED'
-        : 'QA_REPLAY_CANARY_REQUIRES_REVIEW',
+      code: recovery?.code === 'QA_DIRTY_RELOAD_HELD'
+        ? 'QA_REPLAY_COMPLETE_RECOVERY_HELD'
+        : ok ? 'QA_REPLAY_AND_RECOVERY_VERIFIED'
+             : 'QA_REPLAY_CANARY_REQUIRES_REVIEW',
       candle_time: candleTime,
       start_verified: start?.verified === true,
       step_verified: step?.verified === true,
@@ -301,6 +311,7 @@ export async function runQaReplayCanaryCore({
       navigation_attempted:
         recovery?.navigation_attempted ?? false,
       recovery_code: recovery?.code ?? null,
+      recovery_held: recovery?.code === 'QA_DIRTY_RELOAD_HELD',
       stage_error: stageError,
       stop_error: stopError,
       recovery_error: recoveryError,

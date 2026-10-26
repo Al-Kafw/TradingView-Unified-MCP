@@ -173,14 +173,16 @@ function fixture({
   return {
     state,
     calls,
-    run: () => runQaReplayCanaryCore({
+    run: (overrides = {}) => runQaReplayCanaryCore({
       browserFactory,
       registry,
       qaTargetId: 'qa-tab',
       protectedTargetId: 'protected-tab',
       maxAttempts: 5,
       intervalMs: 0,
-      sleep: async () => {}
+      sleep: async () => {},
+      allowDirtyReload: true,
+      ...overrides
     })
   };
 }
@@ -296,5 +298,19 @@ test('Volume input changed during Replay blocks recovery', async () => {
   assert.equal(r.stop_verified, true);
   assert.equal(r.recovery_verified, false);
   assert.equal(r.recovery_error, 'QA_POST_STOP_IDENTITY_FAILED');
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+
+test('production-style mode holds dirty QA without reload', async () => {
+  const f = fixture();
+  const r = await f.run({ allowDirtyReload: false });
+
+  assert.equal(r.start_verified, true);
+  assert.equal(r.step_verified, true);
+  assert.equal(r.stop_verified, true);
+  assert.equal(r.code, 'QA_REPLAY_COMPLETE_RECOVERY_HELD');
+  assert.equal(r.recovery_held, true);
+  assert.equal(r.navigation_attempted, false);
   assert.equal(count(f, 'navigate'), 0);
 });

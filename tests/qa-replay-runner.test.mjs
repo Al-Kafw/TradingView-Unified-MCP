@@ -20,7 +20,7 @@ const approved = {
   TV_ALLOWED_LAYOUT_NAMES:
     'MCP QA Recovery RestoreLab e8150714',
   TV_QA_CANARY_RUN:
-    'I_APPROVE_ES_QA_REPLAY_AND_RESTORE'
+    'I_APPROVE_ES_QA_REPLAY_NO_RELOAD'
 };
 
 test('exact opt-in environment is approved', () => {
