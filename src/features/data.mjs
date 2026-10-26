@@ -92,6 +92,64 @@ export function dataPage(a) {
       if (a.op === 'last_bar') result.note = 'Latest loaded candle values; this is not a bid/ask quote or guaranteed real-time tick.';
       return result;
     }
+    if (a.op === 'qa_snapshot') {
+      if (!a.expected_layout_id || typeof a.expected_layout_id !== 'string')
+        return fail('EXPECTED_LAYOUT_REQUIRED', 'An exact expected saved-layout ID is required.');
+      if (context.layout_id !== a.expected_layout_id)
+        return fail('LAYOUT_MISMATCH', 'The chart layout differs from the expected layout; no snapshot was claimed.',
+          { expected_layout_id: a.expected_layout_id, observed_layout_id: context.layout_id });
+      if (!Array.isArray(sources)) return fail('CAPABILITY_UNAVAILABLE', 'Chart study data sources are unavailable.');
+      const exactStudies = sources.filter(s => typeof s.metaInfo === 'function' &&
+        typeof s.id === 'function' && s.id() === a.entity_id);
+      if (exactStudies.length !== 1)
+        return fail('TARGET_NOT_FOUND', 'Exactly one study with the supplied entity ID is required.');
+      const maxItems = a.max_items_per_kind ?? 200;
+      if (!Number.isInteger(maxItems) || maxItems < 1 || maxItems > 1000)
+        return fail('INVALID_ARGUMENT', 'max_items_per_kind must be an integer between 1 and 1000.');
+      const study = exactStudies[0];
+      const name = study.metaInfo()?.description ?? study.metaInfo()?.shortDescription ?? null;
+      const graphics = {};
+      for (const kind of ['lines', 'labels']) {
+        // These calls happen within the same synchronous page evaluation, not
+        // separate MCP round-trips. Reuse the existing fail-closed adapters.
+        const read = dataPage({ op: kind, entity_id: a.entity_id, offset: 0, limit: maxItems });
+        if (!read.ok) {
+          if (read.code !== 'CAPABILITY_UNAVAILABLE')
+            return fail(read.code ?? 'ADAPTER_MISMATCH', read.message ?? 'Graphics snapshot read failed.');
+          graphics[kind] = {
+            status: 'unavailable', total: null, returned: 0, next_offset: null,
+            all_items_returned_in_this_call: false, items: [],
+            reason: read.unavailable?.[0]?.reason ?? read.message
+          };
+          continue;
+        }
+        if (read.layout_id !== context.layout_id || read.symbol !== context.symbol ||
+            read.resolved_symbol !== context.resolved_symbol || read.timeframe !== context.timeframe ||
+            read.session !== context.session)
+          return fail('CHART_CHANGED', 'Chart identity changed during the graphics snapshot.');
+        const item = read.studies?.[0];
+        if (!item || item.entity_id !== a.entity_id)
+          return fail('ADAPTER_MISMATCH', 'An unexpected study was returned by the graphics adapter.');
+        graphics[kind] = {
+          status: item.all_items_returned_in_this_call ? 'complete' : 'truncated',
+          total: item.total, returned: item.returned, next_offset: item.next_offset,
+          all_items_returned_in_this_call: item.all_items_returned_in_this_call,
+          items: item.items
+        };
+      }
+      const states = Object.values(graphics).map(x => x.status);
+      const coverage = states.every(s => s === 'complete') ? 'complete' :
+        states.every(s => s === 'unavailable') ? 'unavailable' : 'partial';
+      return {
+        ok: true, ...context,
+        study: { entity_id: a.entity_id, name },
+        capture_mode: 'single_synchronous_chart_page_evaluation',
+        graphics, coverage,
+        all_graphics_returned_in_this_call: coverage === 'complete',
+        coordinate_policy: 'native_x_only; timestamps_unverified_and_null',
+        limitations: 'Available Pine primitives only; visual fidelity and hover text not certified. A live chart can change after capture.'
+      };
+    }
     if (a.op === 'study_values') {
       if (!Array.isArray(sources)) return fail('CAPABILITY_UNAVAILABLE', 'Chart data sources cannot be enumerated.');
       const wanted = a.entity_id ? sources.filter(s => typeof s.id === 'function' && s.id() === a.entity_id) : sources.filter(s => typeof s.metaInfo === 'function');
@@ -185,6 +243,7 @@ const tools = [
   def('data_get_ohlcv','ohlcv','Read paginated loaded OHLCV history with explicit units and coverage; no fixed 500-bar ceiling.',{...pagination,order:{type:'string',enum:['asc','desc']}}),
   def('data_get_last_bar','last_bar','Read the latest loaded candle; this is not a bid/ask quote.'),
   def('data_get_study_values','study_values','Read current Data Window values for all studies or one exact entity.',entity),
+  def('data_get_qa_snapshot','qa_snapshot','Capture a bounded read-only single-study line/label QA snapshot with exact layout guard and explicit completeness.',{...entity,max_items_per_kind:{type:'integer',minimum:1,maximum:1000}},['entity_id','target_id','expected_layout_id']),
   def('data_get_pine_lines','lines','Read Pine-generated line primitives with per-study pagination.',{...entity,...pagination}),
   def('data_get_pine_labels','labels','Read Pine-generated label text, prices and native coordinates.',{...entity,...pagination}),
   def('data_get_pine_tables','tables','Read Pine table cells preserving original row/column coordinates and blanks.',{...entity,...pagination}),

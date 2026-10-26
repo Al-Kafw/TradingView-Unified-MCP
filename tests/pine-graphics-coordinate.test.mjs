@@ -222,3 +222,79 @@ test('unavailable study prevents claiming a complete graphics response', async (
     assert.equal(r.unavailable.length, 1);
   } finally { await f.close(); }
 });
+
+
+test('qa snapshot captures both graphics classes in one bounded read', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, true);
+    assert.equal(r.layout_id, 'QA_READ_1');
+    assert.equal(r.study.entity_id, 'study1');
+    assert.equal(r.capture_mode, 'single_synchronous_chart_page_evaluation');
+    assert.equal(r.coverage, 'complete');
+    assert.equal(r.all_graphics_returned_in_this_call, true);
+    assert.equal(r.graphics.lines.items[0].x1, 5);
+    assert.equal(r.graphics.labels.items[0].text, 'SMT');
+    assert.equal(r.graphics.lines.items[0].x1_time_unix_seconds, null);
+    assert.equal(r.graphics.labels.items[0].x_time_unix_seconds, null);
+  } finally { await f.close(); }
+});
+
+test('qa snapshot identifies truncated graphics without claiming full collection', async () => {
+  const f = fixture({ lines: [
+    ['a', { x1: 1, x2: 2 }], ['b', { x1: 3, x2: 4 }], ['c', { x1: 5, x2: 6 }]
+  ] });
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'study1', expected_layout_id: 'QA_READ_1', max_items_per_kind: 2 });
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'partial');
+    assert.equal(r.all_graphics_returned_in_this_call, false);
+    assert.equal(r.graphics.lines.status, 'truncated');
+    assert.equal(r.graphics.lines.total, 3);
+    assert.equal(r.graphics.lines.next_offset, 2);
+    assert.equal(r.graphics.labels.status, 'complete');
+  } finally { await f.close(); }
+});
+
+test('qa snapshot marks missing native graphics as unavailable not empty', async () => {
+  const f = fixture({ missingCollectionData: true });
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'unavailable');
+    assert.equal(r.all_graphics_returned_in_this_call, false);
+    assert.equal(r.graphics.lines.total, null);
+    assert.equal(r.graphics.labels.status, 'unavailable');
+  } finally { await f.close(); }
+});
+
+test('qa snapshot refuses mismatched protected layout identity', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'study1', expected_layout_id: 'WRONG_LAYOUT' });
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'LAYOUT_MISMATCH');
+    assert.equal(r.observed_layout_id, 'QA_READ_1');
+  } finally { await f.close(); }
+});
+
+test('qa snapshot refuses unknown study rather than selecting another', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'not-present', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, false);
+    assert.equal(r.code, 'TARGET_NOT_FOUND');
+  } finally { await f.close(); }
+});
+
+test('qa snapshot correctly reports exposed zero-line collection as complete', async () => {
+  const f = fixture({ lines: [] });
+  try {
+    const r = await f.read('qa_snapshot', { entity_id: 'study1', expected_layout_id: 'QA_READ_1' });
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'complete');
+    assert.equal(r.graphics.lines.total, 0);
+    assert.equal(r.graphics.lines.status, 'complete');
+  } finally { await f.close(); }
+});
