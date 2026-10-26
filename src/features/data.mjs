@@ -135,7 +135,9 @@ export function dataPage(a) {
         }
         if (typeof values.entries !== 'function') return fail('ADAPTER_MISMATCH', 'Graphics collection shape has changed.');
         const all = Array.from(values.entries());
-        const items = all.slice(a.offset ?? 0, (a.offset ?? 0) + (a.limit ?? 500)).map(([id,v]) => {
+        const offset = a.offset ?? 0;
+        const limit = a.limit ?? 500;
+        const items = all.slice(offset, offset + limit).map(([id,v]) => {
           if (a.op === 'lines') {
             return { id, x1: v.x1, y1: v.y1, x2: v.x2, y2: v.y2, style: v.st, width: v.w, color: v.ci,
               x1_time_unix_seconds: null, x2_time_unix_seconds: null,
@@ -150,10 +152,22 @@ export function dataPage(a) {
           if (a.op === 'tables') return { id, table_id: v.tid ?? 0, row: v.row, column: v.col, text: v.t ?? '' };
           return { id, left: v.x1, top: v.y1, right: v.x2, bottom: v.y2, text: v.t, background_color: v.bci, border_color: v.ci };
         });
-        out.push({ entity_id: s.id?.(), name: meta.description, total: all.length, returned: items.length, items });
+        out.push({
+          entity_id: s.id?.(), name: meta.description,
+          total: all.length, returned: items.length, offset, limit,
+          next_offset: offset + items.length < all.length ? offset + items.length : null,
+          all_items_returned_in_this_call: offset === 0 && items.length === all.length,
+          items
+        });
       }
       if (selected.length && !out.length) return fail('CAPABILITY_UNAVAILABLE', 'Graphics collections unavailable for the selected studies.', { unavailable });
-      return { ok: true, ...context, kind: a.op, studies: out, unavailable, coverage: unavailable.length ? 'partial' : 'complete', coordinates: ['lines', 'labels'].includes(a.op) ? 'Native x retained unchanged; timestamps unverified because numerical index equality does not prove a shared coordinate domain; *_time_unix_seconds is null' : 'TradingView native graphics coordinates; X may be bar index, not Unix time' };
+      return { ok: true, ...context, kind: a.op, studies: out, unavailable,
+        coverage: unavailable.length ? 'partial' : 'complete',
+        coverage_scope: 'native_collection_availability_not_pagination',
+        all_items_returned_in_this_call: unavailable.length === 0 &&
+          out.every(study => study.all_items_returned_in_this_call === true),
+        pagination_note: 'A complete single response does not establish historical stability across separate calls; recheck layout and source before combining pages.',
+        coordinates: ['lines', 'labels'].includes(a.op) ? 'Native x retained unchanged; timestamps unverified because numerical index equality does not prove a shared coordinate domain; *_time_unix_seconds is null' : 'TradingView native graphics coordinates; X may be bar index, not Unix time' };
     }
     return fail('INVALID_ARGUMENT', 'Unknown data operation.');
   } catch (error) { return fail('BROWSER_OPERATION_FAILED', String(error?.message ?? error).slice(0,600)); }

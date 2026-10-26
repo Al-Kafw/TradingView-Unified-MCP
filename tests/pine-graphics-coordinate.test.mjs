@@ -48,7 +48,7 @@ function fixture({
     _chartWidgetCollection: { metaInfo: { uid: { value: () => 'QA_READ_1' } } }
   } } });
   return {
-    read: op => h.browser.evaluate('chart-1', dataPage, { op }),
+    read: (op, options = {}) => h.browser.evaluate('chart-1', dataPage, { op, ...options }),
     close: () => h.close()
   };
 }
@@ -149,5 +149,76 @@ test('projected side-candle label never inherits a coincident chart-bar timestam
     assert.equal(item.x_time_unix_seconds, null);
     assert.equal(item.x_coordinate_basis, 'unresolved_native_x');
     assert.equal(r.coverage, 'complete');
+  } finally { await f.close(); }
+});
+
+
+test('graphics coverage complete means available, not necessarily fully paginated', async () => {
+  const f = fixture({ lines: [
+    ['a', { x1: 1, x2: 2 }],
+    ['b', { x1: 3, x2: 4 }],
+    ['c', { x1: 5, x2: 6 }]
+  ] });
+  try {
+    const r = await f.read('lines', { offset: 0, limit: 2 });
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'complete');
+    assert.equal(r.coverage_scope, 'native_collection_availability_not_pagination');
+    assert.equal(r.all_items_returned_in_this_call, false);
+    assert.equal(r.studies[0].total, 3);
+    assert.equal(r.studies[0].returned, 2);
+    assert.equal(r.studies[0].next_offset, 2);
+    assert.equal(r.studies[0].all_items_returned_in_this_call, false);
+  } finally { await f.close(); }
+});
+
+test('second graphics page cannot be mistaken for a complete snapshot', async () => {
+  const f = fixture({ labels: [
+    ['a', { x: 1, t: 'a' }],
+    ['b', { x: 2, t: 'b' }],
+    ['c', { x: 3, t: 'c' }]
+  ] });
+  try {
+    const r = await f.read('labels', { offset: 2, limit: 2 });
+    assert.equal(r.ok, true);
+    assert.equal(r.studies[0].returned, 1);
+    assert.equal(r.studies[0].next_offset, null);
+    assert.equal(r.studies[0].all_items_returned_in_this_call, false);
+    assert.equal(r.all_items_returned_in_this_call, false);
+  } finally { await f.close(); }
+});
+
+test('fully returned graphics have explicit single-call completeness', async () => {
+  const f = fixture();
+  try {
+    const r = await f.read('lines', { limit: 10 });
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'complete');
+    assert.equal(r.all_items_returned_in_this_call, true);
+    assert.equal(r.studies[0].all_items_returned_in_this_call, true);
+    assert.equal(r.studies[0].next_offset, null);
+  } finally { await f.close(); }
+});
+
+test('empty exposed graphics map is a complete zero-item read', async () => {
+  const f = fixture({ lines: [] });
+  try {
+    const r = await f.read('lines');
+    assert.equal(r.ok, true);
+    assert.equal(r.studies[0].total, 0);
+    assert.equal(r.studies[0].returned, 0);
+    assert.equal(r.all_items_returned_in_this_call, true);
+  } finally { await f.close(); }
+});
+
+test('unavailable study prevents claiming a complete graphics response', async () => {
+  const f = fixture({ extraUnavailableStudy: true });
+  try {
+    const r = await f.read('lines');
+    assert.equal(r.ok, true);
+    assert.equal(r.coverage, 'partial');
+    assert.equal(r.studies[0].all_items_returned_in_this_call, true);
+    assert.equal(r.all_items_returned_in_this_call, false);
+    assert.equal(r.unavailable.length, 1);
   } finally { await f.close(); }
 });
