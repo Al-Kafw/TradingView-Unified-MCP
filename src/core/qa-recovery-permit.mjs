@@ -21,11 +21,20 @@ function scopeKey({
     typeof expected?.resolved_symbol !== 'string' ||
     !expected.resolved_symbol ||
     typeof expected?.timeframe !== 'string' || !expected.timeframe ||
+    expected?.chart_type !== 1 ||
+    !Array.isArray(expected?.drawings) ||
+    expected.drawings.length !== 0 ||
     !Array.isArray(expected?.studies) ||
     expected.studies.length < 1 ||
     expected.studies.some(s =>
       typeof s.id !== 'string' || !s.id ||
-      typeof s.name !== 'string' || !s.name
+      typeof s.name !== 'string' || !s.name ||
+      !Array.isArray(s.inputs) ||
+      s.inputs.length === 0 ||
+      s.inputs.some(i =>
+        typeof i.id !== 'string' || !i.id ||
+        !['number', 'boolean', 'string'].includes(typeof i.value)
+      )
     )
   ) throw Error('INVALID_QA_PERMIT_SCOPE');
 
@@ -38,8 +47,16 @@ function scopeKey({
     symbol: expected.symbol,
     resolved_symbol: expected.resolved_symbol,
     timeframe: expected.timeframe,
+    chart_type: expected.chart_type,
+    drawings: expected.drawings,
     studies: expected.studies
-      .map(s => ({ id: s.id, name: s.name }))
+      .map(s => ({
+        id: s.id,
+        name: s.name,
+        inputs: s.inputs
+          .map(i => ({ id: i.id, value: i.value }))
+          .sort((a, b) => a.id.localeCompare(b.id))
+      }))
       .sort((a, b) => a.id.localeCompare(b.id))
   });
 }

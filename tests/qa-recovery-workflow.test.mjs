@@ -14,12 +14,23 @@ const expected = {
   symbol: 'CME_MINI_DL:ES1!',
   resolved_symbol: 'CME_MINI:ES1!',
   timeframe: '15',
-  studies: [{ id: 'aMROG1', name: 'Volume' }]
+  chart_type: 1,
+  drawings: [],
+  studies: [{
+    id: 'aMROG1',
+    name: 'Volume',
+    inputs: [
+      { id: 'length', value: 20 },
+      { id: 'col_prev_close', value: false }
+    ]
+  }]
 };
 
 function fixture({
   dirty = true,
   started = false,
+  drawingPresent = false,
+  wrongChartType = false,
   wrongSymbol = false,
   missingProtected = false,
   navigationThrows = false,
@@ -56,6 +67,10 @@ function fixture({
         symbol: wrongSymbol ? 'WRONG:SYMBOL' : asset.symbol,
         resolved_symbol: asset.resolved_symbol,
         timeframe: asset.timeframe,
+        chart_type: wrongChartType ? 2 : asset.chart_type,
+        drawings: drawingPresent
+          ? [{ id: 'manual-line', name: 'Trend Line' }]
+          : asset.drawings,
         studies: asset.studies,
         unsaved_changes: state.dirty,
         replay_started: state.started,
@@ -299,4 +314,38 @@ test('permit is scoped and cannot be reused', async () => {
   const second = await f.run({ recoveryPermit: permit });
   assert.equal(second.code, 'QA_REPLAY_PERMIT_INVALID');
   assert.equal(count(f, 'navigate'), 1);
+});
+
+
+test('unexpected drawing blocks QA reload', async () => {
+  const f = fixture({ drawingPresent: true });
+  const r = await f.run({ recoveryPermit: f.issuePermit() });
+
+  assert.equal(r.code, 'QA_PREFLIGHT_UNSAFE');
+  assert.equal(f.calls.includes('navigate'), false);
+});
+
+test('unexpected chart type blocks QA reload', async () => {
+  const f = fixture({ wrongChartType: true });
+  const r = await f.run({ recoveryPermit: f.issuePermit() });
+
+  assert.equal(r.code, 'QA_PREFLIGHT_UNSAFE');
+  assert.equal(f.calls.includes('navigate'), false);
+});
+
+test('permit refuses incomplete or modified QA scope', () => {
+  const f = fixture();
+
+  for (const changes of [
+    { chart_type: undefined },
+    { drawings: undefined },
+    { drawings: [{ id: 'manual-line', name: 'Trend Line' }] }
+  ]) {
+    assert.throws(
+      () => f.issuePermit({
+        expected: { ...expected, ...changes }
+      }),
+      /INVALID_QA_PERMIT_SCOPE/
+    );
+  }
 });

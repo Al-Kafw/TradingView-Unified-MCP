@@ -19,8 +19,17 @@ export const ES_QA_BASELINE = Object.freeze({
   symbol: 'CME_MINI_DL:ES1!',
   resolved_symbol: 'CME_MINI:ES1!',
   timeframe: '15',
+  chart_type: 1,
+  drawings: Object.freeze([]),
   studies: Object.freeze([
-    Object.freeze({ id: 'aMROG1', name: 'Volume' })
+    Object.freeze({
+      id: 'aMROG1',
+      name: 'Volume',
+      inputs: Object.freeze([
+        Object.freeze({ id: 'length', value: 20 }),
+        Object.freeze({ id: 'col_prev_close', value: false })
+      ])
+    })
   ])
 });
 

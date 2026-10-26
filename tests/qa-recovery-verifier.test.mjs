@@ -130,3 +130,50 @@ test('snapshot matcher supports other assets and timeframes', () => {
     symbol: 'CME_MINI_DL:ES1!'
   }, nq), false);
 });
+
+
+test('strict QA recovery rejects unexpected drawings and chart type', () => {
+  const e = { ...expected, chart_type: 1, drawings: [] };
+  const s = { ...baseline, chart_type: 1, drawings: [] };
+
+  assert.equal(matchesQaBaseline(s, e), true);
+  assert.equal(matchesQaBaseline({
+    ...s, drawings: [{ id: 'new', name: 'Trend Line' }]
+  }, e), false);
+  assert.equal(matchesQaBaseline({
+    ...s, chart_type: 2
+  }, e), false);
+  assert.equal(matchesQaBaseline({
+    ...s, drawings: null
+  }, e), false);
+});
+
+
+test('strict QA study input comparison', () => {
+  const inputs = [
+    { id: 'length', value: 20 },
+    { id: 'col_prev_close', value: false }
+  ];
+
+  const e = {
+    ...expected,
+    studies: [{ id: 'aMROG1', name: 'Volume', inputs }]
+  };
+
+  const s = { ...baseline, studies: e.studies };
+
+  assert.equal(matchesQaBaseline(s, e), true);
+
+  for (const changed of [
+    null,
+    [],
+    [{ id: 'length', value: 21 }, inputs[1]],
+    [inputs[0], { id: 'col_prev_close', value: true }],
+    [...inputs, { id: 'extra', value: 1 }]
+  ]) {
+    assert.equal(matchesQaBaseline({
+      ...s,
+      studies: [{ id: 'aMROG1', name: 'Volume', inputs: changed }]
+    }, e), false);
+  }
+});

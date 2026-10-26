@@ -20,6 +20,8 @@ export function qaBaselineSnapshotPage() {
   const info = main?.symbolInfo?.();
 
   const studies = chart?.getAllStudies?.();
+  const shapes = typeof chart?.getAllShapes === 'function'
+    ? chart.getAllShapes() : null;
 
   return {
     pathname: location.pathname,
@@ -32,11 +34,36 @@ export function qaBaselineSnapshotPage() {
     symbol: chart?.symbol?.() ?? null,
     resolved_symbol: info?.pro_name ?? null,
     timeframe: chart?.resolution?.() ?? null,
-    studies: Array.isArray(studies)
-      ? studies.map(s => ({
-          id: s.id ?? null,
+    chart_type: chart?.chartType?.() ?? null,
+    drawings: Array.isArray(shapes)
+      ? shapes.map(s => ({
+          id: s.id == null ? null : String(s.id),
           name: s.name ?? null
         }))
+      : null,
+    studies: Array.isArray(studies)
+      ? studies.map(s => {
+          let inputs = null;
+          try {
+            const values = chart?.getStudyById?.(s.id)
+              ?.getInputValues?.();
+
+            if (Array.isArray(values)) {
+              inputs = values.map(v => ({
+                id: v?.id ?? null,
+                value: v?.value ?? null
+              }));
+            }
+          } catch {
+            // Missing native input data remains explicitly unavailable.
+          }
+
+          return {
+            id: s.id ?? null,
+            name: s.name ?? null,
+            inputs
+          };
+        })
       : null,
     replay_started:
       typeof replay?.isReplayStarted === 'function'
@@ -57,14 +84,36 @@ export function matchesQaBaseline(s, e) {
     s.symbol === e.symbol &&
     s.resolved_symbol === e.resolved_symbol &&
     s.timeframe === e.timeframe &&
+    (!Object.hasOwn(e, 'chart_type') ||
+      s.chart_type === e.chart_type) &&
+    (!Object.hasOwn(e, 'drawings') ||
+      (Array.isArray(s.drawings) &&
+       Array.isArray(e.drawings) &&
+       s.drawings.length === e.drawings.length &&
+       s.drawings.every(d =>
+         e.drawings.some(x =>
+           x.id === d.id && x.name === d.name
+         )
+       ))) &&
     s.replay_started === false &&
     s.autoplay === false &&
     Array.isArray(s.studies) &&
     Array.isArray(e.studies) &&
     s.studies.length === e.studies.length &&
     s.studies.every(study =>
-      e.studies.filter(
-        item => item.id === study.id && item.name === study.name
+      e.studies.filter(item =>
+        item.id === study.id &&
+        item.name === study.name &&
+        (!Object.hasOwn(item, 'inputs') ||
+          (Array.isArray(study.inputs) &&
+           Array.isArray(item.inputs) &&
+           study.inputs.length === item.inputs.length &&
+           study.inputs.every(input =>
+             item.inputs.filter(expectedInput =>
+               expectedInput.id === input.id &&
+               Object.is(expectedInput.value, input.value)
+             ).length === 1
+           )))
       ).length === 1
     )
   );

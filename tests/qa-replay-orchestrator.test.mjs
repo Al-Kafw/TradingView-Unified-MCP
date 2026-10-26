@@ -13,12 +13,18 @@ function fixture({
   stopFails = false,
   badCandle = false,
   badTarget = false,
-  clearDirtyOnStop = false
+  clearDirtyOnStop = false,
+  drawingChangedAfterStart = false,
+  chartTypeChangedAfterStart = false,
+  inputChangedAfterStart = false
 } = {}) {
   const state = {
     dirty,
     started: false,
-    autoplay: false
+    autoplay: false,
+    unexpectedDrawing: false,
+    unexpectedChartType: false,
+    unexpectedInput: false
   };
 
   const calls = [];
@@ -56,6 +62,20 @@ function fixture({
       return {
         pathname: '/chart/AIibRZIx/',
         ...ES_QA_BASELINE,
+        studies: state.unexpectedInput
+          ? [{
+              id: 'aMROG1',
+              name: 'Volume',
+              inputs: [
+                { id: 'length', value: 21 },
+                { id: 'col_prev_close', value: false }
+              ]
+            }]
+          : ES_QA_BASELINE.studies,
+        drawings: state.unexpectedDrawing
+          ? [{ id: 'manual-line', name: 'Trend Line' }]
+          : [],
+        chart_type: state.unexpectedChartType ? 2 : 1,
         unsaved_changes: state.dirty,
         replay_started: state.started,
         autoplay: state.autoplay
@@ -103,6 +123,9 @@ function fixture({
       if (name === 'replay_start') {
         state.started = true;
         state.dirty = true;
+        state.unexpectedDrawing = drawingChangedAfterStart;
+        state.unexpectedChartType = chartTypeChangedAfterStart;
+        state.unexpectedInput = inputChangedAfterStart;
 
         if (startFails) throw Error('START_FAILED');
 
@@ -239,5 +262,39 @@ test('clean state after stop needs no navigation', async () => {
 
   assert.equal(r.ok, true);
   assert.equal(r.recovery_code, 'QA_ALREADY_CLEAN_VERIFIED');
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+
+test('drawing added during Replay blocks recovery discard', async () => {
+  const f = fixture({ drawingChangedAfterStart: true });
+  const r = await f.run();
+
+  assert.equal(r.ok, false);
+  assert.equal(r.stop_verified, true);
+  assert.equal(r.recovery_verified, false);
+  assert.equal(r.recovery_error, 'QA_POST_STOP_IDENTITY_FAILED');
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+test('chart type changed during Replay blocks recovery discard', async () => {
+  const f = fixture({ chartTypeChangedAfterStart: true });
+  const r = await f.run();
+
+  assert.equal(r.ok, false);
+  assert.equal(r.stop_verified, true);
+  assert.equal(r.recovery_verified, false);
+  assert.equal(count(f, 'navigate'), 0);
+});
+
+
+test('Volume input changed during Replay blocks recovery', async () => {
+  const f = fixture({ inputChangedAfterStart: true });
+  const r = await f.run();
+
+  assert.equal(r.ok, false);
+  assert.equal(r.stop_verified, true);
+  assert.equal(r.recovery_verified, false);
+  assert.equal(r.recovery_error, 'QA_POST_STOP_IDENTITY_FAILED');
   assert.equal(count(f, 'navigate'), 0);
 });

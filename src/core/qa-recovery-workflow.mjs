@@ -54,6 +54,9 @@ export async function recoverQaSavedLayout({
     expected.resolved_symbol.length > 0 &&
     typeof expected.timeframe === 'string' &&
     expected.timeframe.length > 0 &&
+    expected.chart_type === 1 &&
+    Array.isArray(expected.drawings) &&
+    expected.drawings.length === 0 &&
     Array.isArray(expected.studies) &&
     expected.studies.length >= 1 &&
     expected.studies.length <= 30 &&
