@@ -277,12 +277,33 @@
     },
     {
       "id": "native_study_source_provenance",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_study_source_provenance"
       ],
-      "limitations": "Read-only exact target/layout/study ID/name and pinned saved script ID/version/title/SHA256. Requires stable chart identity and stable native study pineId/pineVersion before and after reading and independently hashing saved source. Missing, ambiguous, changing, or mismatched metadata cannot establish provenance. Returns no compiled text or raw source. Native study metadata-to-saved-script version correspondence is observational only; compiled runtime byte equivalence and runtime source SHA attestation are NOT proven. The multi-call read is not atomic. No drawing-to-absolute-time or pixel mapping. Offline tests passed; scoped live acceptance required before approval."
+      "limitations": "Live verified on C123 v0.4 YM1! 15M. Native study pineId/pineVersion were stable and matched the independently hashed saved Pine source version 3.0. Establishes observational study-to-saved-script provenance. Compiled runtime byte equivalence and runtime source hash attestation remain unverified. Multi-call capture is not atomic. Drawing-to-absolute-time and drawing-to-pixel mapping remain unverified. Requires MCP restart and connector refresh for direct ChatGPT access.",
+      "live_evidence": {
+        "date": "2026-10-27",
+        "layout": "ljpmBuY2",
+        "market": "YM1! 15M",
+        "indicator": "C123 Projected Research v0.4",
+        "study_id_at_capture": "SIVQwR",
+        "saved_script_id": "USER;630d9b8bdd6048b4bc1bb2ab746fd583",
+        "saved_version": "3.0",
+        "saved_source_sha256": "cf32784699b32a9bb1965325a00e1f3546d23bf8f567d272ab793d4eb69344ee",
+        "source_provenance_status": "native_study_id_version_matches_verified_saved_source",
+        "chart_identity_stable": true,
+        "native_metadata_observed": true,
+        "native_metadata_stable": true,
+        "native_metadata_matches_saved": true,
+        "saved_source_hash_independently_recomputed": true,
+        "native_study_to_saved_script_version_verified": true,
+        "compiled_runtime_byte_equivalence_verified": false,
+        "compiled_runtime_source_sha256": null,
+        "capture_atomic": false,
+        "read_only": true
+      }
     }
   ],
   "validation": {
