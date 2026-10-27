@@ -3,7 +3,7 @@
   "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "6cfa766b08bd25dcd7b378da0cbe81fef07a05da",
+  "verified_code_checkpoint": "2855af6d1840d0011eb04fe4eb850fff1ef1a9a8",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -359,12 +359,12 @@
     },
     {
       "id": "cross_chart_sync_qa",
-      "status": "live_verified_scoped",
-      "approved_for_consumer": true,
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
       "tools": [
         "data_get_cross_chart_sync_qa"
       ],
-      "limitations": "Read-only multi-chart synchronization guard, scoped user-operated live acceptance on 2026-10-27 at code checkpoint 6cfa766: YM1! C123 QA ljpmBuY2 and YM1! Core Acceptance QA WsoALMpl, both live 30M, matched 12 closed candidate bars (latest closed candidate 1793118600); NQ1! SMT Root QA 0Zi4puyi paused Replay versus live YM1! was correctly blocked MIXED_REPLAY_AND_LIVE without OHLC comparison. The newest developing bar is conservatively excluded. This is a non-atomic read of chart-loaded OHLC, not verified real-time tick synchronization, independent candle finality, strategy or indicator signal accuracy, all market/timeframe support, or proof of all Replay edge cases. 510/510 offline tests and source/release audits passed. Restart the MCP server and refresh the ChatGPT connector to expose the new tool; direct ChatGPT invocation remains unverified.",
+      "limitations": "Research branch only: newly added fail-closed Replay cursor causality guard; 513/513 offline tests passed, but modified code has NOT been live-verified. Previously recorded scoped live acceptance applies exclusively to code 6cfa766, not this research branch. No cross-market tick/indicator correctness, atomic capture or Replay candle finality guarantee. The existing live_evidence object documents the accepted predecessor, not new runtime validation.",
       "live_evidence": {
         "date": "2026-10-27",
         "method": "user-operated guarded local read-only live acceptance v2",
@@ -408,7 +408,7 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 510,
+    "automated_tests_passed": 513,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
