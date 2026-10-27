@@ -203,12 +203,30 @@
     },
     {
       "id": "coordinate_provenance_probe",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_coordinate_provenance"
       ],
-      "limitations": "Read-only exact target/layout/study guard; native graphic X range and numeric overlap with independently observed OHLC bar indices, five sampled bar time anchors, and optional chart-local index-to-coordinate roundtrips. Correlates only matching pre/post snapshots and chart identity. Numeric overlap is NOT proof that Pine X shares the OHLC index domain. All native drawing timestamps and pixel positions remain unverified; no chart or screenshot coordinate mapping is approved. Requires live verification before consumer approval."
+      "limitations": "Live verified on YM1! 15M C123 v0.4. Five native candle-index-to-chart-coordinate roundtrips and public time matches were observed. These do not prove that Pine drawing X shares the candle index domain. Drawing-to-time and drawing-to-pixel mapping remain unverified. Numeric overlaps are not mapping evidence. Pre/post snapshots are not atomic. Requires MCP restart and connector refresh for direct access.",
+      "live_evidence": {
+        "date": "2026-10-27",
+        "layout": "ljpmBuY2",
+        "market": "YM1! 15M",
+        "indicator": "C123 Projected Research v0.4",
+        "study_id_at_capture": "SIVQwR",
+        "evidence_status": "matching_bracket_reads",
+        "graphics_coverage": "complete",
+        "native_x_values_examined": 172,
+        "loaded_bars": 300,
+        "bar_anchors": 5,
+        "index_coordinate_roundtrip": "verified",
+        "public_time_matches_loaded_bar": true,
+        "native_drawing_time_mapping": "unverified",
+        "native_drawing_pixel_mapping": "unverified",
+        "mapping_approved": false,
+        "read_only": true
+      }
     }
   ],
   "validation": {
