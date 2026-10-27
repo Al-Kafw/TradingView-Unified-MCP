@@ -1,6 +1,6 @@
 import { writeFile,mkdir } from 'node:fs/promises';
 import { buildRuntime } from '../src/runtime.mjs';
-const runtime=buildRuntime({genericUi:true});const tools=runtime.registry.list().sort((a,b)=>a.name.localeCompare(b.name));
+const runtime=buildRuntime({readonly:false,genericUi:true});const tools=runtime.registry.list().sort((a,b)=>a.name.localeCompare(b.name));
 await mkdir('docs',{recursive:true});
 await writeFile('docs/TOOLS.json',JSON.stringify(tools,null,2)+'\n');
 const enabled=buildRuntime({readonly:false,genericUi:false}),readonly=buildRuntime({readonly:true,genericUi:false});

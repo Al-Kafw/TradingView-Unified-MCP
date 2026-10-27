@@ -46,13 +46,21 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `chart_wait_ready` | No | — | Wait for the intended symbol/timeframe and loaded bars; does not assert strategy freshness. |
 | `chart_zoom` | Yes | Required | Zoom one native step in/out or to a bounded count of loaded bars, then verify actual range movement or requested bar endpoints. |
 | `data_export_ohlcv` | No | — | Export all currently loaded bars into a confined JSON or CSV file; fail if the loaded range or selected market changes during pagination. |
+| `data_get_c123_index_lookup_qa` | No | — | Guarded read-only C123 v0.4 native graphics X lookup to chart future bar index and chart-local X; no pixel/time/renderer equivalence claims. |
+| `data_get_coordinate_provenance` | No | — | Read-only chart candle/time-scale anchor probe with strict separation from unresolved native Pine drawing X. Never infers drawing timestamps or screenshot pixels. |
+| `data_get_cross_chart_sync_qa` | No | — | Read-only exact-chart guard for synchronized OHLC comparison across 2–4 TradingView QA charts. Rejects mixed Replay/live, mismatched Replay clocks, timeframes, stale last-closed times or unstable candle windows. Excludes current developing bar; does not infer indicator correctness. |
 | `data_get_last_bar` | No | — | Read the latest loaded candle; this is not a bid/ask quote. |
 | `data_get_ohlcv` | No | — | Read paginated loaded OHLCV history with explicit units and coverage; no fixed 500-bar ceiling. |
 | `data_get_pine_boxes` | No | — | Read Pine box primitives without confusing them with manual chart drawings. |
 | `data_get_pine_labels` | No | — | Read Pine-generated label text, prices and native coordinates. |
 | `data_get_pine_lines` | No | — | Read Pine-generated line primitives with per-study pagination. |
 | `data_get_pine_tables` | No | — | Read Pine table cells preserving original row/column coordinates and blanks. |
+| `data_get_projected_slot_qa` | No | — | Read-only same-study C1/C2/C3-to-projected-clock native-X correspondence. Detect missing/ambiguous clocks without guessing timestamps or screen pixels. |
+| `data_get_qa_snapshot` | No | — | Capture a bounded read-only single-study line/label QA snapshot with exact layout guard and explicit completeness. |
+| `data_get_study_diagnostics` | No | — | Diagnose the currently observed study identity, readiness and graphics availability without inferring removal or zero drawings. |
+| `data_get_study_source_provenance` | No | — | Read-only guarded chart-study pineId/pineVersion readback with independently hashed saved Pine source; no compiled-runtime byte-equivalence claim. |
 | `data_get_study_values` | No | — | Read current Data Window values for all studies or one exact entity. |
+| `data_get_visual_qa_evidence` | No | — | Read-only viewport PNG plus native line/label evidence bracketed by chart identity and graphics checks. No inferred pixel/time mapping. |
 | `drawing_clear` | Yes | Required | Remove only the complete set of drawing IDs supplied after inspection. Refuses if the live set has changed. |
 | `drawing_create` | Yes | Required | Create a native drawing and verify a new entity ID and actual shape type. Reports coordinate/property fidelity instead of assuming it. |
 | `drawing_export` | No | — | Export every available drawing point and property to local JSON. Marks missing fields; does not advertise perfect restoration. |
@@ -105,6 +113,7 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `pine_can_write` | No | — | Inspect TradingView’s native write-permission result for one saved script; only a literal boolean is interpreted as can_write. |
 | `pine_check` | No | — | Submit supplied Pine source to TradingView’s own guest compile endpoint; require recognised output and never infer success from empty diagnostics. |
 | `pine_compile` | Yes | Required | Submit Add/Update on chart only for the exact expected buffer and title; require new compile success evidence or report failure/unverified. |
+| `pine_compile_qa_draft` | Yes | Required | Compile only the fixed disposable Pine draft on an approved QA restore lab and verify a newly registered chart study. |
 | `pine_delete_script` | Yes | Required | Delete one exact saved Pine script only after version/source/name preconditions and a confined backup; verify absence from a successful native library read. |
 | `pine_export_saved_source` | No | — | Export one saved script’s exact source and metadata into a confined JSON artifact. |
 | `pine_get_binding` | No | — | Read authoritative native Pine script ID/version, draft/modified state and the full visible source, with a binding hash. Ambiguous facades fail closed. |
@@ -117,6 +126,7 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `pine_new_buffer` | Yes | Required | Create a native unsaved Pine draft from a clean saved document, verify draft identity, and set exact supplied source. Does not create a cloud script. |
 | `pine_open_editor` | Yes | Required | Open Pine Editor and verify a unique visible Monaco editor bound to the displayed DOM. |
 | `pine_open_script` | Yes | Required | Open one saved Pine script/version through its native editor facade and verify exact bound ID, version and full source. Requires a clean current buffer and binding hash; no source-injection fallback. |
+| `pine_remove_qa_study` | Yes | Required | Remove only the approved disposable QA Pine study while preserving the original Volume study. |
 | `pine_rename_script` | Yes | Required | Rename one exact saved Pine script after version/source/name preconditions; preserve source, refuse name conflicts, and verify native ID/name readback. |
 | `pine_save` | Yes | Required | Save the exactly identified open Pine buffer using its scoped toolbar; verify Saved status. New unnamed script dialogs require native UI handling. |
 | `pine_save_as` | Yes | Required | Save the exactly hashed visible Pine buffer as a uniquely named new cloud script, then natively bind the editor to its verified new ID/version/source. Returns a reconciliation receipt if binding fails after saving. |
@@ -192,4 +202,4 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `workflow_copy_chart_create_alert` | Yes | Required | Copy a saved chart into an independent layout, verify the copy, change symbol/timeframe, save, create a native alert, and independently verify exact stored message/webhook/condition/activation. Uses durable checkpoints and refuses uncertain duplicates. Does not test webhook delivery. |
 | `workflow_status` | No | — | Read a local copy-and-alert operation checkpoint. Contains IDs, hashes and stages; never stores webhook tokens or alert message bodies. |
 
-Total implemented tools: **185**.
+Total implemented tools: **195**.

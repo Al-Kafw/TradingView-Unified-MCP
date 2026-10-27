@@ -1,7 +1,7 @@
 {
-  "implemented": 185,
-  "default_exposed": 180,
-  "read_only_exposed": 101,
+  "implemented": 195,
+  "default_exposed": 190,
+  "read_only_exposed": 109,
   "optional_ui_mutations": [
     "ui_click",
     "ui_hover",

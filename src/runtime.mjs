@@ -17,6 +17,7 @@ import coordinateProvenance from './features/coordinate-provenance.mjs';
 import projectedSlotQa from './features/projected-slot-qa.mjs';
 import studySourceProvenance from './features/study-source-provenance.mjs';
 import indexLookupQa from './features/index-lookup-qa.mjs';
+import crossChartSyncQa from './features/cross-chart-sync-qa.mjs';
 import strategy from './features/strategy.mjs';
 import pine from './features/pine.mjs';
 import replay from './features/replay.mjs';
@@ -30,7 +31,7 @@ import watchlists from './features/watchlists.mjs';
 import paper from './features/paper.mjs';
 import market from './features/market.mjs';
 
-export const allDescriptors=[...browserTools,...chart,...layouts,...alerts,...workflow,...data,...visualQa,...coordinateProvenance,...projectedSlotQa,...studySourceProvenance,...indexLookupQa,...strategy,...pine,...replay,...drawings,...ui,...jobs,...research,...panes,...templates,...watchlists,...paper,...market];
+export const allDescriptors=[...browserTools,...chart,...layouts,...alerts,...workflow,...data,...visualQa,...coordinateProvenance,...projectedSlotQa,...studySourceProvenance,...indexLookupQa,...crossChartSyncQa,...strategy,...pine,...replay,...drawings,...ui,...jobs,...research,...panes,...templates,...watchlists,...paper,...market];
 const root=fileURLToPath(new URL('../',import.meta.url));
 const resource=(name,path,description)=>({name,description,read:()=>readFile(resolve(root,path),'utf8')});
 export function buildRuntime({browser=new BrowserManager(),store=new LocalStore(process.env.TV_DATA_DIR||resolve(process.cwd(),'runtime')),readonly=!(process.env.TV_READONLY==='0'&&process.env.TV_ENABLE_WRITES==='1'),genericUi=process.env.TV_ENABLE_GENERIC_UI==='1',mutationPolicy=createMutationPolicy()}={}){

@@ -2444,6 +2444,199 @@
     }
   },
   {
+    "name": "data_get_c123_index_lookup_qa",
+    "description": "Guarded read-only C123 v0.4 native graphics X lookup to chart future bar index and chart-local X; no pixel/time/renderer equivalence claims.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "expected_study_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "saved_script_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "saved_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "expected_saved_source_sha256": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id",
+        "entity_id",
+        "expected_study_name",
+        "saved_script_id",
+        "saved_version",
+        "expected_saved_source_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_coordinate_provenance",
+    "description": "Read-only chart candle/time-scale anchor probe with strict separation from unresolved native Pine drawing X. Never infers drawing timestamps or screenshot pixels.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "max_items_per_kind": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id",
+        "entity_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_cross_chart_sync_qa",
+    "description": "Read-only exact-chart guard for synchronized OHLC comparison across 2–4 TradingView QA charts. Rejects mixed Replay/live, mismatched Replay clocks, timeframes, stale last-closed times or unstable candle windows. Excludes current developing bar; does not infer indicator correctness.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "target_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "expected_layout_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "expected_symbol": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 100
+              },
+              "expected_timeframe": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 20
+              }
+            },
+            "required": [
+              "target_id",
+              "expected_layout_id",
+              "expected_symbol",
+              "expected_timeframe"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "window_bars": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 60
+        },
+        "min_common_bars": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 60
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
     "name": "data_get_last_bar",
     "description": "Read the latest loaded candle; this is not a bid/ask quote.",
     "inputSchema": {
@@ -2713,6 +2906,254 @@
     }
   },
   {
+    "name": "data_get_projected_slot_qa",
+    "description": "Read-only same-study C1/C2/C3-to-projected-clock native-X correspondence. Detect missing/ambiguous clocks without guessing timestamps or screen pixels.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "expected_study_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "max_items_per_kind": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "saved_script_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "saved_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ]
+        },
+        "expected_saved_source_sha256": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id",
+        "entity_id",
+        "expected_study_name"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_qa_snapshot",
+    "description": "Capture a bounded read-only single-study line/label QA snapshot with exact layout guard and explicit completeness.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "max_items_per_kind": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "entity_id",
+        "target_id",
+        "expected_layout_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_study_diagnostics",
+    "description": "Diagnose the currently observed study identity, readiness and graphics availability without inferring removal or zero drawings.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "expected_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "max_items_per_kind": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "entity_id",
+        "target_id",
+        "expected_layout_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_study_source_provenance",
+    "description": "Read-only guarded chart-study pineId/pineVersion readback with independently hashed saved Pine source; no compiled-runtime byte-equivalence claim.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "expected_study_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "saved_script_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "pattern": "^[A-Za-z0-9_.$:;-]+$"
+        },
+        "saved_version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
+              "pattern": "^\\d+(?:\\.\\d+)*$"
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ]
+        },
+        "expected_saved_source_sha256": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id",
+        "entity_id",
+        "expected_study_name",
+        "saved_script_id",
+        "saved_version",
+        "expected_saved_source_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
     "name": "data_get_study_values",
     "description": "Read current Data Window values for all studies or one exact entity.",
     "inputSchema": {
@@ -2735,6 +3176,52 @@
         }
       },
       "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
+    "name": "data_get_visual_qa_evidence",
+    "description": "Read-only viewport PNG plus native line/label evidence bracketed by chart identity and graphics checks. No inferred pixel/time mapping.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "max_items_per_kind": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id",
+        "entity_id"
+      ],
       "additionalProperties": false
     },
     "annotations": {
@@ -5056,6 +5543,56 @@
     }
   },
   {
+    "name": "pine_compile_qa_draft",
+    "description": "Compile only the fixed disposable Pine draft on an approved QA restore lab and verify a newly registered chart study.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expected_binding_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "expected_source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 30000
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "expected_binding_sha256",
+        "expected_source_sha256",
+        "target_id",
+        "expected_layout_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": true
+    }
+  },
+  {
     "name": "pine_delete_script",
     "description": "Delete one exact saved Pine script only after version/source/name preconditions and a confined backup; verify absence from a successful native library read.",
     "inputSchema": {
@@ -5570,6 +6107,58 @@
     "annotations": {
       "readOnlyHint": false,
       "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": true
+    }
+  },
+  {
+    "name": "pine_remove_qa_study",
+    "description": "Remove only the approved disposable QA Pine study while preserving the original Volume study.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "baseline_entity_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 30000
+        },
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "entity_id",
+        "baseline_entity_id",
+        "target_id",
+        "expected_layout_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
       "idempotentHint": false,
       "openWorldHint": true
     },
