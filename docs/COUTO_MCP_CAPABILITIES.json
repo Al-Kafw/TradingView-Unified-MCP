@@ -3,7 +3,7 @@
   "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "9c566e139ed44cde28e2b2398142ee1364043414",
+  "verified_code_checkpoint": "6cfa766b08bd25dcd7b378da0cbe81fef07a05da",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -257,7 +257,7 @@
             "clock": "10:00"
           },
           {
-            "role": "C2↓",
+            "role": "C2\u2193",
             "native_x": 27,
             "clock": "12:00"
           },
@@ -336,7 +336,7 @@
             "translated_chart_bar_index": 324
           },
           {
-            "role": "C2↓",
+            "role": "C2\u2193",
             "clock_caption": "12:00",
             "native_x": 27,
             "translated_chart_bar_index": 340
@@ -356,10 +356,19 @@
         "capture_atomic": false,
         "read_only": true
       }
+    },
+    {
+      "id": "cross_chart_sync_qa",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_cross_chart_sync_qa"
+      ],
+      "limitations": "Read-only cross-market chart synchronization gate. Refuses mixed Replay/live, running or different Replay clocks, mismatched symbol/timeframe/layout, drift between chart/Replays checks, unstable closed-OHLC windows, and nonmatching latest closed candidate timestamps. Conservatively excludes newest loaded bar even during paused Replay. Matches Unix candle timestamps, not logical bar indexes or tab-title prices. Does not establish atomic capture, cross-market tick synchronization, live price freshness, independent candle finality or indicator signal accuracy. 19 focused synthetic guard tests, 2 catalogue regression tests, and 510 complete offline tests passed. Live acceptance pending; MCP server restart and connector refresh required for direct ChatGPT action."
     }
   ],
   "validation": {
-    "automated_tests_passed": 489,
+    "automated_tests_passed": 510,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
