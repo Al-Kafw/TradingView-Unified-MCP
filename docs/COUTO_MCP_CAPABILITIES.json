@@ -3,7 +3,7 @@
   "updated": "2026-10-26",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "34d055c75289835ecf4425501ef104af203e9c71",
+  "verified_code_checkpoint": "92278e1e62bb4ffb774224fc18cb0d1c75685744",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -200,10 +200,19 @@
         "coordinate_mapping": "unverified_no_pixel_or_time_inference",
         "read_only": true
       }
+    },
+    {
+      "id": "coordinate_provenance_probe",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_coordinate_provenance"
+      ],
+      "limitations": "Read-only exact target/layout/study guard; native graphic X range and numeric overlap with independently observed OHLC bar indices, five sampled bar time anchors, and optional chart-local index-to-coordinate roundtrips. Correlates only matching pre/post snapshots and chart identity. Numeric overlap is NOT proof that Pine X shares the OHLC index domain. All native drawing timestamps and pixel positions remain unverified; no chart or screenshot coordinate mapping is approved. Requires live verification before consumer approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 415,
+    "automated_tests_passed": 426,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
