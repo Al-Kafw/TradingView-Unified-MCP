@@ -118,7 +118,7 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `pine_export_saved_source` | No | — | Export one saved script’s exact source and metadata into a confined JSON artifact. |
 | `pine_get_binding` | No | — | Read authoritative native Pine script ID/version, draft/modified state and the full visible source, with a binding hash. Ambiguous facades fail closed. |
 | `pine_get_console` | No | — | Read only currently visible Pine console rows. |
-| `pine_get_editor_provenance_qa` | No | — | Read-only verified Pine native editor ID/version and cloud-saved source parity; reports LF/CRLF differences, missing visual title and no mutation authorization. Does not return source or compile. |
+| `pine_get_editor_provenance_qa` | No | — | Read-only verified Pine native ID/version, cloud source parity and uniquely visible split-editor title matching the saved library name. Reports ambiguity; never returns source or authorizes compilation. |
 | `pine_get_errors` | No | — | Read Monaco compiler diagnostics including severity and line/column positions. |
 | `pine_get_saved_source` | No | — | Read saved source by exact script ID and version without touching the current editor or its binding. |
 | `pine_get_source` | No | — | Read the current editor source, exact binding title and source SHA-256. |

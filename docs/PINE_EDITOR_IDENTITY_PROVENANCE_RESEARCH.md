@@ -10,3 +10,17 @@ Add a separate **read-only** `pine_get_editor_provenance_qa` composite tool, req
 
 ## Limits
 Offline research only. Passing tests do not prove TradingView can be compiled safely, that every browser/editor version exposes the same native facade, that matched normalized source implies compiled byte identity, or that charts are signal-correct. Keep all existing Pine write guards and accepted MCP code unchanged until separate user-authorized live QA.
+
+
+## Split-view editor title research extension (not promoted)
+A subsequent read-only investigation of Combined Research QA observed one
+visible `.tv-script-widget div[role="button"]` title above the
+widget’s unique visible Monaco editor, equal to the
+saved-library **name** while the independent native `scriptTitle` differed.
+The older Pine `title()` selectors returned null. This research extension adds
+a separate read-only DOM title probe to the provenance QA tool, requires a
+single visible Monaco editor and title control, compares bracketed observations,
+and verifies the candidate against the library name. It never substitutes
+this candidate for the title required by mutation/compile handlers; those
+handlers remain unchanged. Ambiguity and observation drift refuse verification.
+New code requires independent local live acceptance before its status changes.

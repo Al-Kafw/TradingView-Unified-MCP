@@ -5772,7 +5772,7 @@
   },
   {
     "name": "pine_get_editor_provenance_qa",
-    "description": "Read-only verified Pine native editor ID/version and cloud-saved source parity; reports LF/CRLF differences, missing visual title and no mutation authorization. Does not return source or compile.",
+    "description": "Read-only verified Pine native ID/version, cloud source parity and uniquely visible split-editor title matching the saved library name. Reports ambiguity; never returns source or authorizes compilation.",
     "inputSchema": {
       "type": "object",
       "properties": {
