@@ -3,7 +3,7 @@
   "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "19d225329f82c39a3522bab29c38f4a3c3d774a3",
+  "verified_code_checkpoint": "1ab8220648e440f61e38faa67f4d4fb5b5972a8a",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -304,10 +304,19 @@
         "capture_atomic": false,
         "read_only": true
       }
+    },
+    {
+      "id": "c123_native_index_lookup_qa",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_c123_index_lookup_qa"
+      ],
+      "limitations": "Read-only, pinned to YM1! 15M C123 Projected Research v0.4 saved Pine ID/version/SHA. Verifies chart/study provenance, exact three role-slot/clock correspondence, bounded native drawing X references via _graphics._indexes, source-configured first 7 30M box placements, native chart index-to-local-X round trips, and matching non-atomic repeated reads. Native renderer consumption of lookup not independently attested. Chart-local X is NOT screenshot pixel X. Projected drawing future bar index is NOT projected candle event timestamp. Compiled runtime byte equivalence unverified. Scoped live acceptance required for approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 466,
+    "automated_tests_passed": 486,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
