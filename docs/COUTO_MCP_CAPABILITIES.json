@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "92278e1e62bb4ffb774224fc18cb0d1c75685744",
+  "verified_code_checkpoint": "f11431dc837781e7dc60712d079394f51c77a168",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -227,10 +227,19 @@
         "mapping_approved": false,
         "read_only": true
       }
+    },
+    {
+      "id": "projected_slot_correspondence",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_projected_slot_qa"
+      ],
+      "limitations": "Read-only, exact target/layout/study-ID and study-name guards. Bracketed graphics snapshots automatically correlate C1/C2/C3 role labels to projected clock captions by exact native X within one study; missing/duplicate clocks are explicitly unverified. Optional saved script ID/version/title/SHA256 proof DOES NOT prove that the loaded study is bound to that version. Native drawing X to absolute time/pixels, distinct C123 event grouping, visuals/hover fidelity and signal correctness are NOT established. Supports 1-200 items per kind, complete labels required, and refuses correlation after chart/graphics changes. Requires scoped live acceptance."
     }
   ],
   "validation": {
-    "automated_tests_passed": 426,
+    "automated_tests_passed": 443,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
