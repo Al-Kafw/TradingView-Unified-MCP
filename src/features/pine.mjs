@@ -3,6 +3,23 @@ import { ToolError } from '../core/errors.mjs';
 
 export const sourceHash = source => createHash('sha256').update(source,'utf8').digest('hex');
 
+// Read-only comparison metadata: CRLF and LF differ in raw source hashes,
+// although TradingView may normalize the editor buffer to LF. Preserve the
+// existing exact-source SHA and ALL mutation preconditions unchanged.
+export function sourceLineEndingInfo(source) {
+  const crlf = (source.match(/\r\n/g) ?? []).length;
+  const remainder = source.replace(/\r\n/g, '');
+  const lf = (remainder.match(/\n/g) ?? []).length;
+  const cr = (remainder.match(/\r/g) ?? []).length;
+  const source_line_endings = crlf && (lf || cr) ? 'mixed' :
+    crlf ? 'crlf' : lf && cr ? 'mixed' : lf ? 'lf' : cr ? 'cr' : 'none';
+  return {
+    source_sha256_lf_normalized: sourceHash(source.replace(/\r\n/g, '\n')),
+    source_line_endings
+  };
+}
+
+
 /** Editor lookup never falls back to a detached or merely last-created Monaco editor. */
 export async function pinePage(a) {
   const fail=(code,message,details={})=>({ok:false,code,message,...details});
@@ -544,8 +561,8 @@ const str={type:'string',minLength:1,maxLength:300};
 const hash={type:'string',pattern:'^[a-f0-9]{64}$'};
 const schema=(properties={},required=[])=>({type:'object',properties,required,additionalProperties:false});
 export const bindingHash=result=>sourceHash(JSON.stringify([result.native_binding,result.source]));
-export async function pineRead(op,args,ctx){const result=await ctx.callPage(pinePage,{...args,op},{timeoutMs:(args.timeout_ms??15000)+15000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Pine operation failed.',result);if(typeof result.source==='string')result.source_sha256=sourceHash(result.source);if(result.native_binding)result.binding_sha256=bindingHash(result);return result;}
-export async function pineLibraryRead(op,args,ctx){const result=await ctx.callPage(pineLibraryPage,{...args,op},{timeoutMs:(args.timeout_ms??15000)+30000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Native Pine library operation failed.',result);if(typeof result.source==='string')result.source_sha256=sourceHash(result.source);return result;}
+export async function pineRead(op,args,ctx){const result=await ctx.callPage(pinePage,{...args,op},{timeoutMs:(args.timeout_ms??15000)+15000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Pine operation failed.',result);if(typeof result.source==='string'){result.source_sha256=sourceHash(result.source);Object.assign(result,sourceLineEndingInfo(result.source));}if(result.native_binding)result.binding_sha256=bindingHash(result);return result;}
+export async function pineLibraryRead(op,args,ctx){const result=await ctx.callPage(pineLibraryPage,{...args,op},{timeoutMs:(args.timeout_ms??15000)+30000});if(!result?.ok)throw new ToolError(result?.code??'ADAPTER_MISMATCH',result?.message??'Native Pine library operation failed.',result);if(typeof result.source==='string'){result.source_sha256=sourceHash(result.source);Object.assign(result,sourceLineEndingInfo(result.source));}return result;}
 const def=(name,op,description,properties={},required=[],mutates=false)=>({name,description,inputSchema:schema(properties,required),mutates,handler:(args,ctx)=>pineRead(op,args,ctx)});
 const nativeId={type:'string',minLength:1,maxLength:300,pattern:'^[A-Za-z0-9_.$:;-]+$'};
 const nativeVersion={type:['string','integer'],minLength:1,maxLength:50,pattern:'^\\d+(?:\\.\\d+)*$',minimum:0};
