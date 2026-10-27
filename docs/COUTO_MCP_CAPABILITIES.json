@@ -3,7 +3,7 @@
   "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "1ab8220648e440f61e38faa67f4d4fb5b5972a8a",
+  "verified_code_checkpoint": "9c566e139ed44cde28e2b2398142ee1364043414",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -312,11 +312,11 @@
       "tools": [
         "data_get_c123_index_lookup_qa"
       ],
-      "limitations": "Read-only, pinned to YM1! 15M C123 Projected Research v0.4 saved Pine ID/version/SHA. Verifies chart/study provenance, exact three role-slot/clock correspondence, bounded native drawing X references via _graphics._indexes, source-configured first 7 30M box placements, native chart index-to-local-X round trips, and matching non-atomic repeated reads. Native renderer consumption of lookup not independently attested. Chart-local X is NOT screenshot pixel X. Projected drawing future bar index is NOT projected candle event timestamp. Compiled runtime byte equivalence unverified. Scoped live acceptance required for approval."
+      "limitations": "Read-only, pinned to YM1! 15M C123 Projected Research v0.4 saved Pine ID/version/SHA. Verifies chart/study provenance, exact three role-slot/clock correspondence, bounded native drawing X references via _graphics._indexes, source-configured first 7 30M box placements, native chart index-to-local-X round trips, and matching non-atomic repeated reads. Native renderer consumption of lookup not independently attested. Chart-local X is NOT screenshot pixel X. Projected drawing future bar index is NOT projected candle event timestamp. Compiled runtime byte equivalence unverified. Scoped live acceptance required for approval. Corrected adapter reads Pine inputs from exact public chart study handle, not native graphics dataSource. Live acceptance remains pending after correction."
     }
   ],
   "validation": {
-    "automated_tests_passed": 486,
+    "automated_tests_passed": 489,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
