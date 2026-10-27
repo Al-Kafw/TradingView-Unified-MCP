@@ -3,7 +3,7 @@
   "updated": "2026-10-27",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-safety-p2-20261024",
-  "verified_code_checkpoint": "f11431dc837781e7dc60712d079394f51c77a168",
+  "verified_code_checkpoint": "19d225329f82c39a3522bab29c38f4a3c3d774a3",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -274,10 +274,19 @@
         "screenshot_pixel_mapping": "unverified",
         "read_only": true
       }
+    },
+    {
+      "id": "native_study_source_provenance",
+      "status": "offline_verified_not_live",
+      "approved_for_consumer": false,
+      "tools": [
+        "data_get_study_source_provenance"
+      ],
+      "limitations": "Read-only exact target/layout/study ID/name and pinned saved script ID/version/title/SHA256. Requires stable chart identity and stable native study pineId/pineVersion before and after reading and independently hashing saved source. Missing, ambiguous, changing, or mismatched metadata cannot establish provenance. Returns no compiled text or raw source. Native study metadata-to-saved-script version correspondence is observational only; compiled runtime byte equivalence and runtime source SHA attestation are NOT proven. The multi-call read is not atomic. No drawing-to-absolute-time or pixel mapping. Offline tests passed; scoped live acceptance required before approval."
     }
   ],
   "validation": {
-    "automated_tests_passed": 443,
+    "automated_tests_passed": 466,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
