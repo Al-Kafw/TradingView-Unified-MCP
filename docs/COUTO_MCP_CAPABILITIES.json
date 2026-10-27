@@ -257,7 +257,7 @@
             "clock": "10:00"
           },
           {
-            "role": "C2\u2193",
+            "role": "C2↓",
             "native_x": 27,
             "clock": "12:00"
           },
@@ -336,7 +336,7 @@
             "translated_chart_bar_index": 324
           },
           {
-            "role": "C2\u2193",
+            "role": "C2↓",
             "clock_caption": "12:00",
             "native_x": 27,
             "translated_chart_bar_index": 340
@@ -359,12 +359,52 @@
     },
     {
       "id": "cross_chart_sync_qa",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_cross_chart_sync_qa"
       ],
-      "limitations": "Read-only cross-market chart synchronization gate. Refuses mixed Replay/live, running or different Replay clocks, mismatched symbol/timeframe/layout, drift between chart/Replays checks, unstable closed-OHLC windows, and nonmatching latest closed candidate timestamps. Conservatively excludes newest loaded bar even during paused Replay. Matches Unix candle timestamps, not logical bar indexes or tab-title prices. Does not establish atomic capture, cross-market tick synchronization, live price freshness, independent candle finality or indicator signal accuracy. 19 focused synthetic guard tests, 2 catalogue regression tests, and 510 complete offline tests passed. Live acceptance pending; MCP server restart and connector refresh required for direct ChatGPT action."
+      "limitations": "Read-only multi-chart synchronization guard, scoped user-operated live acceptance on 2026-10-27 at code checkpoint 6cfa766: YM1! C123 QA ljpmBuY2 and YM1! Core Acceptance QA WsoALMpl, both live 30M, matched 12 closed candidate bars (latest closed candidate 1793118600); NQ1! SMT Root QA 0Zi4puyi paused Replay versus live YM1! was correctly blocked MIXED_REPLAY_AND_LIVE without OHLC comparison. The newest developing bar is conservatively excluded. This is a non-atomic read of chart-loaded OHLC, not verified real-time tick synchronization, independent candle finality, strategy or indicator signal accuracy, all market/timeframe support, or proof of all Replay edge cases. 510/510 offline tests and source/release audits passed. Restart the MCP server and refresh the ChatGPT connector to expose the new tool; direct ChatGPT invocation remains unverified.",
+      "live_evidence": {
+        "date": "2026-10-27",
+        "method": "user-operated guarded local read-only live acceptance v2",
+        "verified_code_checkpoint": "6cfa766b08bd25dcd7b378da0cbe81fef07a05da",
+        "positive": {
+          "test": "LIVE_YM30M_SYNC_POSITIVE",
+          "status": "PASS",
+          "sources": [
+            {
+              "layout_id": "ljpmBuY2",
+              "symbol": "CBOT_MINI_DL:YM1!",
+              "timeframe": "30"
+            },
+            {
+              "layout_id": "WsoALMpl",
+              "symbol": "CBOT_MINI_DL:YM1!",
+              "timeframe": "30"
+            }
+          ],
+          "common_closed_bars": 12,
+          "newest_closed_candidate_unix": 1793118600,
+          "replay_mode": "live_chart_loaded_history",
+          "latest_developing_bar_excluded": true,
+          "capture_atomic": false,
+          "read_only": true
+        },
+        "negative": {
+          "test": "NQ_REPLAY_VS_YM_LIVE_NEGATIVE",
+          "status": "PASS",
+          "replay_layout": "0Zi4puyi",
+          "live_layout": "ljpmBuY2",
+          "reason_code": "MIXED_REPLAY_AND_LIVE",
+          "no_ohlcv_comparison_permitted": true,
+          "read_only": true
+        },
+        "no_chart_mutations": true,
+        "repo_clean_after_capture": true,
+        "direct_chatgpt_tool_call_verified": false,
+        "scope_limited_to_tested_charts": true
+      }
     }
   ],
   "validation": {
