@@ -31,13 +31,20 @@ function fixture({shiftLookup=false,secondSource=false}={}){
       dwgboxes:{get:()=>collect(boxes)},dwglines:{get:()=>collect(lines)},dwglabels:{get:()=>collect(labels)}
     }}
   };
+  // Real TradingView uses a separate public study API for Pine inputs.
+  // Native dataSources expose study graphics but NOT getInputValues().
+  const publicStudy={id:a.entity_id,name:TITLE,getInputValues:study.getInputValues};
+  delete study.getInputValues;
   const scale={indexToCoordinate:i=>i*8.3-100,coordinateToIndex:x=>(x+100)/8.3};
   const main={bars:()=>({firstIndex:()=>0,lastIndex:()=>299,size:()=>300})};
   const model={dataSources:()=>[study],mainSeries:()=>main,timeScale:()=>scale};
-  const chart={resolution:()=> '15',symbol:()=> 'CBOT_MINI_DL:YM1!',_chartWidget:{model:()=>({model:()=>model})}};
+  const chart={resolution:()=> '15',symbol:()=> 'CBOT_MINI_DL:YM1!',
+    getAllStudies:()=>[{id:a.entity_id,name:TITLE}],
+    getStudyById:id=>id===a.entity_id?publicStudy:null,
+    _chartWidget:{model:()=>({model:()=>model})}};
   globalThis.window={TradingViewApi:{_activeChartWidgetWV:{value:()=>chart},
     _chartWidgetCollection:{metaInfo:{uid:'ljpmBuY2'}}}};
-  return {indexes,boxes,lines,labels,study,chart,scale,main,model};
+  return {indexes,boxes,lines,labels,study,publicStudy,chart,scale,main,model};
 }
 function sourceResult(){return {ok:true,chart_identity_stable:true,native_pine_metadata_stable:true,
   native_study_to_saved_script_version_verified:true,saved_source:{source_sha256:SHA},
@@ -97,15 +104,15 @@ test('study ID or layout changes refuse the page probe',()=>{
 });
 test('native pineId and pineVersion mismatches refuse the page probe',()=>{
   for(const [id,v] of [['pineId','USER;other'],['pineVersion','4.0']]){
-    const f=fixture();const old=f.study.getInputValues();old.find(x=>x.id===id).value=v;
-    f.study.getInputValues=()=>old;
+    const f=fixture();const old=f.publicStudy.getInputValues();old.find(x=>x.id===id).value=v;
+    f.publicStudy.getInputValues=()=>old;
     assert.equal(page().code,'NATIVE_STUDY_SOURCE_METADATA_MISMATCH');
   }
 });
 test('projected C123 layout inputs are required and bounded',()=>{
   for(const [id,v] of [['in_0',0],['in_1',6],['in_3',0],['in_6',false]]){
-    const f=fixture();const inputs=f.study.getInputValues();inputs.find(x=>x.id===id).value=v;
-    f.study.getInputValues=()=>inputs;
+    const f=fixture();const inputs=f.publicStudy.getInputValues();inputs.find(x=>x.id===id).value=v;
+    f.publicStudy.getInputValues=()=>inputs;
     assert.equal(page().code,'C123_LAYOUT_INPUTS_UNEXPECTED');
   }
 });
@@ -155,4 +162,29 @@ test('descriptor read-only and exact scoped arguments',()=>{
   assert.equal(definitions[0].mutates,false);
   assert.equal(definitions[0].inputSchema.additionalProperties,false);
   assert.equal(definitions[0].inputSchema.required.length,7);
+});
+
+test('real-shaped split: data-source graphics lack getInputValues while public study provides it',()=>{
+  const f=fixture();
+  assert.equal(typeof f.study.getInputValues,'undefined');
+  assert.equal(typeof f.publicStudy.getInputValues,'function');
+  assert.equal(page().ok,true);
+});
+test('public chart study inventory must match the native study exactly',()=>{
+  let f=fixture();f.chart.getAllStudies=()=>[];
+  assert.equal(page().code,'PUBLIC_STUDY_IDENTITY_MISMATCH');
+  f=fixture();f.chart.getAllStudies=()=>[{id:a.entity_id,name:'Different title'}];
+  assert.equal(page().code,'PUBLIC_STUDY_IDENTITY_MISMATCH');
+  f=fixture();f.chart.getAllStudies=()=>[{id:a.entity_id,name:TITLE},{id:a.entity_id,name:TITLE}];
+  assert.equal(page().code,'PUBLIC_STUDY_IDENTITY_MISMATCH');
+  f=fixture();f.chart.getAllStudies=undefined;
+  assert.equal(page().code,'PUBLIC_STUDIES_UNAVAILABLE');
+});
+test('public study handle and input API absence cannot claim study provenance',()=>{
+  let f=fixture();f.chart.getStudyById=()=>null;
+  assert.equal(page().code,'PUBLIC_STUDY_INPUTS_UNAVAILABLE');
+  f=fixture();f.publicStudy.id='WRONG_STUDY';
+  assert.equal(page().code,'PUBLIC_STUDY_INPUTS_UNAVAILABLE');
+  f=fixture();f.publicStudy.getInputValues=undefined;
+  assert.equal(page().code,'STUDY_INPUTS_UNAVAILABLE');
 });

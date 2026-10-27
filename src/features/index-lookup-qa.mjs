@@ -29,7 +29,17 @@ export function c123IndexLookupPage(a) {
   if (studies.length !== 1) return fail('STUDY_NOT_UNIQUE');
   const study = studies[0];
   if (study.metaInfo?.()?.description !== a.expected_study_name) return fail('STUDY_NAME_MISMATCH');
-  const inputs = study.getInputValues?.();
+  // Native model data source owns the graphics; it is NOT the public study API.
+  // The public chart study handle exposes getInputValues(), as indicator_get_inputs does.
+  const exposedStudies = chart.getAllStudies?.();
+  if (!Array.isArray(exposedStudies)) return fail('PUBLIC_STUDIES_UNAVAILABLE');
+  const exposed = exposedStudies.filter(s => s?.id === a.entity_id);
+  if (exposed.length !== 1 || (exposed[0].name ?? exposed[0].title) !== a.expected_study_name)
+    return fail('PUBLIC_STUDY_IDENTITY_MISMATCH');
+  const studyHandle = chart.getStudyById?.(a.entity_id);
+  if (!studyHandle || (typeof studyHandle.id === 'string' && studyHandle.id !== a.entity_id))
+    return fail('PUBLIC_STUDY_INPUTS_UNAVAILABLE');
+  const inputs = studyHandle.getInputValues?.();
   if (!Array.isArray(inputs)) return fail('STUDY_INPUTS_UNAVAILABLE');
   const one = id => {const matched=inputs.filter(v=>v?.id===id);return matched.length===1?matched[0].value:null;};
   if (one('pineId')!==a.saved_script_id || one('pineVersion')!==a.saved_version)
