@@ -98,7 +98,16 @@ function fixture({
   postScriptId = null,
   postVersion = null,
   draftAfter = true,
-  removeVolumeOnAdd = false
+  removeVolumeOnAdd = false,
+  extraStudy = false,
+  zeroStudies = false,
+  renamedBaseline = false,
+  malformedVolumeId = false,
+  replayStarted = false,
+  autoplayStarted = false,
+  unknownReplayState = false,
+  drawingPresent = false,
+  drawingStateUnknown = false
 } = {}) {
   let clicks = 0;
   let saves = 0;
@@ -111,7 +120,10 @@ function fixture({
 
   const studies = existingIndicator
     ? [{ id: 'existing', name: 'MCP QA Disposable Draft' }]
-    : [{ id: 'volume', name: 'Volume' }];
+    : [{ id: malformedVolumeId ? 'bad/id' : 'volume',
+      name: renamedBaseline ? 'Other Volume' : 'Volume' }];
+  if (zeroStudies) studies.length = 0;
+  if (extraStudy) studies.push({ id: 'unrelated', name: 'Unrelated' });
 
   const addButton = {
     ...box,
@@ -191,9 +203,15 @@ function fixture({
         getSaveChartService: () => ({
           hasChanges: () => false
         }),
+        _replayApi: {
+          isReplayStarted: () => unknownReplayState ? null : replayStarted,
+          isAutoplayStarted: () => unknownReplayState ? null : autoplayStarted
+        },
         _activeChartWidgetWV: {
           value: () => ({
-            getAllStudies: () => studies
+            getAllStudies: () => studies,
+            getAllShapes: () => drawingStateUnknown
+              ? null : drawingPresent ? [{ id: 'user-drawing' }] : []
           })
         }
       }
@@ -341,5 +359,88 @@ test('removal of original Volume blocks compile verification', async () => {
     assert.equal(r.code, 'VERIFICATION_FAILED');
     assert.equal(h.clicks(), 1);
     assert.equal(h.saves(), 0);
+  } finally { await h.close(); }
+});
+
+// The disposable compile preflight must refuse without ever clicking.
+test('active Replay refuses disposable compilation before click', async () => {
+  const h = fixture({ replayStarted: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+    assert.equal(h.saves(), 0);
+  } finally { await h.close(); }
+});
+
+test('autoplay refuses disposable compilation before click', async () => {
+  const h = fixture({ autoplayStarted: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('unavailable native Replay state is not assumed stopped', async () => {
+  const h = fixture({ unknownReplayState: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('existing chart drawing refuses disposable compilation', async () => {
+  const h = fixture({ drawingPresent: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_DRAWING_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('unavailable drawing snapshot is not assumed empty', async () => {
+  const h = fixture({ drawingStateUnknown: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_DRAWING_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('an unrelated preexisting indicator refuses disposable compilation', async () => {
+  const h = fixture({ extraStudy: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_STUDY_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('empty study baseline refuses disposable compilation', async () => {
+  const h = fixture({ zeroStudies: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_STUDY_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('renamed Volume baseline refuses disposable compilation', async () => {
+  const h = fixture({ renamedBaseline: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_STUDY_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
+  } finally { await h.close(); }
+});
+
+test('unaddressable baseline study ID refuses disposable compilation', async () => {
+  const h = fixture({ malformedVolumeId: true });
+  try {
+    const r = await h.call();
+    assert.equal(r.code, 'QA_STUDY_BASELINE_UNVERIFIED');
+    assert.equal(h.clicks(), 0);
   } finally { await h.close(); }
 });

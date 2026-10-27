@@ -302,16 +302,34 @@ export async function pinePage(a) {
       if (typeof chart?.getAllStudies !== 'function')
         return fail('CAPABILITY_UNAVAILABLE', 'Studies unavailable.');
 
-      const prior = chart.getAllStudies();
+      // The disposable compiler must NEVER add a study over unknown chart
+      // content. Observe the native Replay and drawing state before clicking.
+      const replay = api?._replayApi;
+      const unbox = value => typeof value?.value === 'function'
+        ? value.value() : value;
+      const replayStarted = typeof replay?.isReplayStarted === 'function'
+        ? unbox(replay.isReplayStarted()) : null;
+      const autoplay = typeof replay?.isAutoplayStarted === 'function'
+        ? unbox(replay.isAutoplayStarted()) : null;
+      if (replayStarted !== false || autoplay !== false)
+        return fail('QA_REPLAY_STATE_UNVERIFIED',
+          'Replay must be observably stopped on the disposable QA layout.');
 
+      const shapes = typeof chart.getAllShapes === 'function'
+        ? chart.getAllShapes() : null;
+      if (!Array.isArray(shapes) || shapes.length !== 0)
+        return fail('QA_DRAWING_BASELINE_UNVERIFIED',
+          'Disposable QA must have an observable empty drawing baseline.');
+
+      const prior = chart.getAllStudies();
       if (
         !Array.isArray(prior) ||
-        prior.some(s => typeof s.id !== 'string' || !s.id) ||
-        prior.some(s => s.name === 'MCP QA Disposable Draft')
-      ) return fail(
-        'PRECONDITION_FAILED',
-        'Studies are ambiguous or QA indicator already exists.'
-      );
+        prior.length !== 1 ||
+        prior[0]?.name !== 'Volume' ||
+        typeof prior[0]?.id !== 'string' ||
+        !/^[A-Za-z0-9_-]{1,128}$/.test(prior[0].id)
+      ) return fail('QA_STUDY_BASELINE_UNVERIFIED',
+        'Disposable QA must contain exactly one identifiable Volume study.');
 
       const priorSnapshot = prior.map(s => ({
         id: s.id,
