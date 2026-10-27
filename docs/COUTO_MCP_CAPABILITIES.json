@@ -230,12 +230,50 @@
     },
     {
       "id": "projected_slot_correspondence",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_projected_slot_qa"
       ],
-      "limitations": "Read-only, exact target/layout/study-ID and study-name guards. Bracketed graphics snapshots automatically correlate C1/C2/C3 role labels to projected clock captions by exact native X within one study; missing/duplicate clocks are explicitly unverified. Optional saved script ID/version/title/SHA256 proof DOES NOT prove that the loaded study is bound to that version. Native drawing X to absolute time/pixels, distinct C123 event grouping, visuals/hover fidelity and signal correctness are NOT established. Supports 1-200 items per kind, complete labels required, and refuses correlation after chart/graphics changes. Requires scoped live acceptance."
+      "limitations": "Live verified on C123 v0.4 YM1! 15M. All three observed C123 role labels had unique projected clock captions at identical native X positions. This establishes same-study slot correspondence only. Saved source version/title/SHA were verified independently, but binding to the active chart study was not proven. Absolute drawing timestamps, screenshot pixel coordinates, event grouping, hover fidelity and signal correctness remain unverified. Matching reads are not atomic. Requires MCP restart and connector refresh for direct access.",
+      "live_evidence": {
+        "date": "2026-10-27",
+        "layout": "ljpmBuY2",
+        "market": "YM1! 15M",
+        "indicator": "C123 Projected Research v0.4",
+        "study_id_at_capture": "SIVQwR",
+        "capture_consistency": "matching_bracket_reads",
+        "chart_identity_consistent": true,
+        "graphics_consistent": true,
+        "graphics_coverage": "complete",
+        "observed_role_labels": 3,
+        "uniquely_aligned": 3,
+        "missing_clocks": 0,
+        "ambiguous_clocks": 0,
+        "observed_alignments": [
+          {
+            "role": "C1",
+            "native_x": 14,
+            "clock": "10:00"
+          },
+          {
+            "role": "C2\u2193",
+            "native_x": 27,
+            "clock": "12:00"
+          },
+          {
+            "role": "C3",
+            "native_x": 30,
+            "clock": "12:30"
+          }
+        ],
+        "saved_source_version": "3.0",
+        "saved_source_sha256": "cf32784699b32a9bb1965325a00e1f3546d23bf8f567d272ab793d4eb69344ee",
+        "saved_source_to_loaded_study_binding_verified": false,
+        "absolute_timestamp_mapping": "unverified",
+        "screenshot_pixel_mapping": "unverified",
+        "read_only": true
+      }
     }
   ],
   "validation": {
