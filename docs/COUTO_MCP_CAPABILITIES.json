@@ -257,7 +257,7 @@
             "clock": "10:00"
           },
           {
-            "role": "C2\u2193",
+            "role": "C2↓",
             "native_x": 27,
             "clock": "12:00"
           },
@@ -307,12 +307,55 @@
     },
     {
       "id": "c123_native_index_lookup_qa",
-      "status": "offline_verified_not_live",
-      "approved_for_consumer": false,
+      "status": "live_verified_scoped",
+      "approved_for_consumer": true,
       "tools": [
         "data_get_c123_index_lookup_qa"
       ],
-      "limitations": "Read-only, pinned to YM1! 15M C123 Projected Research v0.4 saved Pine ID/version/SHA. Verifies chart/study provenance, exact three role-slot/clock correspondence, bounded native drawing X references via _graphics._indexes, source-configured first 7 30M box placements, native chart index-to-local-X round trips, and matching non-atomic repeated reads. Native renderer consumption of lookup not independently attested. Chart-local X is NOT screenshot pixel X. Projected drawing future bar index is NOT projected candle event timestamp. Compiled runtime byte equivalence unverified. Scoped live acceptance required for approval. Corrected adapter reads Pine inputs from exact public chart study handle, not native graphics dataSource. Live acceptance remains pending after correction."
+      "limitations": "Live verified on C123 v0.4 YM1! 15M after the public-study input adapter fix. All 215 observed native X references fit study-local _graphics._indexes; the first 7 projected box placements match the pinned Pine source layout formula, and 3 projected C123 role labels translate to chart future bar indices with verified chart-local X roundtrips. This is observational structural correspondence. Native renderer use of the lookup is NOT independently verified. Chart-local X is NOT screenshot pixel X, and projected future positions are NOT the C123 event timestamps. Compiled-runtime equivalence is unverified; repeated multi-call captures are NOT atomic. MCP server restart and connector tool refresh are required before direct ChatGPT invocation.",
+      "live_evidence": {
+        "date": "2026-10-27",
+        "layout": "ljpmBuY2",
+        "market": "YM1! 15M",
+        "indicator": "C123 Projected Research v0.4",
+        "study_id_at_capture": "SIVQwR",
+        "saved_script_id": "USER;630d9b8bdd6048b4bc1bb2ab746fd583",
+        "saved_version": "3.0",
+        "saved_source_sha256": "cf32784699b32a9bb1965325a00e1f3546d23bf8f567d272ab793d4eb69344ee",
+        "capture_consistency": "matching_nonatomic_reads",
+        "source_provenance_verified": true,
+        "projected_slot_alignment_verified": true,
+        "index_lookup_structural_correspondence_supported": true,
+        "native_graphics_x_references_validated": 215,
+        "first_projected_box_formula_matches": 7,
+        "projected_role_coordinate_translations": [
+          {
+            "role": "C1",
+            "clock_caption": "10:00",
+            "native_x": 14,
+            "translated_chart_bar_index": 324
+          },
+          {
+            "role": "C2↓",
+            "clock_caption": "12:00",
+            "native_x": 27,
+            "translated_chart_bar_index": 340
+          },
+          {
+            "role": "C3",
+            "clock_caption": "12:30",
+            "native_x": 30,
+            "translated_chart_bar_index": 344
+          }
+        ],
+        "native_chart_local_coordinate_roundtrips_verified": true,
+        "renderer_index_lookup_consumption_independently_verified": false,
+        "screenshot_pixel_mapping_approved": false,
+        "projected_event_absolute_timestamp_mapping_approved": false,
+        "compiled_runtime_byte_equivalence_verified": false,
+        "capture_atomic": false,
+        "read_only": true
+      }
     }
   ],
   "validation": {
