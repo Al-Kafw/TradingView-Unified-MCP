@@ -42,6 +42,10 @@ export function evaluateCrossChartSync(sources, charts, replays, captures, {min_
       return refuse('OHLCV_SCOPE_OR_COVERAGE_MISMATCH',observations);
     if(!c.bars.every(finiteBar) || !c.bars.every((b,j)=>j===0||b.time<c.bars[j-1].time))
       return refuse('OHLCV_BARS_INVALID',observations);
+    // Paused Replay must not compare chart-loaded candles that begin in its future.
+    if(replays[i].started && c.bars[0].time > replays[i].current_time)
+      return refuse('REPLAY_HISTORY_AHEAD_OF_CURSOR',observations,
+        'The newest loaded candle opens after the paused Replay cursor.');
     const bars=c.bars.slice(1); // Always discard potentially developing latest bar.
     if(bars.some(b=>b.time>=c.bars[0].time))return refuse('OHLCV_ORDER_INVALID',observations);
     candidates.push(bars);

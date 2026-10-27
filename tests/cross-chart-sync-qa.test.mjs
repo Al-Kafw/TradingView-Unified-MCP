@@ -64,6 +64,25 @@ test('same paused Replay cursor can compare loaded closed candidate bars',async(
   const f=fixture({replayA:true,replayB:true,clockA:12500,clockB:12500});
   const r=await captureCrossChartSync(opts(),f.ctx);assert.equal(r.replay_mode,'paused_replay');
 });
+test('paused Replay refuses future history even when both charts and Replay clocks agree',async()=>{
+  const f=fixture({replayA:true,replayB:true,clockA:8500,clockB:8500});
+  const r=await captureCrossChartSync(opts(),f.ctx);
+  assert.equal(r.reason_code,'REPLAY_HISTORY_AHEAD_OF_CURSOR');
+  assert.equal(r.comparison_allowed,false);
+  assert.equal(r.read_only,true);
+});
+test('paused Replay refuses future-loaded history on only one source',async()=>{
+  const f=fixture({replayA:true,replayB:true,clockA:9500,clockB:9500,shiftB:1800});
+  const r=await captureCrossChartSync(opts(),f.ctx);
+  assert.equal(r.reason_code,'REPLAY_HISTORY_AHEAD_OF_CURSOR');
+  assert.equal(r.comparison_allowed,false);
+});
+test('paused Replay accepts a newest loaded bar starting exactly at the cursor',async()=>{
+  const f=fixture({replayA:true,replayB:true,clockA:9000,clockB:9000});
+  const r=await captureCrossChartSync(opts(),f.ctx);
+  assert.equal(r.status,'aligned');
+  assert.equal(r.replay_mode,'paused_replay');
+});
 test('different most recent closed timestamps are blocked',async()=>{
   const f=fixture({shiftB:1800});assert.equal((await captureCrossChartSync(opts(),f.ctx)).reason_code,'LATEST_CLOSED_CANDLE_TIME_MISMATCH');
 });
