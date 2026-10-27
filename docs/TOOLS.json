@@ -5771,6 +5771,41 @@
     }
   },
   {
+    "name": "pine_get_editor_provenance_qa",
+    "description": "Read-only verified Pine native editor ID/version and cloud-saved source parity; reports LF/CRLF differences, missing visual title and no mutation authorization. Does not return source or compile.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "target_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Exact Chrome tab target ID from browser_list_tabs. Required for changes."
+        },
+        "expected_layout_id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Expected saved-layout ID. A mismatch stops the operation before writing."
+        }
+      },
+      "required": [
+        "target_id",
+        "expected_layout_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true
+    },
+    "_meta": {
+      "implementation": "source-implemented",
+      "live_verified": false,
+      "requires_layout": false
+    }
+  },
+  {
     "name": "pine_get_errors",
     "description": "Read Monaco compiler diagnostics including severity and line/column positions.",
     "inputSchema": {

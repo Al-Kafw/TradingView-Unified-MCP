@@ -118,6 +118,7 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `pine_export_saved_source` | No | — | Export one saved script’s exact source and metadata into a confined JSON artifact. |
 | `pine_get_binding` | No | — | Read authoritative native Pine script ID/version, draft/modified state and the full visible source, with a binding hash. Ambiguous facades fail closed. |
 | `pine_get_console` | No | — | Read only currently visible Pine console rows. |
+| `pine_get_editor_provenance_qa` | No | — | Read-only verified Pine native editor ID/version and cloud-saved source parity; reports LF/CRLF differences, missing visual title and no mutation authorization. Does not return source or compile. |
 | `pine_get_errors` | No | — | Read Monaco compiler diagnostics including severity and line/column positions. |
 | `pine_get_saved_source` | No | — | Read saved source by exact script ID and version without touching the current editor or its binding. |
 | `pine_get_source` | No | — | Read the current editor source, exact binding title and source SHA-256. |
@@ -202,4 +203,4 @@ Generic UI mutation tools are available only with `TV_ENABLE_GENERIC_UI=1`. Read
 | `workflow_copy_chart_create_alert` | Yes | Required | Copy a saved chart into an independent layout, verify the copy, change symbol/timeframe, save, create a native alert, and independently verify exact stored message/webhook/condition/activation. Uses durable checkpoints and refuses uncertain duplicates. Does not test webhook delivery. |
 | `workflow_status` | No | — | Read a local copy-and-alert operation checkpoint. Contains IDs, hashes and stages; never stores webhook tokens or alert message bodies. |
 
-Total implemented tools: **195**.
+Total implemented tools: **196**.
