@@ -7,7 +7,7 @@ This is an **isolated, not-yet-approved** integration branch. It does not replac
 - Accepted MCP remains `2a5fb76f2e058d2b050ef37278dbd6f2b53f909e`.
 - Candidate starts at Pine read-only `917932c1de5e1508b1e81a8a432b3c3ea38088ba` (532 offline tests; native provenance directly called once through ChatGPT; later unstable editor state correctly refused). Pine editor provenance **consumer approval remains false**.
 - Copies exactly `src/features/cross-chart-sync-qa.mjs` and `tests/cross-chart-sync-qa.test.mjs` from Replay research `90d70627bb2c56364b2ca48ee77d2ef8b684feb1`. No other Replay research file is needed for the pure guard implementation.
-- The Replay enhancement conservatively blocks `REPLAY_HISTORY_AHEAD_OF_CURSOR` when the newest loaded bar opens beyond a paused cursor, and retains offending loaded timestamps in its refusal. It has offline synthetic and hybrid live-data evidence but **not independent aligned two-chart paused-Replay live certification**.
+- The Replay enhancement conservatively blocks `REPLAY_HISTORY_AHEAD_OF_CURSOR` when the newest loaded bar opens beyond a paused cursor, and retains offending loaded timestamps in its refusal. At initial integration, independent two-chart acceptance was outstanding; the scoped positive live acceptance is now documented below. A natural future-loaded negative case remains unverified.
 
 ## Explicit exclusions and promotion gates
 
@@ -22,8 +22,8 @@ This is an **isolated, not-yet-approved** integration branch. It does not replac
 - Code checkpoint: `7f501e9910c348d5a808ea2577948f78666e5e9d`.
 - Current offline results: 537/537 PASS, 39 test files, 0 failed/skipped (`docs/TEST_RESULTS.json`).
 - The 532-test Pine-only checkpoint is historical and retained separately.
-- Pine editor/title provenance: one successful direct ChatGPT read-only saved/editor version 6.0 observation; later unstable editor states refused. Persistent stability and consumer approval are not established.
-- Replay causality: `REPLAY_HISTORY_AHEAD_OF_CURSOR` is covered offline and by bounded hybrid evidence; independent aligned two-chart paused-Replay live acceptance remains outstanding.
+- Pine editor/title provenance: initial version 6.0 success followed by safe instability refusals; later three consecutive candidate-only version 14.0 checks passed. Broader stability and consumer approval remain outstanding.
+- Replay causality: independent two-chart paused-Replay positive acceptance passed; both hybrid synthetic future-history refusals passed. Naturally occurring live future-loaded refusal remains unverified.
 - This guard refuses unsafe comparisons; it does not correct TradingView's underlying future-loaded Replay feed.
 - No Pine compilation or rollback mutation, Replay action, chart/layout mutation, protected Mentorship change, deployment, tunnel restart, production promotion, or merge is included or authorized.
 - Running Pilot may remain on an older commit; this documentation alignment does not change the deployed MCP.
@@ -65,3 +65,21 @@ Candidate source checkpoint: `c87819da479be65fff4aa4fd341a0bcc1a67c0a1`.
 **Scope:** Repeated stable observations on one clean layout and one saved version. This does not establish stability across editor revisions, TradingView updates, dirty layouts, or compiled runtime correctness.
 
 **Release decision:** Scoped candidate provenance acceptance passed. Consumer approval remains false; no Pine compilation authority, accepted-branch merge, running MCP replacement, or production promotion is authorised.
+
+## Isolated HTTP canary — 28 October 2026
+
+Candidate source: `4ff2680f85a8a3ba792948e0b75b99f59522bf23`.
+
+Operator-provided standalone Mac transcript:
+
+- Authenticated loopback HTTP transport: PASS.
+- Unauthenticated request rejected with HTTP 401: PASS.
+- Registered read-only tools: 110; no mutating tools exposed.
+- Paused Replay two-chart synchronization: PASS, 12 closed candles.
+- Pine editor provenance: matched, saved version `14.0`.
+- Reported chart mutations: zero.
+- Temporary HTTP server exited and its temporary runtime directory was removed.
+
+**Scope:** A standalone authenticated transport canary, not a persistent ChatGPT connector deployment. No running MCP, tunnel, accepted Git branch, protected layout or Pine source was changed by the canary.
+
+**Decision:** GO for separately authorised, isolated read-only connection rollout. No production promotion, accepted-branch merge, Pine compilation, write permissions or full future-loaded Replay certification.
