@@ -27,3 +27,22 @@ This is an **isolated, not-yet-approved** integration branch. It does not replac
 - This guard refuses unsafe comparisons; it does not correct TradingView's underlying future-loaded Replay feed.
 - No Pine compilation or rollback mutation, Replay action, chart/layout mutation, protected Mentorship change, deployment, tunnel restart, production promotion, or merge is included or authorized.
 - Running Pilot may remain on an older commit; this documentation alignment does not change the deployed MCP.
+
+## Two-chart Replay acceptance — 28 October 2026
+
+Candidate source tested: `5cb77f0df1036071ffd60009108d983eccaea9dc`.
+
+Independent real TradingView QA sources:
+- `n5CHUl8r` — ES1!, 15M, paused Replay.
+- `2sPBmVxY` — ES1!, 15M, paused Replay.
+- Both Replay clocks: `1791554399`, autoplay disabled.
+- Both newest loaded candle opens: `1791553500`.
+- Latest excluded developing candle; newest closed candidate: `1791552600`.
+
+**Positive live acceptance — PASS:** The standalone Mac runtime executed the candidate's `data_get_cross_chart_sync_qa` against both independently loaded QA charts. Result: `aligned`, `paused_replay`, 12 common closed candles, no chart mutations.
+
+**Two-source hybrid negative acceptance — PASS x2:** Stable native OHLC captures from both real charts were passed to the candidate evaluator. The latest timestamp was changed in memory only, separately for each source, to `1791554400` (one second beyond the Replay cursor). Both cases returned `REPLAY_HISTORY_AHEAD_OF_CURSOR`, refused comparison, preserved the offending timestamp and did not claim a closed candle.
+
+**Limit:** Neither negative case reproduced a genuinely future-loaded TradingView feed. The guard does not detect every possible future-value leak within a candle whose opening timestamp precedes the cursor. No cross-market synchronization, broad timeframe support or Pine correctness is certified.
+
+**Decision:** Scoped live-positive and hybrid-negative acceptance passed. Full natural future-feed negative certification, Pine consumer approval and production promotion remain outstanding. No chart edits, Replay actions, running-server changes or protected-layout changes were made by the acceptance scripts.
