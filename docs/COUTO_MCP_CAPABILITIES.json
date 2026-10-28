@@ -2,8 +2,8 @@
   "schema_version": 1,
   "updated": "2026-10-28",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
-  "source_branch": "qa/mcp-pine-readonly-promotion-candidate-20261027",
-  "verified_code_checkpoint": "f495669fef7fc417b7e92a3bab11dfff5980ee49",
+  "source_branch": "qa/mcp-readonly-combined-candidate-20261028",
+  "verified_code_checkpoint": "7f501e9910c348d5a808ea2577948f78666e5e9d",
   "consumer_repository": "Al-Kafw/couto-qtf-trading",
   "consumer": "HTF Profiler 12 and successors",
   "usage_policy": {
@@ -464,7 +464,7 @@
     }
   ],
   "validation": {
-    "automated_tests_passed": 532,
+    "automated_tests_passed": 537,
     "automated_tests_failed": 0,
     "static_audits_passed": true,
     "independent_process_lock_test": "verified_locally",
@@ -472,6 +472,6 @@
     "note": "Automated tests alone never establish live trading or Pine correctness",
     "manual_restoration": "verified_3_stable_reads",
     "automatic_dirty_reload": "explicit_consent_guard_offline_verified_live_unverified",
-    "promotion_candidate_note": "Promotion candidate built from live-tested read-only source f495669; 532 offline tests. Accepted production branch remains 2a5fb76f2e058d2b050ef37278dbd6f2b53f909e. Direct ChatGPT read-only action verified on version 6.0; subsequent dirty/native-binding refusals correctly blocked unstable checks. Consumer approval remains withheld pending final review. No Pine writes, compilation, chart edits or Replay changes."
+    "promotion_candidate_note": "Combined read-only candidate at 7f501e9910c348d5a808ea2577948f78666e5e9d: 537/537 offline tests passed across 39 files. Earlier Pine-only 917932c retains its historical 532-test evidence. Accepted MCP 2a5fb76f2e058d2b050ef37278dbd6f2b53f909e is unchanged. Pine editor provenance passed one direct ChatGPT read-only saved/editor version 6.0 observation, then later unstable states failed closed; continuous clean-state stability and consumer approval remain unproven. Replay guard REPLAY_HISTORY_AHEAD_OF_CURSOR has offline and bounded hybrid evidence but lacks independent aligned two-chart paused-Replay live acceptance. This guard refuses contaminated comparisons; it does not repair the future-loaded feed. No Pine or chart mutation, Replay operation, MCP restart/deployment, merge or production promotion is authorized."
   }
 }

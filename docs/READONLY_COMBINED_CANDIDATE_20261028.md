@@ -16,3 +16,14 @@ This is an **isolated, not-yet-approved** integration branch. It does not replac
 - The existing accepted cross-chart sync capability remains only scoped live verified; the new paused-Replay causality condition must not be described as fully live certified.
 - Full standalone Mac tests, schema check, source security audit and staged release audit are mandatory before committing this isolated branch. Expected total: **537 tests**, 110 registered read-only tools.
 - Never merge into the accepted branch or switch/restart either tunnel without a new, separately authorized review and promotion decision.
+
+## Evidence alignment — combined candidate
+
+- Code checkpoint: `7f501e9910c348d5a808ea2577948f78666e5e9d`.
+- Current offline results: 537/537 PASS, 39 test files, 0 failed/skipped (`docs/TEST_RESULTS.json`).
+- The 532-test Pine-only checkpoint is historical and retained separately.
+- Pine editor/title provenance: one successful direct ChatGPT read-only saved/editor version 6.0 observation; later unstable editor states refused. Persistent stability and consumer approval are not established.
+- Replay causality: `REPLAY_HISTORY_AHEAD_OF_CURSOR` is covered offline and by bounded hybrid evidence; independent aligned two-chart paused-Replay live acceptance remains outstanding.
+- This guard refuses unsafe comparisons; it does not correct TradingView's underlying future-loaded Replay feed.
+- No Pine compilation or rollback mutation, Replay action, chart/layout mutation, protected Mentorship change, deployment, tunnel restart, production promotion, or merge is included or authorized.
+- Running Pilot may remain on an older commit; this documentation alignment does not change the deployed MCP.
