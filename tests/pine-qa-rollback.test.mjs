@@ -147,6 +147,8 @@ test('removes only disposable QA study', async () => {
     const r = await f.call();
     assert.equal(r.ok, true);
     assert.equal(r.live_study_baseline_restored, true);
+    assert.equal(r.rollback_layout_id, id);
+    assert.equal(r.baseline_entity_id, 'VolumeQA1');
     assert.equal(r.persisted_layout_restoration_verified, false);
     assert.deepEqual(f.removed, ['DraftQA1']);
   } finally { await f.close(); }

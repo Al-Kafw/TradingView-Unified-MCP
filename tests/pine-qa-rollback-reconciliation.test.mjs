@@ -17,6 +17,8 @@ const receipt = {
   verified: true,
   mutation_attempted: true,
   removed_entity_id: 'DraftQA1',
+  rollback_layout_id: 'AIibRZIx',
+  baseline_entity_id: 'aMROG1',
   live_study_baseline_restored: true,
   persisted_layout_restoration_verified: false
 };
@@ -132,4 +134,48 @@ test('unexpected restored chart and missing protected target fail closed', async
   const q=await g.run({expected:{...expected,layout_name:'Couto|Mentorship'}});
   assert.equal(q.code,'RESTORELAB_BASELINE_UNVERIFIED');
   assert.equal(g.reads(),0);
+});
+
+// Receipt linkage is evidence correlation, not an authorization to mutate.
+test('missing rollback layout binding is refused before browser access', async () => {
+  const f=fixture(); const {rollback_layout_id,...bad}=receipt;
+  const r=await f.run({rollbackReceipt:bad});
+  assert.equal(r.code,'ROLLBACK_RECEIPT_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('wrong rollback layout is refused before browser access', async () => {
+  const f=fixture(); const r=await f.run({rollbackReceipt:{...receipt,rollback_layout_id:'WrongLab'}});
+  assert.equal(r.code,'ROLLBACK_RECEIPT_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('missing Volume baseline ID in receipt is refused before browser access', async () => {
+  const f=fixture(); const {baseline_entity_id,...bad}=receipt;
+  const r=await f.run({rollbackReceipt:bad});
+  assert.equal(r.code,'ROLLBACK_RECEIPT_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('mismatched Volume baseline ID in receipt is refused before browser access', async () => {
+  const f=fixture(); const r=await f.run({rollbackReceipt:{...receipt,baseline_entity_id:'OtherVolume'}});
+  assert.equal(r.code,'ROLLBACK_RECEIPT_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('removed indicator ID cannot be the original Volume ID', async () => {
+  const f=fixture(); const r=await f.run({rollbackReceipt:{...receipt,removed_entity_id:'aMROG1'}});
+  assert.equal(r.code,'ROLLBACK_RECEIPT_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('omitted Volume input baseline refuses without browser access', async () => {
+  const f=fixture(); const r=await f.run({expected:{...expected,studies:[{id:'aMROG1',name:'Volume'}]}});
+  assert.equal(r.code,'RESTORELAB_BASELINE_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('duplicate Volume input IDs refuse without browser access', async () => {
+  const f=fixture(); const r=await f.run({expected:{...expected,studies:[{
+    id:'aMROG1',name:'Volume',inputs:[{id:'length',value:20},{id:'length',value:30}]
+  }]}});
+  assert.equal(r.code,'RESTORELAB_BASELINE_UNVERIFIED'); assert.equal(f.reads(),0);
+});
+test('unobservable Volume input values refuse without browser access', async () => {
+  const f=fixture();
+  for(const value of [null,{length:20},Number.NaN]) {
+    const r=await f.run({expected:{...expected,studies:[{
+      id:'aMROG1',name:'Volume',inputs:[{id:'length',value}]
+    }]}});
+    assert.equal(r.code,'RESTORELAB_BASELINE_UNVERIFIED');
+  }
+  assert.equal(f.reads(),0);
 });

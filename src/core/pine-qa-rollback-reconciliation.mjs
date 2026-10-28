@@ -36,7 +36,10 @@ export async function reconcilePineQaRollback({
     rollbackReceipt.live_study_baseline_restored !== true ||
     rollbackReceipt.persisted_layout_restoration_verified !== false ||
     typeof rollbackReceipt.removed_entity_id !== 'string' ||
-    !/^[A-Za-z0-9_-]{1,128}$/.test(rollbackReceipt.removed_entity_id)
+    !/^[A-Za-z0-9_-]{1,128}$/.test(rollbackReceipt.removed_entity_id) ||
+    rollbackReceipt.rollback_layout_id !== expected?.layout_id ||
+    rollbackReceipt.baseline_entity_id !== expected?.studies?.[0]?.id ||
+    rollbackReceipt.removed_entity_id === rollbackReceipt.baseline_entity_id
   ) return refusal('ROLLBACK_RECEIPT_UNVERIFIED');
 
   if (
@@ -47,7 +50,20 @@ export async function reconcilePineQaRollback({
     !Array.isArray(expected?.studies) || expected.studies.length !== 1 ||
     expected.studies[0]?.name !== 'Volume' ||
     typeof expected.studies[0]?.id !== 'string' ||
-    !/^[A-Za-z0-9_-]{1,128}$/.test(expected.studies[0].id)
+    !/^[A-Za-z0-9_-]{1,128}$/.test(expected.studies[0].id) ||
+    // Missing inputs are not evidence of intact baseline settings.
+    !Array.isArray(expected.studies[0].inputs) ||
+    expected.studies[0].inputs.length === 0 ||
+    expected.studies[0].inputs.length > 100 ||
+    expected.studies[0].inputs.some(input =>
+      !input || typeof input.id !== 'string' ||
+      !/^[A-Za-z0-9_.-]{1,128}$/.test(input.id) ||
+      !(typeof input.value === 'boolean' ||
+        typeof input.value === 'number' && Number.isFinite(input.value) ||
+        typeof input.value === 'string' && input.value.length <= 2048)
+    ) ||
+    new Set(expected.studies[0].inputs.map(input => input.id)).size !==
+      expected.studies[0].inputs.length
   ) return refusal('RESTORELAB_BASELINE_UNVERIFIED');
 
   let observed;

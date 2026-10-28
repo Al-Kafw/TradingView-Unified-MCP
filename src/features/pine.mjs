@@ -277,6 +277,8 @@ export async function pinePage(a) {
           verified: true,
           mutation_attempted: true,
           removed_entity_id: a.entity_id,
+          rollback_layout_id: a.expected_layout_id,
+          baseline_entity_id: a.baseline_entity_id,
           live_study_baseline_restored: true,
           persisted_layout_restoration_verified: false
         };
