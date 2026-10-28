@@ -46,3 +46,22 @@ Independent real TradingView QA sources:
 **Limit:** Neither negative case reproduced a genuinely future-loaded TradingView feed. The guard does not detect every possible future-value leak within a candle whose opening timestamp precedes the cursor. No cross-market synchronization, broad timeframe support or Pine correctness is certified.
 
 **Decision:** Scoped live-positive and hybrid-negative acceptance passed. Full natural future-feed negative certification, Pine consumer approval and production promotion remain outstanding. No chart edits, Replay actions, running-server changes or protected-layout changes were made by the acceptance scripts.
+
+## Pine candidate stability — 28 October 2026
+
+Candidate source checkpoint: `c87819da479be65fff4aa4fd341a0bcc1a67c0a1`.
+
+**Result: PASS — three consecutive candidate-only live checks.**
+
+- Exact QA layout: `DobiYFrf`, clean before and after every check.
+- Native Pine ID: `USER;630d9b8bdd6048b4bc1bb2ab746fd583`.
+- Saved version: `14.0` in all three observations.
+- Editor and saved-source raw hashes identical:
+  `601e57589d7ca37245b0364724358161ad6ff730dd669205c902a4008f26b17e`.
+- LF-normalized source parity and uniquely visible editor title verified.
+- The actual combined-candidate `pine_get_editor_provenance_qa` was exercised through a standalone read-only runtime.
+- Zero Pine compilations, writes, or chart mutations.
+
+**Scope:** Repeated stable observations on one clean layout and one saved version. This does not establish stability across editor revisions, TradingView updates, dirty layouts, or compiled runtime correctness.
+
+**Release decision:** Scoped candidate provenance acceptance passed. Consumer approval remains false; no Pine compilation authority, accepted-branch merge, running MCP replacement, or production promotion is authorised.
