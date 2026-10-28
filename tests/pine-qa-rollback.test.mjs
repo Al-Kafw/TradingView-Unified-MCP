@@ -75,7 +75,17 @@ function fixture({
   extra = false,
   missingVolume = false,
   wrongLayout = false,
-  noRemove = false
+  noRemove = false,
+  replayStarted = false,
+  autoplayStarted = false,
+  replayUnknown = false,
+  replayMissing = false,
+  drawingPresent = false,
+  drawingUnknown = false,
+  afterReplayDrift = false,
+  afterDrawingDrift = false,
+  afterLayoutDrift = false,
+  throwAfterRemoval = false
 } = {}) {
   const removed = [];
   const studies = [
@@ -96,15 +106,26 @@ function fixture({
     removed.push(entityId);
     const index = studies.findIndex(s => s.id === entityId);
     if (index >= 0) studies.splice(index, 1);
+    if (throwAfterRemoval) throw new Error('Native post-mutation failure');
   };
+  chart.getAllShapes = () => drawingUnknown ? null :
+    (drawingPresent || afterDrawingDrift && removed.length > 0)
+      ? [{ id: 'user-drawing' }] : [];
 
   const h = createFakeCdp({
     page: {
       TradingViewApi: {
         _chartWidgetCollection: {
           metaInfo: {
-            uid: { value: () => wrongLayout ? 'WrongQA1' : id }
+            uid: { value: () =>
+              wrongLayout || afterLayoutDrift && removed.length > 0
+                ? 'WrongQA1' : id }
           }
+        },
+        _replayApi: replayMissing ? null : {
+          isReplayStarted: () => replayUnknown ? null :
+            (replayStarted || afterReplayDrift && removed.length > 0),
+          isAutoplayStarted: () => replayUnknown ? null : autoplayStarted
         },
         _activeChartWidgetWV: { value: () => chart }
       }
@@ -169,5 +190,96 @@ test('missing native removal method blocks removal', async () => {
   try {
     assert.equal((await f.call()).ok, false);
     assert.equal(f.removed.length, 0);
+  } finally { await f.close(); }
+});
+
+// New research hardening: no rollback unless the surrounding QA chart is safe.
+test('active Replay blocks QA study removal before mutation', async () => {
+  const f = fixture({ replayStarted: true });
+  try {
+    const r = await f.call();
+    assert.equal(r.code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('autoplay blocks QA rollback before mutation', async () => {
+  const f = fixture({ autoplayStarted: true });
+  try {
+    assert.equal((await f.call()).code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('unknown Replay state blocks rollback rather than assuming stopped', async () => {
+  const f = fixture({ replayUnknown: true });
+  try {
+    assert.equal((await f.call()).code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('missing native Replay API blocks rollback', async () => {
+  const f = fixture({ replayMissing: true });
+  try {
+    assert.equal((await f.call()).code, 'QA_REPLAY_STATE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('existing chart drawing blocks rollback before mutation', async () => {
+  const f = fixture({ drawingPresent: true });
+  try {
+    assert.equal((await f.call()).code, 'QA_DRAWING_BASELINE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('unavailable native drawings block rollback', async () => {
+  const f = fixture({ drawingUnknown: true });
+  try {
+    assert.equal((await f.call()).code, 'QA_DRAWING_BASELINE_UNVERIFIED');
+    assert.deepEqual(f.removed, []);
+  } finally { await f.close(); }
+});
+
+test('post-removal Replay drift cannot be certified as restored', async () => {
+  const f = fixture({ afterReplayDrift: true });
+  try {
+    const r = await f.call();
+    assert.equal(r.code, 'ROLLBACK_UNVERIFIED');
+    assert.equal(r.mutation_attempted, true);
+    assert.deepEqual(f.removed, ['DraftQA1']);
+  } finally { await f.close(); }
+});
+
+test('post-removal drawing drift cannot be certified as restored', async () => {
+  const f = fixture({ afterDrawingDrift: true });
+  try {
+    const r = await f.call();
+    assert.equal(r.code, 'ROLLBACK_UNVERIFIED');
+    assert.equal(r.mutation_attempted, true);
+    assert.deepEqual(f.removed, ['DraftQA1']);
+  } finally { await f.close(); }
+});
+
+test('post-removal layout identity drift cannot be certified restored', async () => {
+  const f = fixture({ afterLayoutDrift: true });
+  try {
+    const r = await f.call();
+    assert.equal(r.code, 'ROLLBACK_UNVERIFIED');
+    assert.equal(r.mutation_attempted, true);
+    assert.deepEqual(f.removed, ['DraftQA1']);
+  } finally { await f.close(); }
+});
+
+test('native removal throwing after mutation yields rollback unverified', async () => {
+  const f = fixture({ throwAfterRemoval: true });
+  try {
+    const r = await f.call();
+    assert.equal(r.code, 'ROLLBACK_UNVERIFIED');
+    assert.equal(r.mutation_attempted, true);
+    assert.equal(r.persisted_layout_restoration_verified, false);
+    assert.deepEqual(f.removed, ['DraftQA1']);
   } finally { await f.close(); }
 });

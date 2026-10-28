@@ -195,6 +195,30 @@ export async function pinePage(a) {
         'Native study inspection/removal unavailable.'
       );
 
+      // A rollback may run on a dirty QA layout, but only when the native
+      // Replay and drawing baselines remain demonstrably safe. Fail closed.
+      const rollbackState = () => {
+        const replay = api?._replayApi;
+        const unbox = v => typeof v?.value === 'function' ? v.value() : v;
+        const started = typeof replay?.isReplayStarted === 'function'
+          ? unbox(replay.isReplayStarted()) : null;
+        const autoplay = typeof replay?.isAutoplayStarted === 'function'
+          ? unbox(replay.isAutoplayStarted()) : null;
+        const shapes = typeof chart.getAllShapes === 'function'
+          ? chart.getAllShapes() : null;
+        return { started, autoplay, shapes };
+      };
+      let baseline;
+      try { baseline = rollbackState(); }
+      catch { return fail('QA_STATE_UNVERIFIED',
+        'Native rollback Replay/drawing snapshot failed before removal.'); }
+      if (baseline.started !== false || baseline.autoplay !== false)
+        return fail('QA_REPLAY_STATE_UNVERIFIED',
+          'Replay must be observably stopped before QA rollback.');
+      if (!Array.isArray(baseline.shapes) || baseline.shapes.length !== 0)
+        return fail('QA_DRAWING_BASELINE_UNVERIFIED',
+          'Rollback requires a known empty drawing baseline.');
+
       const before = chart.getAllStudies();
 
       if (
@@ -213,13 +237,33 @@ export async function pinePage(a) {
         'Expected exactly the original Volume and approved QA indicator.'
       );
 
-      await chart.removeEntity(a.entity_id);
+      // A thrown native removal can still have mutated the chart. Never
+      // automatically retry or mislabel a partial submission as no-op.
+      try { await chart.removeEntity(a.entity_id); }
+      catch { return fail('ROLLBACK_UNVERIFIED',
+        'Native removal threw after submission; chart state may have changed.',
+        { mutation_attempted: true, persisted_layout_restoration_verified: false }); }
 
       const deadline = Date.now() +
         Math.min(a.timeout_ms ?? 15000, 30000);
 
       while (Date.now() < deadline) {
         await new Promise(r => setTimeout(r, 200));
+
+        const currentUid = api?._chartWidgetCollection?.metaInfo?.uid;
+        const currentId = typeof currentUid?.value === 'function'
+          ? currentUid.value() : currentUid;
+        let afterState;
+        try { afterState = rollbackState(); }
+        catch { return fail('ROLLBACK_UNVERIFIED',
+          'Native rollback state became unavailable after removal.',
+          { mutation_attempted: true, persisted_layout_restoration_verified: false }); }
+        if (String(currentId ?? '') !== a.expected_layout_id ||
+            afterState.started !== false || afterState.autoplay !== false ||
+            !Array.isArray(afterState.shapes) || afterState.shapes.length !== 0)
+          return fail('ROLLBACK_UNVERIFIED',
+            'Layout, Replay or drawing baseline changed after removal.',
+            { mutation_attempted: true, persisted_layout_restoration_verified: false });
 
         const after = chart.getAllStudies();
 
