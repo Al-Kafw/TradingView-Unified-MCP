@@ -42,6 +42,9 @@ export function evaluateCrossChartSync(sources, charts, replays, captures, {min_
       return refuse('OHLCV_SCOPE_OR_COVERAGE_MISMATCH',observations);
     if(!c.bars.every(finiteBar) || !c.bars.every((b,j)=>j===0||b.time<c.bars[j-1].time))
       return refuse('OHLCV_BARS_INVALID',observations);
+    // Expose the loaded timestamp even when refusing future history: otherwise
+    // the refusal identifies the problem but hides the causality evidence.
+    observations[i].latest_loaded_time_unix=c.bars[0].time;
     // Paused Replay must not compare chart-loaded candles that begin in its future.
     if(replays[i].started && c.bars[0].time > replays[i].current_time)
       return refuse('REPLAY_HISTORY_AHEAD_OF_CURSOR',observations,
@@ -49,7 +52,6 @@ export function evaluateCrossChartSync(sources, charts, replays, captures, {min_
     const bars=c.bars.slice(1); // Always discard potentially developing latest bar.
     if(bars.some(b=>b.time>=c.bars[0].time))return refuse('OHLCV_ORDER_INVALID',observations);
     candidates.push(bars);
-    observations[i].latest_loaded_time_unix=c.bars[0].time;
     observations[i].latest_closed_candidate_time_unix=bars[0].time;
     observations[i].loaded_bars_total=c.total_available;
     observations[i].closed_candidates=bars.length;

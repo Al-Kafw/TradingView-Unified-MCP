@@ -77,6 +77,26 @@ test('paused Replay refuses future-loaded history on only one source',async()=>{
   assert.equal(r.reason_code,'REPLAY_HISTORY_AHEAD_OF_CURSOR');
   assert.equal(r.comparison_allowed,false);
 });
+test('future Replay refusal retains offending latest loaded timestamp without declaring a closed candle',async()=>{
+  const f=fixture({replayA:true,replayB:true,clockA:8500,clockB:8500});
+  const r=await captureCrossChartSync(opts(),f.ctx);
+  assert.equal(r.reason_code,'REPLAY_HISTORY_AHEAD_OF_CURSOR');
+  assert.equal(r.observations[0].replay_clock_unix,8500);
+  assert.equal(r.observations[0].latest_loaded_time_unix,9000);
+  assert.equal(r.observations[0].latest_closed_candidate_time_unix,null);
+  assert.equal(r.comparison_allowed,false);
+  assert.equal(r.no_chart_mutations,true);
+});
+test('future Replay refusal identifies the second source when only that source is ahead',async()=>{
+  const f=fixture({replayA:true,replayB:true,clockA:9500,clockB:9500,shiftB:1800});
+  const r=await captureCrossChartSync(opts(),f.ctx);
+  assert.equal(r.reason_code,'REPLAY_HISTORY_AHEAD_OF_CURSOR');
+  assert.equal(r.observations[0].latest_loaded_time_unix,9000);
+  assert.equal(r.observations[1].latest_loaded_time_unix,10800);
+  assert.equal(r.observations[1].replay_clock_unix,9500);
+  assert.equal(r.observations[1].latest_closed_candidate_time_unix,null);
+  assert.equal(r.comparison_allowed,false);
+});
 test('paused Replay accepts a newest loaded bar starting exactly at the cursor',async()=>{
   const f=fixture({replayA:true,replayB:true,clockA:9000,clockB:9000});
   const r=await captureCrossChartSync(opts(),f.ctx);
