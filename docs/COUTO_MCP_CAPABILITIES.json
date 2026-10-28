@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "source_repository": "Al-Kafw/TradingView-Unified-MCP",
   "source_branch": "qa/mcp-pine-readonly-promotion-candidate-20261027",
   "verified_code_checkpoint": "f495669fef7fc417b7e92a3bab11dfff5980ee49",
@@ -413,7 +413,7 @@
       "tools": [
         "pine_get_editor_provenance_qa"
       ],
-      "limitations": "Read-only, non-atomic native Pine editor identity, cloud saved-source LF/CRLF parity, and same-widget split-view title observation. Scoped direct-local live acceptance only. No source content in composite output. This capability does NOT authorize Pine mutation, compilation, chart study updates, or signal correctness. Direct ChatGPT tool invocation on deployed candidate is pending.",
+      "limitations": "Read-only, non-atomic native Pine editor identity, cloud saved-source LF/CRLF parity, and same-widget split-view title observation. Scoped direct-local and direct ChatGPT acceptance, with later clean-state or native-binding refusal during changing chart state. No source content in composite output. This capability does NOT authorize Pine mutation, compilation, chart study updates, or signal correctness. Direct ChatGPT tool invocation passed once; repeated stability checks did not pass. Consumer approval remains withheld.",
       "live_evidence": {
         "date": "2026-10-27",
         "method": "Mac standalone live script exercising research implementation read-only",
@@ -434,9 +434,32 @@
         "capture_atomic": false,
         "source_content_returned": false,
         "chart_mutations": 0,
-        "direct_chatgpt_action_verified": false,
+        "direct_chatgpt_action_verified": true,
         "pine_compilation_authorized": false,
-        "pine_mutation_authorized": false
+        "pine_mutation_authorized": false,
+        "direct_chatgpt_acceptance": {
+          "date": "2026-10-28",
+          "connector": "TradingView Pine QA Read-Only",
+          "direct_tool": "pine_get_editor_provenance_qa",
+          "registered_readonly_tools": 110,
+          "first_direct_result": "PASS",
+          "first_direct_status": "matched",
+          "target_layout_id": "DobiYFrf",
+          "observed_version": "6.0",
+          "visual_editor_title_verified": true,
+          "raw_hashes_equal": true,
+          "normalized_hashes_equal": true,
+          "observed_editor_line_endings": "crlf",
+          "observed_saved_line_endings": "crlf",
+          "source_content_returned": false,
+          "authorizes_pine_mutation": false,
+          "authorizes_pine_compile": false,
+          "capture_atomic": false,
+          "subsequent_refusal": "LAYOUT_ID_OR_SAVED_STATE_UNVERIFIED",
+          "subsequent_native_refusal": "NATIVE_EDITOR_BINDING_UNVERIFIED",
+          "subsequent_editor_version_observed": "7.0",
+          "note": "Separate later observations were unstable or failed closed. This does not establish continuous clean-state stability or confirm the contents of version 7.0."
+        }
       }
     }
   ],
@@ -449,6 +472,6 @@
     "note": "Automated tests alone never establish live trading or Pine correctness",
     "manual_restoration": "verified_3_stable_reads",
     "automatic_dirty_reload": "explicit_consent_guard_offline_verified_live_unverified",
-    "promotion_candidate_note": "Promotion candidate built from live-tested read-only source f495669; 532 offline tests. Accepted production branch remains 2a5fb76f2e058d2b050ef37278dbd6f2b53f909e. New read-only connector action requires deployment and direct ChatGPT acceptance before consumer approval. No Pine writes, compilation, chart edits or Replay changes."
+    "promotion_candidate_note": "Promotion candidate built from live-tested read-only source f495669; 532 offline tests. Accepted production branch remains 2a5fb76f2e058d2b050ef37278dbd6f2b53f909e. Direct ChatGPT read-only action verified on version 6.0; subsequent dirty/native-binding refusals correctly blocked unstable checks. Consumer approval remains withheld pending final review. No Pine writes, compilation, chart edits or Replay changes."
   }
 }

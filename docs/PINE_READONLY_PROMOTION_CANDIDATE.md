@@ -24,3 +24,10 @@ This is **not** a production merge. The accepted MCP remains at `2a5fb76`.
 4. Do not combine the separately unverified disposable compiler guard without its own QA. No live Pine compilation or writes have been authorized.
 
 Do not interpret matched source text as successful compilation or chart signal correctness.
+
+## Direct ChatGPT acceptance — 28 October 2026
+
+- The separate **TradingView Pine QA Read-Only** plugin was installed and directly exposed **110 read-only MCP tools**, including `pine_get_editor_provenance_qa`. The original Read-Only Pilot and accepted Git branch were not replaced.
+- Direct ChatGPT `pine_get_editor_provenance_qa` on Combined Research QA (`DobiYFrf`, ES1! 5M) returned `ok=true`, `status=matched`, native saved script version **6.0**, stable unique same-widget visual title matching the saved library name, and matching **raw and LF-normalized** hashes. Both editor and saved source used CRLF; no source contents were returned by the composite. No mutation/compile authority was granted.
+- Subsequent checks returned safe refusals `LAYOUT_ID_OR_SAVED_STATE_UNVERIFIED` and `NATIVE_EDITOR_BINDING_UNVERIFIED`. Independent read-only observation later showed a version **7.0** editor binding and alternating clean/dirty layout state. The first direct success is valid only for its captured version/state and is not continuous stability certification. No source save/discard/reload was requested.
+- **Approval remains false.** This documentation-only update neither merges code into `qa/mcp-safety-p2-20261024` nor authorizes compiler mutations. The separate offline-only disposable compile guard `3ccdeff` is not included in this candidate.

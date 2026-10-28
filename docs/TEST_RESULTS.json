@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T21:33:56.365Z",
+  "timestamp": "2026-10-28T11:55:42.873Z",
   "source_sha256": "717821399b5eccbadbfd5f749078ddb670f4675997812d26c833a1b7039095fc",
   "source_unchanged_during_tests": true,
   "environment": {
@@ -55,7 +55,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 51.698042
+      "duration_ms": 48.589042
     },
     {
       "name": "generated full TOOL and FEATURES catalogues contain complete source registrations",
@@ -63,7 +63,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 19.356667
+      "duration_ms": 21.457125
     },
     {
       "name": "native candle index and timestamp anchors remain separate from Pine X",
@@ -71,7 +71,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.716209
+      "duration_ms": 0.837208
     },
     {
       "name": "unavailable internal scale still reports verified OHLC bar times, never drawing mapping",
@@ -79,7 +79,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.111
+      "duration_ms": 0.211958
     },
     {
       "name": "wrong layout fails before extracting time-scale evidence",
@@ -87,7 +87,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.593541
+      "duration_ms": 0.097
     },
     {
       "name": "not-observed study fails without treating missing study as empty data",
@@ -95,7 +95,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.105458
+      "duration_ms": 0.196792
     },
     {
       "name": "matched pre-post native snapshots produce observational statistics but no mappings",
@@ -103,7 +103,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.27425
+      "duration_ms": 2.239542
     },
     {
       "name": "identical numeric Pine X and OHLC index is coincidence only",
@@ -111,7 +111,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.257834
+      "duration_ms": 0.289667
     },
     {
       "name": "mismatched native graphics suppress all correlated evidence",
@@ -119,7 +119,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.984458
+      "duration_ms": 1.151
     },
     {
       "name": "chart identity mismatch suppresses coordinate evidence even with matching graphics",
@@ -127,7 +127,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.423
+      "duration_ms": 1.957875
     },
     {
       "name": "partial native read is never reported as complete",
@@ -135,7 +135,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.477792
+      "duration_ms": 0.6785
     },
     {
       "name": "invalid caps and target mismatch are rejected before reading chart",
@@ -143,7 +143,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.444083
+      "duration_ms": 1.619916
     },
     {
       "name": "required exact IDs and read-only schema are declared",
@@ -151,7 +151,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.081833
+      "duration_ms": 0.232625
     },
     {
       "name": "exact synchronized live closed bars compare by timestamp, never bar index",
@@ -159,7 +159,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.669666
+      "duration_ms": 2.253417
     },
     {
       "name": "different current candle close and volume is tolerated because developing bar is excluded",
@@ -167,7 +167,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.585791
+      "duration_ms": 1.011916
     },
     {
       "name": "closed candle price drift is blocked, never silently compared",
@@ -175,7 +175,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.381542
+      "duration_ms": 0.248792
     },
     {
       "name": "mixed paused Replay and live mode refuses without OHLC reads",
@@ -183,7 +183,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.104917
+      "duration_ms": 0.102708
     },
     {
       "name": "different Replay cursor times refuse before data",
@@ -191,7 +191,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.132208
+      "duration_ms": 0.127875
     },
     {
       "name": "same paused Replay cursor can compare loaded closed candidate bars",
@@ -199,7 +199,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.937083
+      "duration_ms": 2.442709
     },
     {
       "name": "different most recent closed timestamps are blocked",
@@ -207,7 +207,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.04675
+      "duration_ms": 0.838208
     },
     {
       "name": "different requested source timeframes fail before browser calls",
@@ -215,7 +215,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.134083
+      "duration_ms": 0.20325
     },
     {
       "name": "actual unexpected timeframe blocks even when requested sources agree",
@@ -223,7 +223,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.075541
+      "duration_ms": 0.10475
     },
     {
       "name": "chart identity drift between initial and final checks blocks",
@@ -231,7 +231,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.083666
+      "duration_ms": 0.10675
     },
     {
       "name": "Replay drift between initial and final checks blocks",
@@ -239,7 +239,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.094209
+      "duration_ms": 0.0995
     },
     {
       "name": "insufficient OHLC coverage blocks without invented candles",
@@ -247,7 +247,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.073625
+      "duration_ms": 0.139667
     },
     {
       "name": "missing OHLC data blocks without fabricating zero observations",
@@ -255,7 +255,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.334292
+      "duration_ms": 0.392583
     },
     {
       "name": "duplicate exact chart targets and layouts are rejected before reads",
@@ -263,7 +263,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.133917
+      "duration_ms": 0.184292
     },
     {
       "name": "unknown Replay status fails closed and cannot mean live",
@@ -271,7 +271,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.03075
+      "duration_ms": 0.037375
     },
     {
       "name": "non-atomic observations cannot certify timestamp synchronization or signal correctness",
@@ -279,7 +279,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.262375
+      "duration_ms": 0.523125
     },
     {
       "name": "catalog descriptor only registers a read-only bounded multi-chart tool",
@@ -287,7 +287,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.066167
+      "duration_ms": 0.04275
     },
     {
       "name": "different loaded chart bar indexes do not prevent correctly timestamp-aligned OHLC",
@@ -295,7 +295,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.122209
+      "duration_ms": 0.124708
     },
     {
       "name": "latest timestamp rollover is blocked despite ignoring live developing price changes",
@@ -303,7 +303,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.106458
+      "duration_ms": 0.102875
     },
     {
       "name": "exact native symbol remains readable",
@@ -311,7 +311,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 24.22625
+      "duration_ms": 30.687583
     },
     {
       "name": "verified delayed-feed OHLC: CME_MINI_DL:ES1!",
@@ -319,7 +319,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.477625
+      "duration_ms": 4.744
     },
     {
       "name": "verified delayed-feed OHLC: CME_MINI_DL:NQ1!",
@@ -327,7 +327,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.710709
+      "duration_ms": 3.090084
     },
     {
       "name": "verified delayed-feed OHLC: CBOT_MINI_DL:YM1!",
@@ -335,7 +335,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.641625
+      "duration_ms": 1.947458
     },
     {
       "name": "latest bar supports independently verified alias",
@@ -343,7 +343,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.392292
+      "duration_ms": 2.25525
     },
     {
       "name": "cross-contract mismatch fails closed",
@@ -351,7 +351,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.695
+      "duration_ms": 5.349958
     },
     {
       "name": "unapproved exchange alias fails closed",
@@ -359,7 +359,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.536041
+      "duration_ms": 5.453333
     },
     {
       "name": "wrong main-series full name fails closed",
@@ -367,7 +367,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.503
+      "duration_ms": 2.175583
     },
     {
       "name": "wrong main-series resolved identity fails closed",
@@ -375,7 +375,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.867833
+      "duration_ms": 2.986792
     },
     {
       "name": "disagreeing independent symbol metadata fails closed",
@@ -383,7 +383,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 5.227125
+      "duration_ms": 6.097833
     },
     {
       "name": "missing independent metadata fails closed",
@@ -391,7 +391,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.116541
+      "duration_ms": 2.3
     },
     {
       "name": "live-shaped missing native symbol: CME_MINI_DL:ES1!",
@@ -399,7 +399,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.527125
+      "duration_ms": 2.7355
     },
     {
       "name": "live-shaped missing native symbol: CME_MINI_DL:NQ1!",
@@ -407,7 +407,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.60975
+      "duration_ms": 1.642459
     },
     {
       "name": "live-shaped missing native symbol: CBOT_MINI_DL:YM1!",
@@ -415,7 +415,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.223708
+      "duration_ms": 4.608208
     },
     {
       "name": "missing native symbol and name fails closed",
@@ -423,7 +423,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.348917
+      "duration_ms": 1.535708
     },
     {
       "name": "incorrect native name fails closed",
@@ -431,7 +431,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.23925
+      "duration_ms": 1.3565
     },
     {
       "name": "incorrect populated symbol cannot use name fallback",
@@ -439,7 +439,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.964166
+      "duration_ms": 1.251084
     },
     {
       "name": "C123 live-shaped lookup maps all graphic native X references and 7 boxes",
@@ -447,7 +447,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.882417
+      "duration_ms": 2.471833
     },
     {
       "name": "all projected role coordinates are chart-local, not PNG pixels or time",
@@ -455,7 +455,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.414667
+      "duration_ms": 1.319916
     },
     {
       "name": "shifted lookup fails first box formula instead of inferring pixels",
@@ -463,7 +463,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.826958
+      "duration_ms": 0.72
     },
     {
       "name": "missing index lookup fails closed",
@@ -471,7 +471,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.379708
+      "duration_ms": 0.319875
     },
     {
       "name": "non-integer and unordered entries are refused",
@@ -479,7 +479,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.185583
+      "duration_ms": 0.16225
     },
     {
       "name": "native X beyond lookup bounds is refused",
@@ -487,7 +487,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.506791
+      "duration_ms": 0.111
     },
     {
       "name": "unreferenced index entry refuses completeness",
@@ -495,7 +495,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.17475
+      "duration_ms": 0.34225
     },
     {
       "name": "missing graphics collection does not become zero evidence",
@@ -503,7 +503,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.111167
+      "duration_ms": 0.391
     },
     {
       "name": "study ID or layout changes refuse the page probe",
@@ -511,7 +511,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.235083
+      "duration_ms": 0.22175
     },
     {
       "name": "native pineId and pineVersion mismatches refuse the page probe",
@@ -519,7 +519,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.230083
+      "duration_ms": 0.261083
     },
     {
       "name": "projected C123 layout inputs are required and bounded",
@@ -527,7 +527,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.961084
+      "duration_ms": 0.244583
     },
     {
       "name": "coordinate roundtrip mismatch suppresses lookup assertion",
@@ -535,7 +535,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.489834
+      "duration_ms": 0.82725
     },
     {
       "name": "source, role, two page reads, and final source are all guarded",
@@ -543,7 +543,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.834958
+      "duration_ms": 3.518458
     },
     {
       "name": "wrong SHA or target fails before any tool reads",
@@ -551,7 +551,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.314083
+      "duration_ms": 0.551417
     },
     {
       "name": "bad initial provenance refuses drawing probe",
@@ -559,7 +559,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.786375
+      "duration_ms": 0.810584
     },
     {
       "name": "ambiguous or missing projected roles block native translation",
@@ -567,7 +567,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.158208
+      "duration_ms": 0.191208
     },
     {
       "name": "any change between native lookup reads aborts correlation",
@@ -575,7 +575,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.672084
+      "duration_ms": 1.957167
     },
     {
       "name": "source metadata changes after the page probe aborts",
@@ -583,7 +583,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.040834
+      "duration_ms": 0.884708
     },
     {
       "name": "validator rejects fabricated renderer or pixel certification",
@@ -591,7 +591,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.155792
+      "duration_ms": 0.158833
     },
     {
       "name": "descriptor read-only and exact scoped arguments",
@@ -599,7 +599,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.037917
+      "duration_ms": 0.042416
     },
     {
       "name": "real-shaped split: data-source graphics lack getInputValues while public study provides it",
@@ -607,7 +607,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.101
+      "duration_ms": 0.107833
     },
     {
       "name": "public chart study inventory must match the native study exactly",
@@ -615,7 +615,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.118583
+      "duration_ms": 0.139833
     },
     {
       "name": "public study handle and input API absence cannot claim study provenance",
@@ -623,7 +623,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.067625
+      "duration_ms": 0.078
     },
     {
       "name": "actual catalog injects explicit mutation identities and blocks extra arguments before CDP",
@@ -631,7 +631,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 12.415333
+      "duration_ms": 12.904042
     },
     {
       "name": "chart, data and strategy metadata use native identity when the tab URL is stale",
@@ -639,7 +639,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 113.892791
+      "duration_ms": 46.670333
     },
     {
       "name": "real nested strategy input tools do not deadlock and a changed report carries qualified freshness",
@@ -647,7 +647,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 780.175458
+      "duration_ms": 763.746541
     },
     {
       "name": "real browser serialization preserves report probes and refuses stale unchanged results after an input change",
@@ -655,7 +655,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1093.595917
+      "duration_ms": 1083.148959
     },
     {
       "name": "a changed chart label cannot make chart readiness accept unresolved instrument data",
@@ -663,7 +663,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 181.306542
+      "duration_ms": 199.753292
     },
     {
       "name": "complete OHLCV export crosses browser page boundaries and preserves zero-valued market data",
@@ -671,7 +671,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 70.713416
+      "duration_ms": 88.26525
     },
     {
       "name": "Pine source crosses actual CDP as inert JSON, checks omit credentials and saved reads stay first-party",
@@ -679,7 +679,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 37.738959
+      "duration_ms": 41.503167
     },
     {
       "name": "Pine hash guard still rejects drift across context and wrapper calls",
@@ -687,7 +687,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 16.596208
+      "duration_ms": 18.760792
     },
     {
       "name": "pane and native template reads execute through the real wrapper with reference identity and scoped fidelity",
@@ -695,7 +695,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 40.135583
+      "duration_ms": 48.053542
     },
     {
       "name": "replay integration verifies simulated cursor and position changes and blocks normal timeframe changes",
@@ -703,7 +703,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 59.502541
+      "duration_ms": 191.20375
     },
     {
       "name": "browser operations serialize across real asynchronous chart writes and read-only runtime hides mutations",
@@ -711,7 +711,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 53.753209
+      "duration_ms": 51.644
     },
     {
       "name": "native session changes verify advertised identity and strategy results can require an exact session",
@@ -719,7 +719,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 42.127666
+      "duration_ms": 50.176583
     },
     {
       "name": "native zoom verifies bar endpoints and a silent no-op is an error",
@@ -727,7 +727,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 191.05225
+      "duration_ms": 190.359
     },
     {
       "name": "actual registry + guarded CDP + two page adapters complete and reconcile the exact copy workflow",
@@ -735,7 +735,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3112.553792
+      "duration_ms": 3386.933916
     },
     {
       "name": "actual registry rejects a matching URL with mismatched native widget identity before the first write",
@@ -743,7 +743,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 10.134584
+      "duration_ms": 8.536042
     },
     {
       "name": "layout and alert page programs pass the fixed credential and dynamic-code scanner",
@@ -751,7 +751,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.577875
+      "duration_ms": 0.432333
     },
     {
       "name": "chart URL creation accepts only a saved-layout identifier, never a URL or script",
@@ -759,7 +759,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.579708
+      "duration_ms": 0.346916
     },
     {
       "name": "copy comparison detects changed user inputs and retains zero-priced drawings",
@@ -767,7 +767,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.217916
+      "duration_ms": 0.948542
     },
     {
       "name": "unreadable strategy inputs prevent chart verification, while unknown properties remain explicitly partial",
@@ -775,7 +775,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.257042
+      "duration_ms": 1.067875
     },
     {
       "name": "a matching URL cannot substitute for a different actual widget layout ID",
@@ -783,7 +783,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.8275
+      "duration_ms": 4.779
     },
     {
       "name": "native copy reconciles a lost acknowledgement and reuses the confirmed ID on retry",
@@ -791,7 +791,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.177792
+      "duration_ms": 2.621459
     },
     {
       "name": "copy stops when a purported destination reuses the source URL ID or numeric saved ID",
@@ -799,7 +799,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.705042
+      "duration_ms": 1.449791
     },
     {
       "name": "ambiguous copy reconciliation never selects a destination and never submits a second clone",
@@ -807,7 +807,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.968292
+      "duration_ms": 2.483542
     },
     {
       "name": "a dirty source blocks native copy unless saving the source was explicitly requested",
@@ -815,7 +815,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.160541
+      "duration_ms": 0.871417
     },
     {
       "name": "an optimistic clean flag cannot verify a save whose persisted market and timeframe remain stale",
@@ -823,7 +823,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.883958
+      "duration_ms": 0.402834
     },
     {
       "name": "new-layout recovery resumes the exact existing destination after its first name save failed",
@@ -831,7 +831,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.818416
+      "duration_ms": 1.279625
     },
     {
       "name": "JSON placeholder validation preserves exact string and numeric templates without substitution",
@@ -839,7 +839,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.401334
+      "duration_ms": 0.901417
     },
     {
       "name": "native payload preserves webhook and message bytes, current inputs, false values and exact Pine version",
@@ -847,7 +847,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.908792
+      "duration_ms": 0.477042
     },
     {
       "name": "A disabled webhook is serialized as the native empty string and verified as absent",
@@ -855,7 +855,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.428292
+      "duration_ms": 0.416375
     },
     {
       "name": "Plain alert symbols stay plain and quote currency does not invent a conversion modifier",
@@ -863,7 +863,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.093292
+      "duration_ms": 2.825667
     },
     {
       "name": "Alert POST includes only validated public build metadata from the native request options",
@@ -871,7 +871,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 8.04675
+      "duration_ms": 10.7465
     },
     {
       "name": "native payload rejects ambiguous studies, unsafe webhooks and invalid input overrides before a write",
@@ -879,7 +879,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.506542
+      "duration_ms": 1.778667
     },
     {
       "name": "study alerts cannot silently retarget a symbol whose chart source was not read",
@@ -887,7 +887,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.340041
+      "duration_ms": 0.323542
     },
     {
       "name": "indicator alert conditions and plot offsets must be observed, never guessed",
@@ -895,7 +895,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.971625
+      "duration_ms": 1.371208
     },
     {
       "name": "alert existence cannot prove missing webhook configuration or delivery",
@@ -903,7 +903,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.451292
+      "duration_ms": 0.618667
     },
     {
       "name": "direct alert creation reconciles a lost acknowledgement and does not create again on retry",
@@ -911,7 +911,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.937292
+      "duration_ms": 1.954958
     },
     {
       "name": "ignored paused-create state is stopped immediately before repeated verification reads",
@@ -919,7 +919,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.545708
+      "duration_ms": 0.51975
     },
     {
       "name": "lost acknowledgement never permits pausing a same-name alert with unrelated configuration",
@@ -927,7 +927,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.628
+      "duration_ms": 0.743583
     },
     {
       "name": "modifying a paused alert refuses the native re-arming API without explicit allowance",
@@ -935,7 +935,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.209084
+      "duration_ms": 0.288292
     },
     {
       "name": "native alert clone verifies copied configuration and replays the same ID without another clone",
@@ -943,7 +943,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.882
+      "duration_ms": 1.145583
     },
     {
       "name": "an unrelated new alert cannot be selected or paused as a native clone",
@@ -951,7 +951,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.748333
+      "duration_ms": 2.000542
     },
     {
       "name": "batch preflight catches an invalid later alert before creating the first",
@@ -959,7 +959,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.413042
+      "duration_ms": 0.539209
     },
     {
       "name": "alert IDs reject unsafe integer coercion instead of targeting a rounded account object",
@@ -967,7 +967,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.213208
+      "duration_ms": 0.327292
     },
     {
       "name": "alert inventory pagination reaches every ID beyond 500 and applies filters before slicing",
@@ -975,7 +975,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 5.854542
+      "duration_ms": 5.118167
     },
     {
       "name": "alert fire pagination continues beyond 500 and reports unknown webhook delivery",
@@ -983,7 +983,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.506834
+      "duration_ms": 0.925625
     },
     {
       "name": "fixed browser alert request uses only TradingView and preserves the structured POST body",
@@ -991,7 +991,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.478917
+      "duration_ms": 1.580667
     },
     {
       "name": "native list projection leaves a missing webhook and condition unknown",
@@ -999,7 +999,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.083208
+      "duration_ms": 1.619083
     },
     {
       "name": "copy-and-alert workflow writes only the verified copy after cloning and independently verifies alert configuration",
@@ -1007,7 +1007,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.858708
+      "duration_ms": 3.750875
     },
     {
       "name": "workflow replay verifies exact existing IDs and produces no additional mutations",
@@ -1015,7 +1015,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.691584
+      "duration_ms": 3.35875
     },
     {
       "name": "workflow refuses all downstream writes when copied study inputs do not match",
@@ -1023,7 +1023,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.062667
+      "duration_ms": 1.123875
     },
     {
       "name": "workflow invalid JSON is rejected before layout creation",
@@ -1031,7 +1031,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.118125
+      "duration_ms": 0.139917
     },
     {
       "name": "compound workflow requires webhook and JSON payload before any chart-copy side effect",
@@ -1039,7 +1039,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.939
+      "duration_ms": 1.214583
     },
     {
       "name": "workflow preserves IDs after incomplete stored-webhook verification and retry never duplicates",
@@ -1047,7 +1047,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 4.856542
+      "duration_ms": 5.013625
     },
     {
       "name": "workflow will not change a destination that drifted after alert preparation",
@@ -1055,7 +1055,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.849708
+      "duration_ms": 3.040459
     },
     {
       "name": "QA layout copying disabled by default",
@@ -1063,7 +1063,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.426292
+      "duration_ms": 0.320666
     },
     {
       "name": "explicit QA permission accepts strictly scoped copy",
@@ -1071,7 +1071,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.32325
+      "duration_ms": 0.431125
     },
     {
       "name": "source-saving and missing explicit false are refused",
@@ -1079,7 +1079,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.116916
+      "duration_ms": 0.1355
     },
     {
       "name": "non-QA destinations and insufficient operation keys refused",
@@ -1087,7 +1087,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.109708
+      "duration_ms": 0.116042
     },
     {
       "name": "dirty source is rejected before copy dispatch",
@@ -1095,7 +1095,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0985
+      "duration_ms": 0.089958
     },
     {
       "name": "protected native identity cannot be copied",
@@ -1103,7 +1103,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.134791
+      "duration_ms": 0.156125
     },
     {
       "name": "registry refuses disabled QA copying before resolving a tab",
@@ -1111,7 +1111,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.204625
+      "duration_ms": 0.468042
     },
     {
       "name": "nested registry execution cannot bypass disabled copying",
@@ -1119,7 +1119,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.218666
+      "duration_ms": 0.157084
     },
     {
       "name": "unique native study ID recovers model properties",
@@ -1127,7 +1127,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.292875
+      "duration_ms": 1.979958
     },
     {
       "name": "different study ID cannot supply fallback properties",
@@ -1135,7 +1135,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.085375
+      "duration_ms": 0.965791
     },
     {
       "name": "ambiguous native study ID fails closed",
@@ -1143,7 +1143,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.041375
+      "duration_ms": 1.144625
     },
     {
       "name": "direct study properties take precedence over fallback",
@@ -1151,7 +1151,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.879375
+      "duration_ms": 1.158
     },
     {
       "name": "market catalog has seven read-only tools with closed schemas and fixed browser code",
@@ -1159,7 +1159,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.528292
+      "duration_ms": 0.309
     },
     {
       "name": "scanner uses only the fixed public host and bounded source-backed payload",
@@ -1167,7 +1167,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.46525
+      "duration_ms": 1.554667
     },
     {
       "name": "exclusive-end scanner pagination returns one requested row and adjacent pages do not skip boundaries",
@@ -1175,7 +1175,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.820208
+      "duration_ms": 1.109209
     },
     {
       "name": "dummy environment credentials and caller-supplied auth options never enter requests",
@@ -1183,7 +1183,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.885083
+      "duration_ms": 0.880583
     },
     {
       "name": "host/path traversal, URL symbols, duplicate symbols and unsupported columns fail before fetch",
@@ -1191,7 +1191,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.698292
+      "duration_ms": 0.824125
     },
     {
       "name": "request and internal limits reject oversized payloads before fetch",
@@ -1199,7 +1199,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.427833
+      "duration_ms": 0.567708
     },
     {
       "name": "unexpected response destination is refused without a second request",
@@ -1207,7 +1207,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.400833
+      "duration_ms": 0.494667
     },
     {
       "name": "HTTP, non-JSON, API-error and transport errors do not expose response bodies or secrets",
@@ -1215,7 +1215,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.52675
+      "duration_ms": 1.401541
     },
     {
       "name": "Content-Length cap cancels an oversized body before reading it",
@@ -1223,7 +1223,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.503417
+      "duration_ms": 0.56475
     },
     {
       "name": "streaming cap cancels oversized data even when Content-Length is absent",
@@ -1231,7 +1231,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.501958
+      "duration_ms": 0.569583
     },
     {
       "name": "stream failures are sanitized and a non-streaming response is not read without a bound",
@@ -1239,7 +1239,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.23675
+      "duration_ms": 0.3025
     },
     {
       "name": "pre-cancelled queries submit no request; caller cancellation interrupts an active fetch",
@@ -1247,7 +1247,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 7.25825
+      "duration_ms": 14.912125
     },
     {
       "name": "configured timeout interrupts the public request without an authenticated retry",
@@ -1255,7 +1255,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 101.464708
+      "duration_ms": 101.022875
     },
     {
       "name": "scanner preserves numeric zero and marks omitted requested symbols explicitly",
@@ -1263,7 +1263,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.132709
+      "duration_ms": 0.90175
     },
     {
       "name": "unrequested symbols, duplicate rows, bad column counts, object values and over-limit rows are rejected",
@@ -1271,7 +1271,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.22
+      "duration_ms": 0.844791
     },
     {
       "name": "public quotes preserve requested ordering, zero prices, nulls and missing-last-price coverage",
@@ -1279,7 +1279,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.829917
+      "duration_ms": 0.649834
     },
     {
       "name": "one-symbol quote does not touch chart APIs and missing symbols are an explicit error",
@@ -1287,7 +1287,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.199917
+      "duration_ms": 0.894292
     },
     {
       "name": "technical summary uses daily unsuffixed fields and approved intraday suffixes; nulls make coverage incomplete",
@@ -1295,7 +1295,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.914625
+      "duration_ms": 1.504209
     },
     {
       "name": "hotlists use only exact public US preset GETs and map source field indexes faithfully",
@@ -1303,7 +1303,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.197542
+      "duration_ms": 0.96
     },
     {
       "name": "hotlist duplicate fields, duplicate symbol rows and mismatched field-value counts are rejected",
@@ -1311,7 +1311,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.66775
+      "duration_ms": 1.306167
     },
     {
       "name": "native quote reads latest loaded candle zero values and reports source/binding without a public request",
@@ -1319,7 +1319,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.58375
+      "duration_ms": 1.282625
     },
     {
       "name": "native quote refuses stale-symbol bars and unavailable bar data",
@@ -1327,7 +1327,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.8235
+      "duration_ms": 0.664333
     },
     {
       "name": "native depth requires explicit side labels, preserves zero, and omits ambiguous localized values",
@@ -1335,7 +1335,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.363042
+      "duration_ms": 1.951792
     },
     {
       "name": "native depth refuses unavailable/ambiguous panels and never guesses unlabeled row sides",
@@ -1343,7 +1343,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.904416
+      "duration_ms": 1.307458
     },
     {
       "name": "native signal snapshot carries study coverage and discards context-mismatched studies",
@@ -1351,7 +1351,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.182292
+      "duration_ms": 0.960917
     },
     {
       "name": "native signal snapshot retains quote but sanitizes a failed study collection",
@@ -1359,7 +1359,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.773917
+      "duration_ms": 0.776875
     },
     {
       "name": "no configured layouts means no browser writes",
@@ -1367,7 +1367,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.26175
+      "duration_ms": 0.252292
     },
     {
       "name": "approved chart operation on approved layout passes policy",
@@ -1375,7 +1375,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0965
+      "duration_ms": 0.091667
     },
     {
       "name": "unapproved layout is blocked",
@@ -1383,7 +1383,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0695
+      "duration_ms": 0.066625
     },
     {
       "name": "Pine, layout, workflow and account mutations remain blocked",
@@ -1391,7 +1391,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.206125
+      "duration_ms": 0.181375
     },
     {
       "name": "malformed allowlist configuration fails closed",
@@ -1399,7 +1399,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.139166
+      "duration_ms": 0.127
     },
     {
       "name": "top-level denied mutation never resolves a browser target",
@@ -1407,7 +1407,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.365
+      "duration_ms": 0.632666
     },
     {
       "name": "nested mutation cannot bypass scope policy",
@@ -1415,7 +1415,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.339542
+      "duration_ms": 0.204208
     },
     {
       "name": "writable registry always has a mutation policy",
@@ -1423,7 +1423,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.183917
+      "duration_ms": 0.182167
     },
     {
       "name": "native protected-layout name is rejected before dispatch",
@@ -1431,7 +1431,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.190583
+      "duration_ms": 0.267667
     },
     {
       "name": "matching native QA layout name passes both guards",
@@ -1439,7 +1439,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.155042
+      "duration_ms": 0.146375
     },
     {
       "name": "missing or non-QA name configuration fails closed",
@@ -1447,7 +1447,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.202875
+      "duration_ms": 0.194333
     },
     {
       "name": "drawing adapter passes security gate and supports the active watched chart API",
@@ -1455,7 +1455,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.926042
+      "duration_ms": 0.877208
     },
     {
       "name": "drawing create reports extra returned points as unverified instead of matching an array prefix",
@@ -1463,7 +1463,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.131667
+      "duration_ms": 0.99525
     },
     {
       "name": "drawing update cannot verify a requested two-point result against three unchanged points",
@@ -1471,7 +1471,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.87875
+      "duration_ms": 0.780833
     },
     {
       "name": "drawing import preserves successful IDs and the failing creation receipt",
@@ -1479,7 +1479,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.734625
+      "duration_ms": 0.645792
     },
     {
       "name": "drawing clear preserves already-removed IDs and the failed ID without rollback claims",
@@ -1487,7 +1487,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.457083
+      "duration_ms": 2.753
     },
     {
       "name": "changed drawing inventory and stale fingerprints both fail before mutation",
@@ -1495,7 +1495,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.570167
+      "duration_ms": 0.47125
     },
     {
       "name": "emergency stop arriving during target resolution prevents dispatch after resolution completes",
@@ -1503,7 +1503,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.322542
+      "duration_ms": 0.3145
     },
     {
       "name": "emergency stop during native-layout precondition reading prevents handler dispatch",
@@ -1511,7 +1511,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.289
+      "duration_ms": 0.27575
     },
     {
       "name": "emergency stop during a nested target change prevents dispatch of a target-only mutation",
@@ -1519,7 +1519,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.359667
+      "duration_ms": 0.309541
     },
     {
       "name": "job failure counts only successful steps and preserves failed-step mutation receipts",
@@ -1527,7 +1527,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.321667
+      "duration_ms": 1.886667
     },
     {
       "name": "continuing after a failed job step yields partial status, never complete",
@@ -1535,7 +1535,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.659417
+      "duration_ms": 0.995958
     },
     {
       "name": "batch partial failure keeps concrete error receipts and does not run later steps by default",
@@ -1543,7 +1543,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.53925
+      "duration_ms": 0.485916
     },
     {
       "name": "job validation rejects an unbound later mutation before starting the first step",
@@ -1551,7 +1551,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.240583
+      "duration_ms": 0.231583
     },
     {
       "name": "job cancellation interrupts a pending wait and prevents its later write",
@@ -1559,7 +1559,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.027625
+      "duration_ms": 0.606875
     },
     {
       "name": "streams reject mutating tools and recursive job controls are refused",
@@ -1567,7 +1567,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.363292
+      "duration_ms": 0.292375
     },
     {
       "name": "paper long fill and closure account for adverse slippage, both fees and equity consistently",
@@ -1575,7 +1575,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.937416
+      "duration_ms": 0.936291
     },
     {
       "name": "paper short partial cover separates realized and remaining unrealized gains",
@@ -1583,7 +1583,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.096208
+      "duration_ms": 0.103792
     },
     {
       "name": "paper reversal realizes only the closed leg and reprices the newly opened direction",
@@ -1591,7 +1591,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.167583
+      "duration_ms": 0.112
     },
     {
       "name": "paper weighted-average cost remains unchanged on a partial reduction",
@@ -1599,7 +1599,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.248875
+      "duration_ms": 0.272625
     },
     {
       "name": "paper fractional closure does not retain an uncloseable floating-point dust position",
@@ -1607,7 +1607,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.503041
+      "duration_ms": 0.397042
     },
     {
       "name": "paper trade retries reuse an atomic ledger receipt; stale revisions and key conflicts cannot duplicate fills",
@@ -1615,7 +1615,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.686916
+      "duration_ms": 1.270667
     },
     {
       "name": "concurrent paper trades with the same revision cannot both execute",
@@ -1623,7 +1623,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.734459
+      "duration_ms": 0.740208
     },
     {
       "name": "paper marking with a missing later position does not persist an earlier partial mark",
@@ -1631,7 +1631,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.559583
+      "duration_ms": 0.534125
     },
     {
       "name": "paper account retry after losing an atomic-write acknowledgement cannot create a second account",
@@ -1639,7 +1639,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.484792
+      "duration_ms": 0.482542
     },
     {
       "name": "panes/templates adapters pass fixed-function security gate and expose executable descriptors",
@@ -1647,7 +1647,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.202292
+      "duration_ms": 0.281292
     },
     {
       "name": "pane listing observes actual widgets and visible geometry despite stale declared count",
@@ -1655,7 +1655,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.57975
+      "duration_ms": 1.143666
     },
     {
       "name": "native layout collapse counts displayed charts rather than retained hidden widgets",
@@ -1663,7 +1663,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.664625
+      "duration_ms": 0.556584
     },
     {
       "name": "focus failure prevents market mutation in the wrong pane",
@@ -1671,7 +1671,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 153.915416
+      "duration_ms": 151.580125
     },
     {
       "name": "per-pane symbol change verifies resolved server instrument and preserves other panes",
@@ -1679,7 +1679,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.522125
+      "duration_ms": 3.026917
     },
     {
       "name": "changing only the pane label never verifies the requested resolved instrument",
@@ -1687,7 +1687,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 151.140416
+      "duration_ms": 152.3725
     },
     {
       "name": "enabled symbol sync blocks a single-pane change before writing",
@@ -1695,7 +1695,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.67275
+      "duration_ms": 0.750875
     },
     {
       "name": "unavailable requested sync controls prevent every requested sync mutation",
@@ -1703,7 +1703,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.437875
+      "duration_ms": 0.809792
     },
     {
       "name": "failed native template list cannot be mistaken for an empty library",
@@ -1711,7 +1711,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.053625
+      "duration_ms": 1.359375
     },
     {
       "name": "built-in template deletion is rejected before mutation",
@@ -1719,7 +1719,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.435042
+      "duration_ms": 0.597917
     },
     {
       "name": "native template saves verify independent saved content rather than a returned success flag",
@@ -1727,7 +1727,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.317458
+      "duration_ms": 1.899333
     },
     {
       "name": "duplicate template name is not silently overwritten",
@@ -1735,7 +1735,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.369625
+      "duration_ms": 0.830041
     },
     {
       "name": "template application with the same count but wrong studies cannot verify",
@@ -1743,7 +1743,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 252.308417
+      "duration_ms": 252.395833
     },
     {
       "name": "template application verifies actual study identities and exposed input/style values",
@@ -1751,7 +1751,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 254.109416
+      "duration_ms": 253.666166
     },
     {
       "name": "template canonical hashes ignore object-key ordering but detect real input changes",
@@ -1759,7 +1759,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.932792
+      "duration_ms": 1.136166
     },
     {
       "name": "LF editor versus CRLF library matches without returning Pine source or authorizing writes",
@@ -1767,7 +1767,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 10.7795
+      "duration_ms": 4.589541
     },
     {
       "name": "source differences cannot be normalized into a match",
@@ -1775,7 +1775,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.601667
+      "duration_ms": 2.694916
     },
     {
       "name": "dirty layout blocks before any Pine request",
@@ -1783,7 +1783,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.302125
+      "duration_ms": 0.163667
     },
     {
       "name": "wrong layout blocks before any Pine request",
@@ -1791,7 +1791,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.170917
+      "duration_ms": 0.079417
     },
     {
       "name": "draft or modified editor prevents cloud source comparison",
@@ -1799,7 +1799,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.903125
+      "duration_ms": 0.318458
     },
     {
       "name": "native saved-script version mismatch fails closed",
@@ -1807,7 +1807,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.430166
+      "duration_ms": 0.092083
     },
     {
       "name": "editor changed during observation refuses comparison",
@@ -1815,7 +1815,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.11225
+      "duration_ms": 0.580417
     },
     {
       "name": "visual title is independent from cloud name",
@@ -1823,7 +1823,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.844292
+      "duration_ms": 0.553
     },
     {
       "name": "no library name does not fabricate one",
@@ -1831,7 +1831,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.504209
+      "duration_ms": 0.302417
     },
     {
       "name": "the registered descriptor is exactly read-only and requires target/layout identity",
@@ -1839,7 +1839,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.100917
+      "duration_ms": 0.069083
     },
     {
       "name": "unique visible split-editor title matches independent saved library name, without compile authorization",
@@ -1847,7 +1847,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.209208
+      "duration_ms": 0.1315
     },
     {
       "name": "visible split title differing from cloud name is never marked verified",
@@ -1855,7 +1855,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.162625
+      "duration_ms": 0.101458
     },
     {
       "name": "split editor title drifting between reads refuses stable identity",
@@ -1863,7 +1863,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.3645
+      "duration_ms": 0.10125
     },
     {
       "name": "ambiguous visible title refuses before saved Pine source retrieval",
@@ -1871,7 +1871,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.504083
+      "duration_ms": 0.410208
     },
     {
       "name": "DOM probe binds the unique title and Monaco editor to one visible script widget",
@@ -1879,7 +1879,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.602625
+      "duration_ms": 0.304625
     },
     {
       "name": "DOM title probe refuses ambiguous editor or title, multiline text, detached panel and controls below editor",
@@ -1887,7 +1887,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.01725
+      "duration_ms": 0.319541
     },
     {
       "name": "Pine lines preserve native X but do not infer times from coincident indexes",
@@ -1895,7 +1895,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 6.579792
+      "duration_ms": 2.74875
     },
     {
       "name": "Pine labels leave timestamp unverified without coordinate provenance",
@@ -1903,7 +1903,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.203083
+      "duration_ms": 1.598417
     },
     {
       "name": "future projections and epoch-like X values are not guessed into candle times",
@@ -1911,7 +1911,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.433334
+      "duration_ms": 1.211
     },
     {
       "name": "missing native primitive data is unavailable, never confirmed as zero objects",
@@ -1919,7 +1919,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.562042
+      "duration_ms": 1.145958
     },
     {
       "name": "one unavailable study yields partial coverage without dropping readable study",
@@ -1927,7 +1927,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.769625
+      "duration_ms": 1.409417
     },
     {
       "name": "no matching studies cannot be reported as complete graphics coverage",
@@ -1935,7 +1935,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.359542
+      "duration_ms": 1.166416
     },
     {
       "name": "projected side-candle label never inherits a coincident chart-bar timestamp",
@@ -1943,7 +1943,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.201167
+      "duration_ms": 1.021292
     },
     {
       "name": "graphics coverage complete means available, not necessarily fully paginated",
@@ -1951,7 +1951,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.520167
+      "duration_ms": 2.89525
     },
     {
       "name": "second graphics page cannot be mistaken for a complete snapshot",
@@ -1959,7 +1959,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.630291
+      "duration_ms": 3.23475
     },
     {
       "name": "fully returned graphics have explicit single-call completeness",
@@ -1967,7 +1967,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.749333
+      "duration_ms": 1.707416
     },
     {
       "name": "empty exposed graphics map is a complete zero-item read",
@@ -1975,7 +1975,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.10175
+      "duration_ms": 1.366208
     },
     {
       "name": "unavailable study prevents claiming a complete graphics response",
@@ -1983,7 +1983,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.204917
+      "duration_ms": 1.342666
     },
     {
       "name": "qa snapshot captures both graphics classes in one bounded read",
@@ -1991,7 +1991,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.299417
+      "duration_ms": 2.120292
     },
     {
       "name": "qa snapshot identifies truncated graphics without claiming full collection",
@@ -1999,7 +1999,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.939292
+      "duration_ms": 2.402666
     },
     {
       "name": "qa snapshot marks missing native graphics as unavailable not empty",
@@ -2007,7 +2007,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.327708
+      "duration_ms": 3.57825
     },
     {
       "name": "qa snapshot refuses mismatched protected layout identity",
@@ -2015,7 +2015,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.989334
+      "duration_ms": 1.817625
     },
     {
       "name": "qa snapshot refuses unknown study rather than selecting another",
@@ -2023,7 +2023,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.835791
+      "duration_ms": 1.632625
     },
     {
       "name": "qa snapshot correctly reports exposed zero-line collection as complete",
@@ -2031,7 +2031,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.93
+      "duration_ms": 1.624459
     },
     {
       "name": "study diagnostics sees exact present study and complete native collections",
@@ -2039,7 +2039,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.2525
+      "duration_ms": 2.916583
     },
     {
       "name": "stale study ID is only not observed; graphics are not declared empty",
@@ -2047,7 +2047,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.8905
+      "duration_ms": 2.14975
     },
     {
       "name": "exact study-name candidate does not silently replace a stale entity ID",
@@ -2055,7 +2055,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.662083
+      "duration_ms": 1.726584
     },
     {
       "name": "unavailable line primitives are distinct from readable labels",
@@ -2063,7 +2063,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.562916
+      "duration_ms": 2.020167
     },
     {
       "name": "exposed empty native line map is confirmed zero, unlike unavailable",
@@ -2071,7 +2071,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.941042
+      "duration_ms": 1.093958
     },
     {
       "name": "study diagnostics fail closed on layout mismatch",
@@ -2079,7 +2079,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.398625
+      "duration_ms": 1.478042
     },
     {
       "name": "diagnostic graphics remain explicitly truncated when object cap is reached",
@@ -2087,7 +2087,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.915292
+      "duration_ms": 1.635458
     },
     {
       "name": "zero currently observed studies means no observed ID, not removed indicator",
@@ -2095,7 +2095,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.900708
+      "duration_ms": 0.981375
     },
     {
       "name": "native Pine adapters pass fixed-code security audit and history preserves literal native script identifiers",
@@ -2103,7 +2103,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 18.182042
+      "duration_ms": 13.978291
     },
     {
       "name": "native document binding requires a unique matching facade and exact visible source",
@@ -2111,7 +2111,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 14.370834
+      "duration_ms": 13.339916
     },
     {
       "name": "opening a native saved script verifies ID, version and full source and preserves a before artifact",
@@ -2119,7 +2119,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 22.171417
+      "duration_ms": 21.18025
     },
     {
       "name": "changing only title and buffer cannot fake a successful native open",
@@ -2127,7 +2127,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 633.208125
+      "duration_ms": 625.606209
     },
     {
       "name": "a modified native buffer blocks document switching before openScript is called",
@@ -2135,7 +2135,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 38.220834
+      "duration_ms": 21.057208
     },
     {
       "name": "new-buffer creation proves a native draft identity before setting its source",
@@ -2143,7 +2143,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 25.282709
+      "duration_ms": 23.928833
     },
     {
       "name": "new cloud saves verify unique new identity and exact source while duplicate names cannot overwrite",
@@ -2151,7 +2151,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 15.718417
+      "duration_ms": 15.035334
     },
     {
       "name": "save-as preserves a modified buffer in a new saved ID and verifies actual editor rebinding",
@@ -2159,7 +2159,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 21.83725
+      "duration_ms": 20.254542
     },
     {
       "name": "save-as returns a concrete created-script reconciliation receipt if rebinding fails after saving",
@@ -2167,7 +2167,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 637.204541
+      "duration_ms": 624.802791
     },
     {
       "name": "save-next, rename and deletion independently verify exact native script state and each preserves a backup",
@@ -2175,7 +2175,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 51.860458
+      "duration_ms": 50.135875
     },
     {
       "name": "stale saved-source preconditions stop cloud changes before any POST",
@@ -2183,7 +2183,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 10.773334
+      "duration_ms": 7.102
     },
     {
       "name": "changed saved source without version movement never qualifies as verified save-next",
@@ -2191,7 +2191,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 529.775833
+      "duration_ms": 529.343
     },
     {
       "name": "malformed native version-history response fails closed instead of pretending no history exists",
@@ -2199,7 +2199,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 11.161083
+      "duration_ms": 10.050125
     },
     {
       "name": "recognised light response is accepted, not editor-compiled",
@@ -2207,7 +2207,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.15775
+      "duration_ms": 1.303083
     },
     {
       "name": "real structured syntax diagnostics are preserved",
@@ -2215,7 +2215,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.340958
+      "duration_ms": 0.153375
     },
     {
       "name": "malformed light response remains unverified",
@@ -2223,7 +2223,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.253083
+      "duration_ms": 0.12575
     },
     {
       "name": "contradictory output cannot pass",
@@ -2231,7 +2231,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.181875
+      "duration_ms": 0.084
     },
     {
       "name": "missing success acknowledgement cannot pass",
@@ -2239,7 +2239,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.152208
+      "duration_ms": 0.066625
     },
     {
       "name": "explicit service rejection cannot pass despite IL output",
@@ -2247,7 +2247,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.154292
+      "duration_ms": 0.070042
     },
     {
       "name": "success true with errors is contradictory",
@@ -2255,7 +2255,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.134916
+      "duration_ms": 0.071875
     },
     {
       "name": "success false without diagnostics is unverified",
@@ -2263,7 +2263,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.161458
+      "duration_ms": 0.068667
     },
     {
       "name": "success false with malformed diagnostics is unverified",
@@ -2271,7 +2271,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.188875
+      "duration_ms": 0.1375
     },
     {
       "name": "fixed QA source hash is correct",
@@ -2279,7 +2279,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0855
+      "duration_ms": 0.158333
     },
     {
       "name": "compilation permission disabled by default",
@@ -2287,7 +2287,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.238125
+      "duration_ms": 0.424292
     },
     {
       "name": "exact permission and clean QA layout accepted",
@@ -2295,7 +2295,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.640417
+      "duration_ms": 0.366417
     },
     {
       "name": "wrong source hash is rejected",
@@ -2303,7 +2303,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.213875
+      "duration_ms": 0.168667
     },
     {
       "name": "wrong binding hash or layout is rejected",
@@ -2311,7 +2311,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.174375
+      "duration_ms": 0.122834
     },
     {
       "name": "dirty or renamed QA layout is rejected",
@@ -2319,7 +2319,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.16
+      "duration_ms": 0.468667
     },
     {
       "name": "unique draft control adds exactly one QA study",
@@ -2327,7 +2327,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 207.819625
+      "duration_ms": 205.6045
     },
     {
       "name": "saved script cannot reach compile click",
@@ -2335,7 +2335,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 8.801
+      "duration_ms": 5.442625
     },
     {
       "name": "duplicate Add to chart buttons block compilation",
@@ -2343,7 +2343,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.933083
+      "duration_ms": 4.383584
     },
     {
       "name": "existing QA study prevents duplicate submission",
@@ -2351,7 +2351,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.511958
+      "duration_ms": 1.331875
     },
     {
       "name": "no new chart study cannot count as compile success",
@@ -2359,7 +2359,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 608.378083
+      "duration_ms": 606.301875
     },
     {
       "name": "realistic draft-associated ID verifies successful compile",
@@ -2367,7 +2367,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 212.174917
+      "duration_ms": 206.781042
     },
     {
       "name": "unexpected assigned script identity does not verify",
@@ -2375,7 +2375,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 206.658291
+      "duration_ms": 206.399042
     },
     {
       "name": "assigned script ID without version does not verify",
@@ -2383,7 +2383,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 207.065709
+      "duration_ms": 205.229667
     },
     {
       "name": "draft changing to saved state does not verify",
@@ -2391,7 +2391,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 209.261333
+      "duration_ms": 206.993416
     },
     {
       "name": "removal of original Volume blocks compile verification",
@@ -2399,7 +2399,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 206.650541
+      "duration_ms": 205.300167
     },
     {
       "name": "Pine draft permission is disabled by default",
@@ -2407,7 +2407,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.298417
+      "duration_ms": 0.36125
     },
     {
       "name": "explicit permission accepts exact lab, source and binding",
@@ -2415,7 +2415,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.154334
+      "duration_ms": 0.299625
     },
     {
       "name": "modified or unrelated Pine source is rejected",
@@ -2423,7 +2423,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.134792
+      "duration_ms": 0.161875
     },
     {
       "name": "wrong, missing or malformed binding hash is rejected",
@@ -2431,7 +2431,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.139334
+      "duration_ms": 0.142625
     },
     {
       "name": "unapproved lab identity or name is rejected",
@@ -2439,7 +2439,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.093042
+      "duration_ms": 0.116333
     },
     {
       "name": "dirty restore lab is rejected",
@@ -2447,7 +2447,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.071667
+      "duration_ms": 0.162667
     },
     {
       "name": "normal and nested registry calls reject disabled Pine drafts",
@@ -2455,7 +2455,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.737625
+      "duration_ms": 0.9875
     },
     {
       "name": "rollback disabled by default",
@@ -2463,7 +2463,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.090208
+      "duration_ms": 0.140875
     },
     {
       "name": "exact rollback accepted even if QA layout is dirty",
@@ -2471,7 +2471,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.356208
+      "duration_ms": 0.424833
     },
     {
       "name": "wrong or identical study IDs rejected",
@@ -2479,7 +2479,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.10425
+      "duration_ms": 0.2
     },
     {
       "name": "wrong layout or name rejected",
@@ -2487,7 +2487,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.102666
+      "duration_ms": 0.123875
     },
     {
       "name": "removes only disposable QA study",
@@ -2495,7 +2495,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 205.558792
+      "duration_ms": 204.724417
     },
     {
       "name": "protected indicator name blocks removal",
@@ -2503,7 +2503,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 7.614667
+      "duration_ms": 1.876667
     },
     {
       "name": "additional study blocks removal",
@@ -2511,7 +2511,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 5.717167
+      "duration_ms": 1.370458
     },
     {
       "name": "missing original Volume blocks removal",
@@ -2519,7 +2519,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.31
+      "duration_ms": 1.2965
     },
     {
       "name": "wrong native layout blocks removal",
@@ -2527,7 +2527,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.798583
+      "duration_ms": 1.347167
     },
     {
       "name": "missing native removal method blocks removal",
@@ -2535,7 +2535,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.656583
+      "duration_ms": 1.07325
     },
     {
       "name": "CRLF and LF have distinct exact SHA but matching LF-normalized SHA",
@@ -2543,7 +2543,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.423083
+      "duration_ms": 0.227334
     },
     {
       "name": "different Pine program remains different after LF normalization",
@@ -2551,7 +2551,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.09725
+      "duration_ms": 0.057833
     },
     {
       "name": "mixed CRLF/LF is reported and only CRLF pairs are normalized",
@@ -2559,7 +2559,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.090291
+      "duration_ms": 0.188292
     },
     {
       "name": "unpaired carriage returns remain significant, not silently normalized",
@@ -2567,7 +2567,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.113083
+      "duration_ms": 0.078667
     },
     {
       "name": "Pine visible-editor and saved-library reads expose additive metadata without changing raw source hash",
@@ -2575,7 +2575,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.281166
+      "duration_ms": 0.158333
     },
     {
       "name": "strict source-hash mutation guards still require exact hashes",
@@ -2583,7 +2583,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 3.360709
+      "duration_ms": 1.368625
     },
     {
       "name": "live-shaped 8 roles all uniquely share native X with projected clock labels",
@@ -2591,7 +2591,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.270333
+      "duration_ms": 0.872791
     },
     {
       "name": "separate valid C123 role events at same clock slot are not improperly collapsed",
@@ -2599,7 +2599,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.239708
+      "duration_ms": 0.185417
     },
     {
       "name": "two different clocks at one X are ambiguous, never picked arbitrarily",
@@ -2607,7 +2607,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.693625
+      "duration_ms": 0.57875
     },
     {
       "name": "two identical clock labels at one X are also ambiguous",
@@ -2615,7 +2615,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.112834
+      "duration_ms": 0.055209
     },
     {
       "name": "unmatched role is not silently assigned nearest clock",
@@ -2623,7 +2623,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.073208
+      "duration_ms": 0.046208
     },
     {
       "name": "no C123 role labels is no evidence rather than vacuous success",
@@ -2631,7 +2631,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.061375
+      "duration_ms": 0.034917
     },
     {
       "name": "reject malformed, out-of-range, and nonclock captions",
@@ -2639,7 +2639,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.081333
+      "duration_ms": 0.040583
     },
     {
       "name": "reject C123 text appearing in tooltip-like or long labels",
@@ -2647,7 +2647,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.061583
+      "duration_ms": 0.034542
     },
     {
       "name": "bracketed native snapshots produce scoped slot evidence without screenshots or timestamps",
@@ -2655,7 +2655,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.102542
+      "duration_ms": 0.826708
     },
     {
       "name": "incomplete native labels cannot support complete correspondence claim",
@@ -2663,7 +2663,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.335042
+      "duration_ms": 0.297584
     },
     {
       "name": "source and study identity mismatch fail closed",
@@ -2671,7 +2671,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.179125
+      "duration_ms": 0.135459
     },
     {
       "name": "changing graphics between reads suppresses matched evidence",
@@ -2679,7 +2679,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.194583
+      "duration_ms": 0.129333
     },
     {
       "name": "changing symbol/timeframe between reads suppresses matched evidence",
@@ -2687,7 +2687,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.136583
+      "duration_ms": 0.093417
     },
     {
       "name": "saved source exact version/title/SHA check explicitly does not prove chart-study binding",
@@ -2695,7 +2695,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.229417
+      "duration_ms": 0.213334
     },
     {
       "name": "wrong saved source SHA or title blocks the entire check before graphics collection",
@@ -2703,7 +2703,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.318166
+      "duration_ms": 0.547125
     },
     {
       "name": "partial saved source guard, unsafe caps and target mismatch are rejected before reads",
@@ -2711,7 +2711,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.291083
+      "duration_ms": 0.272042
     },
     {
       "name": "read-only descriptor requires exact identities and is bounded",
@@ -2719,7 +2719,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.069584
+      "duration_ms": 0.061791
     },
     {
       "name": "Initialize negotiates a supported protocol, tools list is machine-readable and ping works",
@@ -2727,7 +2727,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.694125
+      "duration_ms": 0.934541
     },
     {
       "name": "Tool errors use isError, while JSON-RPC errors retain protocol codes",
@@ -2735,7 +2735,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.0205
+      "duration_ms": 0.575167
     },
     {
       "name": "Plaintext secrets are redacted from successful results and result text remains JSON",
@@ -2743,7 +2743,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.89625
+      "duration_ms": 0.834125
     },
     {
       "name": "UTF-8 newline stdio handles split multibyte messages and emits only protocol JSON",
@@ -2751,7 +2751,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 13.509042
+      "duration_ms": 6.672667
     },
     {
       "name": "JSON-RPC batch and nonobject messages are rejected",
@@ -2759,7 +2759,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.599459
+      "duration_ms": 0.465125
     },
     {
       "name": "Resource and prompt lookups reject inherited names and non-string identifiers",
@@ -2767,7 +2767,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.3265
+      "duration_ms": 0.272333
     },
     {
       "name": "The complete delivered tool catalog is discoverable through MCP pagination without omissions",
@@ -2775,7 +2775,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 4.709459
+      "duration_ms": 4.405667
     },
     {
       "name": "Cancellation aborts a running tool through its signal",
@@ -2783,7 +2783,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 5.414625
+      "duration_ms": 0.980208
     },
     {
       "name": "Loopback HTTP requires a strong token and rejects wildcard binding",
@@ -2791,7 +2791,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.121917
+      "duration_ms": 0.273167
     },
     {
       "name": "Actual HTTP handler enforces authentication, Origin, Host, path and method before MCP execution",
@@ -2799,7 +2799,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.396292
+      "duration_ms": 1.928084
     },
     {
       "name": "reconnects after error and requires three clean reads",
@@ -2807,7 +2807,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.498791
+      "duration_ms": 0.688667
     },
     {
       "name": "unstable saved state is never declared restored",
@@ -2815,7 +2815,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.190458
+      "duration_ms": 0.294875
     },
     {
       "name": "protected layout cannot become the QA recovery target",
@@ -2823,7 +2823,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.08925
+      "duration_ms": 0.216083
     },
     {
       "name": "snapshot matcher supports other assets and timeframes",
@@ -2831,7 +2831,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.217875
+      "duration_ms": 0.198792
     },
     {
       "name": "strict QA recovery rejects unexpected drawings and chart type",
@@ -2839,7 +2839,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.066084
+      "duration_ms": 0.066459
     },
     {
       "name": "strict QA study input comparison",
@@ -2847,7 +2847,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.113292
+      "duration_ms": 0.132667
     },
     {
       "name": "dirty QA without authorization cannot reload",
@@ -2855,7 +2855,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.551916
+      "duration_ms": 0.593583
     },
     {
       "name": "authorized Replay cleanup navigates exactly once",
@@ -2863,7 +2863,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 10.169916
+      "duration_ms": 11.033208
     },
     {
       "name": "clean QA verifies without navigating",
@@ -2871,7 +2871,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.143667
+      "duration_ms": 0.165125
     },
     {
       "name": "active Replay cannot be discarded",
@@ -2879,7 +2879,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.28625
+      "duration_ms": 0.419166
     },
     {
       "name": "wrong asset identity blocks navigation",
@@ -2887,7 +2887,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0985
+      "duration_ms": 0.145584
     },
     {
       "name": "missing protected-tab identity blocks navigation",
@@ -2895,7 +2895,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.073458
+      "duration_ms": 0.089334
     },
     {
       "name": "CDP disconnect after submitted navigation reconciles",
@@ -2903,7 +2903,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.372333
+      "duration_ms": 1.059875
     },
     {
       "name": "failed restoration never retries navigation",
@@ -2911,7 +2911,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.234042
+      "duration_ms": 0.573791
     },
     {
       "name": "same workflow supports another configured market and timeframe",
@@ -2919,7 +2919,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.205125
+      "duration_ms": 0.215833
     },
     {
       "name": "protected layout cannot be authorized as QA",
@@ -2927,7 +2927,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.072958
+      "duration_ms": 0.102
     },
     {
       "name": "old boolean authorization cannot trigger reload",
@@ -2935,7 +2935,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.503834
+      "duration_ms": 0.530041
     },
     {
       "name": "fabricated permit cannot trigger reload",
@@ -2943,7 +2943,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.116333
+      "duration_ms": 0.145291
     },
     {
       "name": "permit cannot be issued without verified stop",
@@ -2951,7 +2951,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.301083
+      "duration_ms": 0.446166
     },
     {
       "name": "permit is scoped and cannot be reused",
@@ -2959,7 +2959,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.231417
+      "duration_ms": 0.302042
     },
     {
       "name": "unexpected drawing blocks QA reload",
@@ -2967,7 +2967,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.074
+      "duration_ms": 0.098167
     },
     {
       "name": "unexpected chart type blocks QA reload",
@@ -2975,7 +2975,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.125209
+      "duration_ms": 0.153459
     },
     {
       "name": "permit refuses incomplete or modified QA scope",
@@ -2983,7 +2983,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.2325
+      "duration_ms": 0.268208
     },
     {
       "name": "Replay and recovery complete with one navigation",
@@ -2991,7 +2991,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.800709
+      "duration_ms": 1.342459
     },
     {
       "name": "step error still stops and recovers QA",
@@ -2999,7 +2999,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.215417
+      "duration_ms": 0.251916
     },
     {
       "name": "uncertain stop blocks recovery navigation",
@@ -3007,7 +3007,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.093792
+      "duration_ms": 0.114417
     },
     {
       "name": "uncertain start attempts stop but blocks discard",
@@ -3015,7 +3015,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.331417
+      "duration_ms": 0.399292
     },
     {
       "name": "dirty preflight blocks Replay start",
@@ -3023,7 +3023,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.083417
+      "duration_ms": 0.153458
     },
     {
       "name": "incorrect protected-tab identity blocks Replay",
@@ -3031,7 +3031,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.048833
+      "duration_ms": 0.088584
     },
     {
       "name": "unverified OHLC source blocks Replay",
@@ -3039,7 +3039,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.061583
+      "duration_ms": 0.0775
     },
     {
       "name": "clean state after stop needs no navigation",
@@ -3047,7 +3047,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.168416
+      "duration_ms": 0.357875
     },
     {
       "name": "drawing added during Replay blocks recovery discard",
@@ -3055,7 +3055,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.099083
+      "duration_ms": 0.141833
     },
     {
       "name": "chart type changed during Replay blocks recovery discard",
@@ -3063,7 +3063,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.730292
+      "duration_ms": 0.958792
     },
     {
       "name": "Volume input changed during Replay blocks recovery",
@@ -3071,7 +3071,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.925708
+      "duration_ms": 0.742875
     },
     {
       "name": "production-style mode holds dirty QA without reload",
@@ -3079,7 +3079,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.679667
+      "duration_ms": 0.667833
     },
     {
       "name": "lock is released after successful operation",
@@ -3087,7 +3087,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.968916
+      "duration_ms": 2.61375
     },
     {
       "name": "overlapping runners cannot acquire same lock",
@@ -3095,7 +3095,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.600709
+      "duration_ms": 2.033625
     },
     {
       "name": "operation failure still releases owned lock",
@@ -3103,7 +3103,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.31875
+      "duration_ms": 1.221042
     },
     {
       "name": "stale lock is never automatically reclaimed",
@@ -3111,7 +3111,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.586667
+      "duration_ms": 0.533417
     },
     {
       "name": "tampered lock ownership prevents unsafe release",
@@ -3119,7 +3119,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.969792
+      "duration_ms": 0.964917
     },
     {
       "name": "exact opt-in environment is approved",
@@ -3127,7 +3127,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.113292
+      "duration_ms": 0.134542
     },
     {
       "name": "read-only or disabled writes cannot run",
@@ -3135,7 +3135,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.273209
+      "duration_ms": 0.256375
     },
     {
       "name": "additional layout authorization is rejected",
@@ -3143,7 +3143,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0545
+      "duration_ms": 0.193209
     },
     {
       "name": "missing explicit canary opt-in is rejected",
@@ -3151,7 +3151,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.052542
+      "duration_ms": 0.06575
     },
     {
       "name": "wrong Replay QA binding is rejected",
@@ -3159,7 +3159,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.0415
+      "duration_ms": 0.048
     },
     {
       "name": "other writable QA capabilities cannot be enabled",
@@ -3167,7 +3167,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.105834
+      "duration_ms": 0.1135
     },
     {
       "name": "identical or malformed tab targets fail closed",
@@ -3175,7 +3175,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.255208
+      "duration_ms": 0.252084
     },
     {
       "name": "real registered descriptors obey QA mutation policy",
@@ -3183,7 +3183,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.795292
+      "duration_ms": 1.787083
     },
     {
       "name": "explicit discard consent remains QA scoped",
@@ -3191,7 +3191,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.070125
+      "duration_ms": 0.0865
     },
     {
       "name": "similar but invalid discard consent is rejected",
@@ -3199,7 +3199,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.045458
+      "duration_ms": 0.054583
     },
     {
       "name": "Release audit scans staged bytes and reports credential/artifact findings without echoing values",
@@ -3207,7 +3207,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 971.145625
+      "duration_ms": 1291.181666
     },
     {
       "name": "correct QA baseline permits stopped-state inspection",
@@ -3215,7 +3215,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.583875
+      "duration_ms": 2.871625
     },
     {
       "name": "guarded QA start, single step and stop work",
@@ -3223,7 +3223,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.576375
+      "duration_ms": 3.346
     },
     {
       "name": "native guard blocks protected native layout",
@@ -3231,7 +3231,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.898666
+      "duration_ms": 1.497333
     },
     {
       "name": "native guard blocks incorrect layout name",
@@ -3239,7 +3239,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.731041
+      "duration_ms": 0.861375
     },
     {
       "name": "native guard blocks incorrect symbol",
@@ -3247,7 +3247,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.650584
+      "duration_ms": 0.865667
     },
     {
       "name": "native guard blocks incorrect timeframe",
@@ -3255,7 +3255,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.671209
+      "duration_ms": 1.340042
     },
     {
       "name": "native guard blocks additional indicator",
@@ -3263,7 +3263,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.60225
+      "duration_ms": 1.049792
     },
     {
       "name": "native guard blocks wrong Volume identity",
@@ -3271,7 +3271,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.527833
+      "duration_ms": 1.208333
     },
     {
       "name": "native guard blocks incorrect URL",
@@ -3279,7 +3279,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.753083
+      "duration_ms": 1.091167
     },
     {
       "name": "dirty QA layout cannot start Replay",
@@ -3287,7 +3287,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.75275
+      "duration_ms": 1.460125
     },
     {
       "name": "read-only native QA preflight succeeds",
@@ -3295,7 +3295,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.788083
+      "duration_ms": 1.547708
     },
     {
       "name": "dirty native QA preflight fails closed",
@@ -3303,7 +3303,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.548958
+      "duration_ms": 0.880458
     },
     {
       "name": "protected native QA preflight fails closed",
@@ -3311,7 +3311,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.518125
+      "duration_ms": 1.072208
     },
     {
       "name": "temporary Replay study permits step and stop",
@@ -3319,7 +3319,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.123125
+      "duration_ms": 1.893
     },
     {
       "name": "unexpected Replay study blocks step but not cleanup",
@@ -3327,7 +3327,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.999417
+      "duration_ms": 1.702084
     },
     {
       "name": "preflight rejects an already started Replay",
@@ -3335,7 +3335,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.948209
+      "duration_ms": 1.684667
     },
     {
       "name": "Replay mutations disabled by default",
@@ -3343,7 +3343,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.161084
+      "duration_ms": 0.284959
     },
     {
       "name": "exact authorized QA Replay operations pass policy",
@@ -3351,7 +3351,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.064667
+      "duration_ms": 0.083875
     },
     {
       "name": "Replay trade remains forbidden even with QA enabled",
@@ -3359,7 +3359,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.056125
+      "duration_ms": 0.071209
     },
     {
       "name": "start must have an exact safe Unix-second timestamp",
@@ -3367,7 +3367,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.108667
+      "duration_ms": 0.120625
     },
     {
       "name": "unrestricted Replay relocation is forbidden",
@@ -3375,7 +3375,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.080333
+      "duration_ms": 0.106375
     },
     {
       "name": "Replay starts require a clean saved QA layout",
@@ -3383,7 +3383,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.04975
+      "duration_ms": 0.063875
     },
     {
       "name": "single-bar Replay step is accepted",
@@ -3391,7 +3391,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.03
+      "duration_ms": 0.036875
     },
     {
       "name": "multi-bar or implicit Replay steps are rejected",
@@ -3399,7 +3399,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.076667
+      "duration_ms": 0.099584
     },
     {
       "name": "Replay autoplay can only be paused",
@@ -3407,7 +3407,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.063167
+      "duration_ms": 0.082708
     },
     {
       "name": "protected layouts cannot be approved as Replay QA",
@@ -3415,7 +3415,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.069583
+      "duration_ms": 0.095708
     },
     {
       "name": "incorrect or protected layout identity fails before Replay",
@@ -3423,7 +3423,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.070916
+      "duration_ms": 0.148375
     },
     {
       "name": "missing exact Replay layout opt-in fails closed",
@@ -3431,7 +3431,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.045083
+      "duration_ms": 0.078666
     },
     {
       "name": "every authored research page adapter passes the credential and dynamic-code gate",
@@ -3439,7 +3439,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.4045
+      "duration_ms": 0.51925
     },
     {
       "name": "every research tool has a unique name, fixed schema and runnable handler",
@@ -3447,7 +3447,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.083625
+      "duration_ms": 0.111041
     },
     {
       "name": "symbol mutation reports observed symbol and awaits registered study creation",
@@ -3455,7 +3455,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.440792
+      "duration_ms": 1.913875
     },
     {
       "name": "a created study without a registered string ID is an unverified mutation",
@@ -3463,7 +3463,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.342166
+      "duration_ms": 0.546708
     },
     {
       "name": "an unknown input ID prevents all input mutations, including recognised keys",
@@ -3471,7 +3471,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.370875
+      "duration_ms": 0.501042
     },
     {
       "name": "unreadable replay state blocks timeframe changes without claiming replay is active",
@@ -3479,7 +3479,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.337209
+      "duration_ms": 0.455542
     },
     {
       "name": "data pagination can read beyond the former 500-bar cap and preserves zero values",
@@ -3487,7 +3487,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.402209
+      "duration_ms": 1.727209
     },
     {
       "name": "empty loaded bar series is an explicit not-ready error",
@@ -3495,7 +3495,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.737291
+      "duration_ms": 0.923292
     },
     {
       "name": "strategy selection fails closed instead of falling back to another strategy",
@@ -3503,7 +3503,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.634875
+      "duration_ms": 0.835375
     },
     {
       "name": "full trade extraction exceeds twenty records and preserves zero prices, quantities and commissions",
@@ -3511,7 +3511,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.539625
+      "duration_ms": 0.748667
     },
     {
       "name": "descending trade pagination uses exact offset without dropping or duplicating rows",
@@ -3519,7 +3519,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.591667
+      "duration_ms": 1.030625
     },
     {
       "name": "equity explicitly has per-trade resolution; no invented initial capital",
@@ -3527,7 +3527,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.539542
+      "duration_ms": 1.1545
     },
     {
       "name": "changing chart inputs alone never establishes report freshness",
@@ -3535,7 +3535,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.394416
+      "duration_ms": 0.692125
     },
     {
       "name": "payload-change evidence and stable exact context allow an explicitly qualified freshness verdict",
@@ -3543,7 +3543,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.375125
+      "duration_ms": 0.489667
     },
     {
       "name": "sweep product is bounded before materialisation, deduplicates markets, and preserves variants",
@@ -3551,7 +3551,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.202541
+      "duration_ms": 0.272458
     },
     {
       "name": "metric comparison does not divide by zero or pretend nonnumeric values are numeric",
@@ -3559,7 +3559,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.103625
+      "duration_ms": 0.13
     },
     {
       "name": "Pine lookup matches a visible DOM-bound editor, never the first detached editor",
@@ -3567,7 +3567,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.474875
+      "duration_ms": 1.783041
     },
     {
       "name": "Pine writes compare full content, catching a same-length no-op write",
@@ -3575,7 +3575,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.42675
+      "duration_ms": 1.638417
     },
     {
       "name": "Pine preimage mismatch never overwrites the existing buffer",
@@ -3583,7 +3583,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.382666
+      "duration_ms": 0.668916
     },
     {
       "name": "Pine warnings do not count as compiler errors",
@@ -3591,7 +3591,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.352958
+      "duration_ms": 0.496417
     },
     {
       "name": "static Pine analysis ignores declaration text in strings/comments and never claims compilation",
@@ -3599,7 +3599,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.750209
+      "duration_ms": 1.066708
     },
     {
       "name": "replay status unwraps false WatchedValues instead of treating objects as true",
@@ -3607,7 +3607,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.641917
+      "duration_ms": 0.9125
     },
     {
       "name": "replay autoplay uses explicit target state and verifies the selected delay",
@@ -3615,7 +3615,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.612125
+      "duration_ms": 0.683958
     },
     {
       "name": "CDP endpoint rejects remote hosts, DNS aliases, credentials, paths and redirect-shaped query",
@@ -3623,7 +3623,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.580208
+      "duration_ms": 1.343667
     },
     {
       "name": "CDP websocket discovery cannot redirect to a remote host or unrelated local port",
@@ -3631,7 +3631,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.096542
+      "duration_ms": 0.240334
     },
     {
       "name": "TradingView target origin must be exact HTTPS; public URLs remove unneeded secret query/fragment",
@@ -3639,7 +3639,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.238458
+      "duration_ms": 0.351708
     },
     {
       "name": "Caller JavaScript and credential/storage accessors are prohibited",
@@ -3647,7 +3647,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.170208
+      "duration_ms": 0.173709
     },
     {
       "name": "Page wrapper preserves hostile text as data and does not execute it",
@@ -3655,7 +3655,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.884375
+      "duration_ms": 1.303583
     },
     {
       "name": "Page fetch blocks third-party, localhost, credentials and forbidden auth headers before network",
@@ -3663,7 +3663,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.636834
+      "duration_ms": 4.44975
     },
     {
       "name": "Browser authentication stays implicit and no cookie canary reaches Node transport",
@@ -3671,7 +3671,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.769958
+      "duration_ms": 1.298084
     },
     {
       "name": "CDP cookie/network/remote object methods are not in the callable allowlist",
@@ -3679,7 +3679,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.137667
+      "duration_ms": 0.204833
     },
     {
       "name": "Redirects remain forbidden for allowed page fetch requests",
@@ -3687,7 +3687,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.952333
+      "duration_ms": 1.810333
     },
     {
       "name": "Origin is checked again inside the live page after discovery",
@@ -3695,7 +3695,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.055833
+      "duration_ms": 1.338875
     },
     {
       "name": "Webhook validation rejects local/private endpoints and does not send a test request",
@@ -3703,7 +3703,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.38525
+      "duration_ms": 1.164208
     },
     {
       "name": "Known secrets are redacted in maps, free text, query parameters and provider key formats",
@@ -3711,7 +3711,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.283
+      "duration_ms": 0.480834
     },
     {
       "name": "MCP schemas reject prototype pollution and unknown arguments",
@@ -3719,7 +3719,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.260167
+      "duration_ms": 0.482208
     },
     {
       "name": "Mutation cannot use a URL layout ID when native widget identity is absent",
@@ -3727,7 +3727,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.0415
+      "duration_ms": 2.06775
     },
     {
       "name": "A changed native layout blocks the write and log contains no input body",
@@ -3735,7 +3735,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.194416
+      "duration_ms": 0.321792
     },
     {
       "name": "A logging failure preserves a completed action receipt instead of inviting duplicate retries",
@@ -3743,7 +3743,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.183667
+      "duration_ms": 0.251583
     },
     {
       "name": "Owner-only exports stay confined and CSV formula cells are escaped",
@@ -3751,7 +3751,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 11.6385
+      "duration_ms": 4.946458
     },
     {
       "name": "Storage refuses symlinked export directories",
@@ -3759,7 +3759,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.754334
+      "duration_ms": 1.802917
     },
     {
       "name": "Internal storage area names cannot traverse or address an absolute sibling directory",
@@ -3767,7 +3767,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.359958
+      "duration_ms": 0.615958
     },
     {
       "name": "Quoted JSON and source-like secret fields are redacted without breaking JSON",
@@ -3775,7 +3775,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.203917
+      "duration_ms": 0.470667
     },
     {
       "name": "Cookie-export name/value records redact credential values recursively",
@@ -3783,7 +3783,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.122292
+      "duration_ms": 0.195
     },
     {
       "name": "Browser launcher inherits platform settings and excludes unrelated secrets and injection flags",
@@ -3791,7 +3791,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.210667
+      "duration_ms": 0.120583
     },
     {
       "name": "Launcher refuses missing, duplicate or unknown options before choosing a profile",
@@ -3799,7 +3799,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.119792
+      "duration_ms": 0.28175
     },
     {
       "name": "Session diagnostics and layout metadata discard arbitrary URL query secrets and fragments",
@@ -3807,7 +3807,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 4.074958
+      "duration_ms": 3.916875
     },
     {
       "name": "CSV exports neutralize whitespace-prefixed and numeric-looking formulas and headers",
@@ -3815,7 +3815,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.945167
+      "duration_ms": 9.753292
     },
     {
       "name": "Chrome discovery is bounded while streaming and cancels oversized bodies",
@@ -3823,7 +3823,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.727583
+      "duration_ms": 4.776458
     },
     {
       "name": "New-target discovery refuses a non-TradingView response and sanitizes accepted URLs",
@@ -3831,7 +3831,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.255125
+      "duration_ms": 0.555584
     },
     {
       "name": "A debugger that closes before opening rejects promptly and clears its state",
@@ -3839,7 +3839,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.2225
+      "duration_ms": 0.388708
     },
     {
       "name": "live-shaped native pineId/pineVersion matches saved source and exact chart identity",
@@ -3847,7 +3847,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.160167
+      "duration_ms": 1.145167
     },
     {
       "name": "no raw compiled text or source returned to the caller",
@@ -3855,7 +3855,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.386666
+      "duration_ms": 0.291209
     },
     {
       "name": "same chart observed across both reads does not imply atomic capture",
@@ -3863,7 +3863,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.188875
+      "duration_ms": 0.101
     },
     {
       "name": "native field extraction ignores opaque IL text and unrelated fields",
@@ -3871,7 +3871,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.167334
+      "duration_ms": 0.187333
     },
     {
       "name": "duplicate pineId fails closed",
@@ -3879,7 +3879,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.134125
+      "duration_ms": 0.418208
     },
     {
       "name": "duplicate pineVersion fails closed",
@@ -3887,7 +3887,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.067459
+      "duration_ms": 0.160541
     },
     {
       "name": "missing pineId or pineVersion cannot establish binding",
@@ -3895,7 +3895,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.096292
+      "duration_ms": 0.144667
     },
     {
       "name": "malformed native script ID/version is not accepted",
@@ -3903,7 +3903,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.677666
+      "duration_ms": 0.908208
     },
     {
       "name": "mismatching native script ID fails without adopting unexpected ID",
@@ -3911,7 +3911,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.616667
+      "duration_ms": 0.413334
     },
     {
       "name": "mismatching native script version is not attested",
@@ -3919,7 +3919,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.060458
+      "duration_ms": 0.081625
     },
     {
       "name": "native version changes between reads suppresses binding",
@@ -3927,7 +3927,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.084958
+      "duration_ms": 0.252791
     },
     {
       "name": "native script ID changes between reads suppresses binding",
@@ -3935,7 +3935,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.058875
+      "duration_ms": 0.096166
     },
     {
       "name": "chart timeframe changes between reads suppresses provenance",
@@ -3943,7 +3943,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.280959
+      "duration_ms": 0.087375
     },
     {
       "name": "chart symbol changes between reads suppresses provenance",
@@ -3951,7 +3951,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.240416
+      "duration_ms": 0.05225
     },
     {
       "name": "wrong study ID/name or unavailable chart fails before source read",
@@ -3959,7 +3959,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.387584
+      "duration_ms": 0.857792
     },
     {
       "name": "wrong study in second chart read must never attest",
@@ -3967,7 +3967,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.334459
+      "duration_ms": 0.818708
     },
     {
       "name": "wrong pinned source hash fails before second native read",
@@ -3975,7 +3975,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.111709
+      "duration_ms": 0.386125
     },
     {
       "name": "native saved source differs despite claimed digest must fail",
@@ -3983,7 +3983,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.048375
+      "duration_ms": 0.074667
     },
     {
       "name": "wrong saved script ID, version or title fail closed",
@@ -3991,7 +3991,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.072458
+      "duration_ms": 0.103083
     },
     {
       "name": "source request wrong target or incomplete args rejected without tool reads",
@@ -3999,7 +3999,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.1095
+      "duration_ms": 0.163959
     },
     {
       "name": "invalid input response is not confused with zero/empty study evidence",
@@ -4007,7 +4007,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.064708
+      "duration_ms": 0.155333
     },
     {
       "name": "descriptor is read-only and requires all exact identities",
@@ -4015,7 +4015,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.030667
+      "duration_ms": 0.036458
     },
     {
       "name": "native chart identity helper rejects unaddressable/stale study",
@@ -4023,7 +4023,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.041459
+      "duration_ms": 0.050292
     },
     {
       "name": "Real loopback HTTP serves MCP and refuses unauthenticated, browser-origin and oversized requests",
@@ -4031,7 +4031,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 82.188792
+      "duration_ms": 123.228167
     },
     {
       "name": "Real stdio entry point negotiates MCP, paginates tools and shuts down without secret output",
@@ -4039,7 +4039,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 256.56725
+      "duration_ms": 331.159875
     },
     {
       "name": "visual evidence returns PNG and exact native coordinates after matching bracket reads",
@@ -4047,7 +4047,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.693459
+      "duration_ms": 1.986708
     },
     {
       "name": "modified graphics across screenshot fails closed and suppresses PNG association",
@@ -4055,7 +4055,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.197625
+      "duration_ms": 0.437042
     },
     {
       "name": "changing chart symbol suppresses combined evidence even if drawings match",
@@ -4063,7 +4063,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.099833
+      "duration_ms": 0.119875
     },
     {
       "name": "partially readable native collections remain partial despite matching image",
@@ -4071,7 +4071,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.116209
+      "duration_ms": 0.122125
     },
     {
       "name": "reject unknown or unsafe browser target arguments before screenshot",
@@ -4079,7 +4079,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.663416
+      "duration_ms": 0.1815
     },
     {
       "name": "reject invalid or oversized graphics cap",
@@ -4087,7 +4087,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.11425
+      "duration_ms": 0.103125
     },
     {
       "name": "reject screenshot that is not a properly labelled PNG",
@@ -4095,7 +4095,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.089291
+      "duration_ms": 0.096333
     },
     {
       "name": "reject image with wrong magic header and do not claim evidence",
@@ -4103,7 +4103,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.644375
+      "duration_ms": 1.101792
     },
     {
       "name": "new tool registered as read-only with exact identities mandatory",
@@ -4111,7 +4111,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.125417
+      "duration_ms": 0.082083
     },
     {
       "name": "watchlist page adapter passes the fixed-code gate; no raw-code or arbitrary path inputs",
@@ -4119,7 +4119,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.707375
+      "duration_ms": 0.503542
     },
     {
       "name": "exact custom ID is independent of API active selection; sections/order are preserved",
@@ -4127,7 +4127,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 2.600583
+      "duration_ms": 3.179833
     },
     {
       "name": "HTTP 200 error envelopes and mismatched list IDs are not healthy empty watchlists",
@@ -4135,7 +4135,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.039542
+      "duration_ms": 2.33475
     },
     {
       "name": "ID traversal and arbitrary fetch options are rejected before any network operation",
@@ -4143,7 +4143,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.662959
+      "duration_ms": 2.44275
     },
     {
       "name": "malformed entries, bare tickers and duplicate symbols fail without submitting requests",
@@ -4151,7 +4151,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.457917
+      "duration_ms": 0.248083
     },
     {
       "name": "append uses an array payload and independently re-reads exact resulting order",
@@ -4159,7 +4159,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.257916
+      "duration_ms": 1.264375
     },
     {
       "name": "a successful HTTP append that did not change membership fails verification",
@@ -4167,7 +4167,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.290334
+      "duration_ms": 2.100125
     },
     {
       "name": "one absent remove target prevents the entire removal",
@@ -4175,7 +4175,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.167417
+      "duration_ms": 2.17975
     },
     {
       "name": "optimistic fingerprint or changed layout blocks a watchlist write",
@@ -4183,7 +4183,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.727541
+      "duration_ms": 0.814958
     },
     {
       "name": "create establishes a new ID, exact name/order and independent account listing; replay is read-only",
@@ -4191,7 +4191,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.336041
+      "duration_ms": 2.611167
     },
     {
       "name": "create duplicate-name and checkpoint failures happen before any create POST",
@@ -4199,7 +4199,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.563959
+      "duration_ms": 4.036458
     },
     {
       "name": "lost create response is not blindly retried; reconciliation returns candidates without adoption",
@@ -4207,7 +4207,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.852
+      "duration_ms": 1.217083
     },
     {
       "name": "reorder preserves multiset and verifies exact order after separate clear read-back",
@@ -4215,7 +4215,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.15225
+      "duration_ms": 2.815791
     },
     {
       "name": "reorder refuses changed membership before clearing anything",
@@ -4223,7 +4223,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.52175
+      "duration_ms": 0.67975
     },
     {
       "name": "an ignored clear never proceeds to append",
@@ -4231,7 +4231,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.251917
+      "duration_ms": 1.879916
     },
     {
       "name": "partial replacement exposes durable recovery data and does not repeat a clear on retry",
@@ -4239,7 +4239,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.953334
+      "duration_ms": 1.887417
     },
     {
       "name": "a lost append response can reconcile a completed replacement without another mutation",
@@ -4247,7 +4247,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.6595
+      "duration_ms": 2.075875
     },
     {
       "name": "merge import preview is read-only, preserves existing order and appends only missing entries",
@@ -4255,7 +4255,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 1.184
+      "duration_ms": 1.376417
     },
     {
       "name": "replace import requires a key and exports preserve header positions through the safe store",
@@ -4263,7 +4263,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 0.723584
+      "duration_ms": 3.969167
     },
     {
       "name": "default environment",
@@ -4271,7 +4271,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 212.630625
+      "duration_ms": 266.048084
     },
     {
       "name": "readonly disabled alone",
@@ -4279,7 +4279,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 208.255583
+      "duration_ms": 249.931
     },
     {
       "name": "write opt-in alone",
@@ -4287,7 +4287,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 190.665542
+      "duration_ms": 247.597083
     },
     {
       "name": "both explicit opt-ins",
@@ -4295,7 +4295,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 190.690791
+      "duration_ms": 279.337417
     },
     {
       "name": "explicit readonly overrides opt-in",
@@ -4303,7 +4303,7 @@
       "status": "passed",
       "skipped": false,
       "todo": false,
-      "duration_ms": 243.968583
+      "duration_ms": 240.114542
     }
   ],
   "totals": {
